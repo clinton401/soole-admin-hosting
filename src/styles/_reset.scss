@@ -1,0 +1,124 @@
+@use './variables' as *;
+@use './mixins' as mixins;
+
+
+:root {
+    @include mixins.fontFamily;
+    line-height: 1.5;
+    font-weight: $fw-300;
+
+    color-scheme: light dark;
+
+
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%;
+
+    
+}
+
+/* -------------------- */
+/* Reset                */
+/* -------------------- */
+
+/* https://piccalil.li/blog/a-modern-css-reset/ */
+
+/* Box sizing */
+
+* {
+    transition: background 300ms ease;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+
+/* Rest margins */
+body,
+h1,
+h2 p {
+    margin: 0;
+}
+
+h1,
+h2 p {
+    font-weight: 400;
+}
+
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+body {
+    font-size: $fs-16;
+
+    min-height: 100vh;
+    width: 100%;
+
+    padding: 0;
+    margin: 0;
+}
+
+/* Make images easier to work with */
+img,
+picture {
+    width: 100%;
+    // height: 100%;
+    height: auto;
+}
+
+/* make form elements easier */
+input,
+button,
+textarea,
+select {
+    font: inherit;
+}
+
+button {
+    color: inherit;
+}
+
+
+input {
+    font-family: inherit;
+    color: inherit;
+
+
+    &::placeholder {
+        font-family: inherit;
+        color: inherit;
+    }
+
+
+    &.no-outline:focus {
+        outline: none;
+    }
+}
+
+
+
+ul[role="list"] {
+    padding: 0;
+    list-style: none;
+}
+
+/* remove animations for people who turn them off */
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}

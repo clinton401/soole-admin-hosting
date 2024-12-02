@@ -1,0 +1,103 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    direction: rtl;
+    font-size: 22px;
+    font-family: var(--font-Amatic_SC);
+    font-weight: 400;
+    font-style: normal;
+    margin: 0;
+    text-align: center;
+    min-height: 90vh;
+    max-width: 100vw;
+    background-color: #0f0529;
+    color: #9e72c3;
+}
+
+p {
+    line-height: 1.5;
+    margin: 0;
+}
+
+a {
+    line-height: 1.5;
+    margin: 0;
+    font-family: var(--font-Amatic_SC);
+    text-decoration: none;
+    color: inherit;
+}
+
+button {
+    cursor: pointer;
+    font-family: var(--font-Amatic_SC);
+    background-color: #b088ac;
+    border: 1.5px solid #502f4c;
+    border-radius: 10px;
+    padding: 9px 20px;
+    color: #502f4c;
+    height: fit-content;
+    transition: background-color .5s;
+
+
+    &:hover {
+        background-color: #502f4c;
+        color: #b088ac;
+        border: 1.5px solid #b088ac;
+        transition: background-color .5s;
+    }
+
+}
+
+input::placeholder {
+    font-family: var(--font-Amatic_SC);
+    font-size: 22px;
+}
+
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+    outline: none;
+}
+
+input,
+select,
+textarea {
+    font-size: 22px;
+    background-color: #3e3061;
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+}
+
+label {
+    p {
+        font-size: 18px;
+    }
+}
+
+
+@media print {
+    /* Hide all elements by default */
+    body * {
+      display: none;
+    }
+    body{
+        background-color: #fff;
+    }
+  
+    /* Allow specific elements to display */
+    .printable {
+        display: block !important;
+        color: black !important; /* Ensure text is visible */
+        background: white !important; 
+        /* Ensure a contrasting background */
+        margin-block: 35px;
+  }
+
+}
+
+.only-print {
+    display: none;
+}

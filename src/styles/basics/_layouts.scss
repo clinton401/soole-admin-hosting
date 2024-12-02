@@ -1,0 +1,18 @@
+.main-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr auto;
+
+    @media (min-width: 1400px) {
+        display: grid;
+        grid-template-columns: 1fr 1400px 1fr;
+
+        >* {
+            grid-column: 2;
+        }
+    
+        >*.full {
+            grid-column: 1 / -1;
+        }
+    }
+}
