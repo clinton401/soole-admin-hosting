@@ -26,6 +26,7 @@
 }
 
 @include responsive.responsive-options('flex'){
+
     &-column {
         flex-direction: column;
     }
@@ -43,6 +44,7 @@
 }
 
 @include responsive.responsive-options('justify'){
+
     &-center {
         justify-content: center;
 
@@ -60,6 +62,7 @@
 }
 
 @include responsive.responsive-options('align'){
+    
 &-center {
     align-items: center;
 }

@@ -9,12 +9,11 @@ const Wrapper = (props: Props) => {
     <div>
       <div className="sidebar">
         <Section 
-        className=""
-    
+        notTop
         >
 
 
-        <p>
+        <p className="fs-20 ">
             New Me
             </p>
         </Section>
