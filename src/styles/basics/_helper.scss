@@ -62,7 +62,7 @@
 }
 
 @include responsive.responsive-options('align'){
-    
+
 &-center {
     align-items: center;
 }
@@ -74,5 +74,284 @@
 &-start {
     align-items: flex-start;
 }
+
+}
+
+
+@include responsive.responsive-options('my'){
+
+    &-1 {
+        margin-block: 1rem;
+    }
+
+    &-2{
+        margin-block: 2rem;
+    }
+    &-3{
+        margin-block: 3rem;
+    }
+    &-4{
+        margin-block: 4rem;
+    }
+
+    &-auto{
+        margin-block: auto;
+    }
+
+}
+
+
+
+@include responsive.responsive-options('mx'){
+
+    &-1 {
+        margin-inline: 1rem;
+    }
+
+    &-2{
+        margin-inline: 2rem;
+    }
+    &-3{
+        margin-inline: 3rem;
+    }
+    &-4{
+        margin-inline: 4rem;
+    }
+
+    &-auto{
+        margin-inline: auto;
+    }
+
+}
+
+
+@include responsive.responsive-options('mr'){
+
+    &-1 {
+        margin-inline-end: 1rem;
+    }
+
+    &-2{
+        margin-inline-end: 2rem;
+    }
+    &-3{
+        margin-inline-end: 3rem;
+    }
+    &-4{
+        margin-inline-end: 4rem;
+    }
+
+    &-auto{
+        margin-inline-end: auto;
+    }
+
+}
+
+
+@include responsive.responsive-options('ml'){
+
+    &-1 {
+        margin-inline-start: 1rem;
+    }
+
+    &-2{
+        margin-inline-start: 2rem;
+    }
+    &-3{
+        margin-inline-start: 3rem;
+    }
+    &-4{
+        margin-inline-start: 4rem;
+    }
+
+    &-auto{
+        margin-inline-start: auto;
+    }
+
+}
+
+
+@include responsive.responsive-options('mt'){
+
+    &-1 {
+        margin-block-start: 1rem;
+    }
+
+    &-2{
+        margin-block-start: 2rem;
+    }
+    &-3{
+        margin-block-start: 3rem;
+    }
+    &-4{
+        margin-block-start: 4rem;
+    }
+
+    &-auto{
+        margin-block-start: auto;
+    }
+
+}
+
+
+@include responsive.responsive-options('mb'){
+
+    &-1 {
+        margin-block-end: 1rem;
+    }
+
+    &-2{
+        margin-block-end: 2rem;
+    }
+    &-3{
+        margin-block-end: 3rem;
+    }
+    &-4{
+        margin-block-end: 4rem;
+    }
+
+    &-auto{
+        margin-block-end: auto;
+    }
+
+}
+
+
+@include responsive.responsive-options('py'){
+
+    &-1 {
+        padding-block: 1rem;
+    }
+
+    &-2{
+        padding-block: 2rem;
+    }
+    &-3{
+        padding-block: 3rem;
+    }
+    &-4{
+        padding-block: 4rem;
+    }
+
+    &-auto{
+        padding-block: auto;
+    }
+
+}
+
+
+@include responsive.responsive-options('px'){
+
+    &-1 {
+        padding-inline: 1rem;
+    }
+
+    &-2{
+        padding-inline: 2rem;
+    }
+    &-3{
+        padding-inline: 3rem;
+    }
+    &-4{
+        padding-inline: 4rem;
+    }
+
+    &-auto{
+        padding-inline: auto;
+    }
+
+}
+
+
+
+@include responsive.responsive-options('pb'){
+
+    &-1 {
+        padding-block-end: 1rem;
+    }
+
+    &-2{
+        padding-block-end: 2rem;
+    }
+    &-3{
+        padding-block-end: 3rem;
+    }
+    &-4{
+        padding-block-end: 4rem;
+    }
+
+    &-auto{
+        padding-block-end: auto;
+    }
+
+}
+
+
+@include responsive.responsive-options('pt'){
+
+    &-1 {
+        padding-block-start: 1rem;
+    }
+
+    &-2{
+        padding-block-start: 2rem;
+    }
+    &-3{
+        padding-block-start: 3rem;
+    }
+    &-4{
+        padding-block-start: 4rem;
+    }
+
+    &-auto{
+        padding-block-start: auto;
+    }
+
+}
+
+
+@include responsive.responsive-options ('pr'){
+
+    &-1 {
+        padding-inline-end: 1rem;
+    }
+
+    &-2{
+        padding-inline-end: 2rem;
+    }
+    &-3{
+        padding-inline-end: 3rem;
+    }
+    &-4{
+        padding-inline-end: 4rem;
+    }
+
+    &-auto{
+        padding-inline-end: auto;
+    }
+
+}
+
+
+
+@include responsive.responsive-options ('pl'){
+
+    &-1 {
+        padding-inline-start: 1rem;
+    }
+
+    &-2{
+        padding-inline-start: 2rem;
+    }
+    &-3{
+        padding-inline-start: 3rem;
+    }
+    &-4{
+        padding-inline-start: 4rem;
+    }
+
+    &-auto{
+        padding-inline-start: auto;
+    }
 
 }

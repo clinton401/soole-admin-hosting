@@ -174,45 +174,44 @@ $primary-color: $clr4;
 
 
 .section {
-    // General styles for all sections
     &._top {
-      margin-top: 3.12rem; // Adjust as needed
+        margin-top: 3.12rem; // Default top margin
     }
-  
+
     &.no-padding {
-      padding: 0;
+        padding: 0;
     }
-  
+
     &.bg-color {
-      background-color: $bg-color; // Use a variable or custom dark color
-      color: $text-color; // Optional contrast color for dark backgrounds
+        background-color: $bg-color; // Use variable for dark backgrounds
+        color: $text-color; // Optional contrast color
     }
-  
-    // Name-specific styling
+
+    // Conditional margin rules
     &[class*="name-"] {
-      // Style rules can vary per name. Use `name-*` convention if dynamic.
-      &.name-header {
-        font-size: 24px;
-        font-weight: bold;
-        text-align: center;
-      }
-  
-      // Add more `name-*` styles as needed
+        &.name-header {
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+        }
     }
-  
-    // Conditional styling for wrapped content
+
+    // Wrapper and noWrapper specific rules
     .wrapper {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 1rem;
-  
-      &.custom-wrapper {
-        // Wrapper-specific overrides
-        border-radius: 8px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      }
+        max-width: 1200px;
+        margin: 3.12rem auto; // Wrapper margin
+        padding: 1rem;
+
+        &.custom-wrapper {
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
     }
-  }
+
+    &[class*="noWrapper"] {
+        margin: 0; // noWrapper margin
+    }
+}
   
   // Sample variables in variables.scss
   $bg-color: #f9f9f9;
