@@ -1,0 +1,578 @@
+@use '../setup/variables' as breakpoint;
+@use '../setup/responsive' as responsive;
+
+
+@include responsive.responsive-options('display') {
+
+    &-1 {
+        /* Display 1/Semibold */
+        &-semibold {
+            // color: var(--Accent-Active, #E16338);
+            font-family: 'Mabry Pro Semibold';
+            font-size: 3.75rem;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 5rem;
+            /* 133.333% */
+            letter-spacing: -0.1125rem;
+        }
+
+        /* Display 1/Bold */
+        &-bold {
+            // color: var(--Accent-Active, #E16338);
+            font-family: 'Mabry Pro Semibold';
+            font-size: 3.75rem;
+            font-style: normal;
+            font-weight: 700;
+            line-height: 5rem;
+            /* 133.333% */
+            letter-spacing: -0.075rem;
+        }
+    }
+    
+}
+
+@include responsive.responsive-options('headline') {
+
+    &-1 {
+
+        /* Headline 1/Regular */
+        &-regular {
+            // color: var(--Accent-Active, #E16338);
+            // font-family: Mabry Pro;
+            font-family: 'Mabry Pro Regular';
+            font-size: 2rem;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 4rem;
+            /* 200% */
+            letter-spacing: -0.04rem;
+        }
+
+        /* Headline 1/Semibold */
+        &-semibold {
+            // color: var(--Accent-Active, #E16338);   
+            font-family: 'Mabry Pro Semibold';
+            font-size: 2rem;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 4rem;
+            /* 200% */
+            letter-spacing: -0.04rem;
+        }
+
+        /* Headline 1/Bold */
+        &-bold {
+            // color: var(--Accent-Active, #E16338);            
+            // font-family: 'Mabry Pro Bold';
+            font-family: 'Mabry Pro Regular';
+            font-size: 1.4rem;
+            font-style: normal;
+            font-weight: 700;
+            line-height: 1.95rem;
+            /* 200% */
+            letter-spacing: -0.04rem;
+            
+            @include breakpoint.least-large-screen {
+                font-family: 'Mabry Pro Semibold';
+                font-size: 2rem;
+                line-height: 4rem; 
+            }
+        }
+    }
+    
+    &-2 {
+        /* Headline 2/Bold */
+        &-bold {
+            // color: var(--Accent-Active, #E16338);
+            font-family: 'Mabry Pro Medium';
+            font-size: 1.25rem;
+            font-style: normal;
+            font-weight: 700;
+            line-height: 1.25rem;
+            /* 100% */
+            letter-spacing: -0.009rem;
+            
+            @include breakpoint.least-large-screen {
+                font-family: 'Mabry Pro Semibold';
+                font-size: 3rem;
+                line-height: 3rem;
+            }
+        }
+    }
+
+    &-3 {
+        /* Headline 3/Semibold */
+        &-semibold {
+            // color: var(--Accent-Active, #E16338);    
+            font-family: 'Mabry Pro Light';
+            
+            font-size: 1.5rem;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 1.95rem;
+            /* 133.333% */
+            letter-spacing: -0.001rem;
+            
+            
+            @include breakpoint.least-large-screen {
+                font-family: 'Mabry Pro Regular';
+                // font-family: 'Mabry Pro Medium';
+                font-size: 3rem;
+                line-height: 4rem;
+            }
+        }
+    }
+}
+
+@include responsive.responsive-options('body') {
+    &-1 {
+        /* Body 1/Medium */
+        &-medium {
+            // color: var(--Accent-Active, #E16338);
+            font-family: 'Mabry Pro Medium';
+            font-size: 0.75rem;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 1.575rem;
+            /* 200% */
+            
+            @include breakpoint.least-large-screen {
+                font-size: 1rem;
+                line-height: 2rem;
+            }
+        }
+    }
+
+    &-2 {
+        /* Body 2/Semibold */
+        &-semibold {
+            color: var(--Accent-Active, #E16338);
+            font-family: 'Mabry Pro Semibold';
+            font-size: 0.875rem;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 1.4875rem;
+            /* 133.333% */
+            letter-spacing: -0.0225rem;
+
+            @include breakpoint.least-large-screen {
+                font-size: 1.125rem;
+                line-height: 1.5rem;
+            }
+        }
+    }
+}
+
+@include responsive.responsive-options('caption') {
+
+    &-1 {
+        /* Caption 1/Semibold */
+        &-semibold {
+            // color: var(--Accent-Active, #E16338);
+            font-family: 'Mabry Pro Medium';
+            font-size: 0.75rem;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 1rem;
+            /* 133.333% */
+            
+        }
+
+        /* Caption 1/Medium */
+        &-medium {
+            // color: var(--Accent-Active, #E16338);
+            font-family: 'Mabry Pro Medium';
+            // font-size: 0.75rem;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 1rem;
+            /* 133.333% */
+            letter-spacing: -0.015rem;
+        }
+    }
+
+    &-2 {
+        /* Caption 2/Regular */
+        &-regular {
+            // color: var(--Accent-Active, #E16338);
+            font-family: 'Mabry Pro Regular';
+            font-size: 1rem;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 1.375rem;
+            /* 137.5% */
+        }
+
+        /* Caption 2/Semibold */
+        &-semibold {
+            // color: var(--Accent-Active, #E16338);
+            font-family: 'Mabry Pro Regular';
+            font-size: 0.875rem;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 1.375rem;
+            /* 137.5% */
+            letter-spacing: -0.02rem;
+            
+            @include breakpoint.least-large-screen {
+                font-family: 'Mabry Pro Medium';
+                font-size: 1rem;
+            }
+            
+        }
+
+        /* Caption 2/Medium */
+        &-medium {
+            // color: var(--Accent-Active, #E16338);
+            font-family: 'Mabry Pro Medium';
+            font-size: 1rem;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 1.375rem;
+            /* 137.5% */
+        }
+
+        /* Caption 2/Bold */
+        &-bold {
+            // color: var(--Accent-Active, #E16338);
+            font-family: 'Mabry Pro Medium';
+            font-size: 1rem;
+            font-style: normal;
+            font-weight: 700;
+            line-height: 1.375rem;
+            /* 137.5% */
+            // letter-spacing: -0.02rem;
+            letter-spacing: -0.009rem;
+            
+        }
+    }
+
+    &-3 {
+        /* Caption 3/Regular */
+        &-regular {            
+            font-family: 'Mabry Pro Regular';
+            font-size: 1rem;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 1.5rem;
+            /* 150% */
+        }
+
+        /* Caption 3/Semibold */
+        &-semibold {            
+            font-family: 'Mabry Pro Semibold';
+            font-size: 1rem;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 1.5rem;
+            /* 150% */
+            letter-spacing: -0.02rem;
+        }
+
+        /* Caption 3/Medium */
+        &-medium {            
+            font-family: 'Mabry Pro Regular';
+            font-size: 1rem;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 1.5rem;
+            /* 150% */
+            letter-spacing: -0.02rem;
+        }
+
+        /* Caption 3/Bold */
+        &-bold {            
+            font-family: 'Mabry Pro Bold';
+            font-size: 1rem;
+            font-style: normal;
+            font-weight: 700;
+            line-height: 1.5rem;
+            /* 150% */
+            letter-spacing: -0.02rem;
+        }
+    }
+}
+
+
+@include responsive.responsive-options('footer') {
+
+    &-regular {
+        /* Footer/Regular */
+        // color: var(--Accent-Active, #E16338);    
+        font-family: 'Mabry Pro Regular';
+        font-size: 0.875rem;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 1.5rem;
+        /* 171.429% */
+        letter-spacing: -0.0175rem;
+    }
+
+    &-medium {
+        /* Footer/Medium */
+        // color: var(--Accent-Active, #E16338);
+        font-family: 'Mabry Pro Medium';
+        font-size: 0.875rem;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 1.5rem;
+        /* 171.429% */
+        letter-spacing: -0.0175rem;
+    }
+
+    &-logo {
+        /* Footer/logo */
+        // color: var(--Accent-Active, #E16338);
+        font-family: 'Outfit medium';
+        font-size: 2rem;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 3rem;
+        /* 150% */
+        letter-spacing: -0.1rem;
+    }
+
+    /* Footer/Links */
+    &-link,
+    &-links {
+        // color: var(--Accent-Active, #E16338);
+        color: inherit;
+        font-family: 'Mabry Pro Regular';
+        font-size: 0.875rem;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 1.5rem;
+        /* 171.429% */
+        letter-spacing: -0.0175rem;
+        text-decoration-line: underline;
+    }
+}
+
+
+// ff  means font-family
+@include responsive.responsive-options('ff') {
+
+    &-Mabry Pro {
+
+        &-light {
+            font-family: 'Mabry Pro Light';
+            font-style: normal;
+        }
+
+        &-regular {
+            font-family: 'Mabry Pro Regular';
+            font-style: normal;
+        }
+
+        &-medium {
+            font-family: 'Mabry Pro Medium';
+            font-style: normal;
+        }
+
+        &-semibold {
+            font-family: 'Mabry Pro Semibold';
+            font-style: normal;
+        }
+
+        &-bold {
+            font-family: 'Mabry Pro Bold';
+            font-style: normal;
+        }
+    }
+
+    &-outfit {
+
+        &-extralight {
+            font-family: 'Outfit ExtraLight';
+            font-style: normal;
+        }
+
+        &-light {
+            font-family: 'Outfit Light';
+            font-style: normal;
+        }
+
+        &-regular {
+            font-family: 'Outfit Regular';
+            font-style: normal;
+        }
+
+        &-medium {
+            font-family: 'Outfit Medium';
+            font-style: normal;
+        }
+
+        &-semibold {
+            font-family: 'Outfit SemiBold';
+            font-style: normal;
+        }
+
+        &-bold {
+            font-family: 'Outfit Bold';
+            font-style: normal;
+        }
+    }
+}
+
+// fs means font-size
+@include responsive.responsive-options('fs') {
+    
+    &-12 {
+        font-size: 0.75rem;
+    }
+
+
+    &-14 {
+        font-size: 0.875rem;
+    }
+
+    &-16 {
+        font-size: 1rem;
+
+        &-important {
+            font-size: 1rem !important;
+        }
+    }
+
+    &-18 {
+        font-size: 1.125rem;
+    }
+
+    &-20 {
+        font-size: 1.25rem;
+    }
+    &-24 {
+        font-size: 1.5rem;
+    }
+
+    &-32 {
+        font-size: 2rem;
+    }
+    &-38 {
+        font-size: 2.375rem;
+    }
+
+    &-40 {
+        font-size: 2.5rem;
+    }
+    &-42 {
+        font-size: 2.625rem;
+    }
+    &-48 {
+        font-size: 3rem;
+    }
+
+    &-50 {
+        font-size: 3.125rem;
+    }
+
+    &-60 {
+        font-size: 3.75rem;
+    }
+    &-70 {
+        font-size: 4.375rem;
+    }
+
+    &-84 {
+        font-size: 5.25rem;
+    }
+
+    &-265 {
+        font-size: 16.5625rem;
+    }
+}
+
+@include responsive.responsive-options('fw') {
+    &-500 {
+        font-weight: 500;
+    }
+
+    &-700 {
+        font-weight: 700;
+    }
+}
+
+@include responsive.responsive-options('lh') {
+    &-normal {
+        line-height: normal;
+    }
+    &-1,
+    &-16 {
+        line-height: 1rem;
+        &-5 {
+            line-height: 1.5rem;
+        }
+    }
+
+    &-19 {
+        line-height: 1.1875rem;
+    }
+
+    &-20 {
+        line-height: 1.25rem;
+    }
+    &-21 {
+        line-height: 1.3125rem;
+    }
+    &-22 {
+        line-height: 1.4rem;
+    }
+    &-31 {
+        line-height: 1.9375rem;
+    }
+    &-32 {
+        line-height: 2rem;
+    }
+    &-38 {
+        line-height: 2.4rem;
+    }
+    &-41 {
+        line-height: 2.6rem;
+    }
+    &-48 {
+        line-height: 3rem;
+    }
+    &-50 {
+        line-height: 3.125rem;
+    }
+    &-60 {
+        line-height: 3.75rem;
+    }
+    &-63 {
+        line-height: 3.9375rem;
+    }
+    &-64 {
+        line-height: 4rem;
+    }
+    &-80 {
+        line-height: 5rem;
+    }
+    &-96 {
+        line-height: 6rem;
+    }
+    &-126 {
+        line-height: 7.875rem;
+    }
+}
+
+@include responsive.responsive-options('text') {
+    &-uppercase {
+        text-transform: uppercase;
+    }
+    &-lowercase {
+        text-transform: lowercase;
+    }
+    &-left {
+        text-align: left;
+    }
+    &-right {
+        text-align: right;
+    }
+    &-center {
+        text-align: center;
+    }
+    &-decoration-none {
+        text-decoration: none;
+    }
+}

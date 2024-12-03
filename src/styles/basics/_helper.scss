@@ -1,40 +1,75 @@
-.flex {
-    display: flex;
+@use '../setup/responsive' as responsive;
+@use '../setup/mixins' as mixins;
+@import '../setup/variables';
 
-    &.column {
+@include responsive.responsive-options('d') {
+
+    &-flex {
+        display: flex;
+
+        @include mixins.for-mobile-layout {
+            display: block; // Example override for mobile
+        }
+    }
+
+    &-inline {
+        display: inline;
+    }
+
+    &-block {
+        display: block;
+    }
+
+    &-inline-flex {
+        display: inline-flex;
+    }
+}
+
+@include responsive.responsive-options('flex'){
+    &-column {
         flex-direction: column;
     }
 
-    &.row-revers{
+    &-row-reverse{
         flex-direction: row-reverse;
     }
+    &-row {
+        flex-direction: row;
+    }
+    &-column-reverse{
+        flex-direction: column-reverse;
+    }
 
-    &.justify-center {
+}
+
+@include responsive.responsive-options('justify'){
+    &-center {
         justify-content: center;
-    }
 
-    &.align-center {
-        align-items: center;
+        @include mixins.for-mobile-layout {
+            justify-content: flex-start;
+        }
     }
-
-    &.space-between {
+    &-between {
         justify-content: space-between;
     }
-
-    &.space-around {
+    &-around {
         justify-content: space-around;
     }
+    
 }
 
-.grid {
-    display: grid;
+@include responsive.responsive-options('align'){
+&-center {
+    align-items: center;
 }
 
-.max-width-container {
-    max-width: 100%;
+&-end {
+    align-items: flex-end;
 }
 
-.none-list-style {
-    list-style: none;
-    padding: 0;
+&-start {
+    align-items: flex-start;
+}
+
 }

@@ -1,0 +1,32 @@
+@font-face {
+    font-family: 'MabryPro Regular';
+    font-style: normal;
+    font-weight: normal;
+    src: local('MabryPro Regular'), url('../../app/fonts/MabryPro-Regular.woff') format('woff');
+}
+
+
+@font-face {
+    font-family: 'Mabry Pro Thin';
+    font-style: normal;
+    font-weight: normal;
+    src: local('MabryPro Thin'), url('../../app/fonts/MabryPro-Light.woff') format('woff');
+}
+
+
+
+@font-face {
+    font-family: 'Mabry Pro semibold';
+    font-style: normal;
+    font-weight: normal;
+    src: local('MabryPro semibold'), url('../../app/fonts/MabryPro-Medium.woff') format('woff');
+}
+
+
+
+@font-face {
+    font-family: 'Mabry Pro bold';
+    font-style: normal;
+    font-weight: bold;
+    src: local('Mabry Pro bold'), url('../../app/fonts/MabryPro-Bold.woff') format('woff');
+}

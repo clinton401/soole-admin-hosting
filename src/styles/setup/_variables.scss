@@ -95,24 +95,23 @@
 // $header-height: 388px;
 
 
-
 // COLOR PALETTE
 $clr0: #F6EEDA;
 $clr1: #F0E3C2;
 $clr2: #E1C884;
 $clr3: #DABA66;
-$clr4: #D2AC47; //Base
+$clr4: #D2AC47; // Base
 $clr5: #AF8F3B;
 $clr6: #8C732F;
 $clr7: #695624;
 $clr8: #463918;
 
-// Other Brand Color
+// Other Brand Colors
 $clr9: #F7CCCC;
 $clr10: #F1AAAA;
 $clr11: #EB8080;
 $clr12: #E45555;
-$clr13: #D60000; //Base
+$clr13: #D60000; // Base
 $clr14: #B20000;
 $clr15: #8F0000;
 $clr16: #6B0000;
@@ -127,8 +126,6 @@ $clr23: hsla(0, 0%, 13%, 1);
 $clr24: hsla(0, 0%, 9%, 1);
 $clr25: hsla(0, 0%, 0%, 1);
 
-
-
 // LAYOUT
 $mainLayoutWide: 1400px;
 
@@ -136,3 +133,41 @@ $mainLayoutWide: 1400px;
 $break-narrow: 650px;
 $break-normal: 1200px;
 $break-wide: 1920px;
+
+// FONT SIZES
+$font-size-xs: 0.75rem;   // Extra small
+$font-size-sm: 0.875rem;  // Small
+$font-size-base: 1rem;    // Base font size (default)
+$font-size-md: 1.125rem;  // Medium
+$font-size-lg: 1.25rem;   // Large
+$font-size-xl: 1.5rem;    // Extra large
+$font-size-2xl: 2rem;     // 2x Large
+$font-size-3xl: 2.5rem;   // 3x Large
+$font-size-4xl: 3rem;     // 4x Large
+$font-size-5xl: 4rem;     // 5x Large
+
+// FONT WEIGHTS
+$font-weight-light: 300;    // Light
+$font-weight-regular: 400;  // Regular
+$font-weight-medium: 500;   // Medium
+$font-weight-bold: 700;     // Bold
+$font-weight-black: 900;    // Black
+
+// LINE HEIGHTS
+$line-height-sm: 1.2;  // Tight
+$line-height-base: 1.5; // Default
+$line-height-lg: 1.75;  // Relaxed
+
+// FONT FAMILY
+$font-family-sans: 'proxima-nova', sans-serif;
+$font-family-serif: 'freight-text-pro', serif;
+$font-family-mono: 'Courier New', monospace;
+
+
+
+
+$bg-color: #fff;
+$text-color: #202224;
+$text-color2: $clr25;
+$text-color-light: $clr22;
+$primary-color: $clr4;

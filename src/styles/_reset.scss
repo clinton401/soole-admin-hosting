@@ -19,14 +19,6 @@
     
 }
 
-/* -------------------- */
-/* Reset                */
-/* -------------------- */
-
-/* https://piccalil.li/blog/a-modern-css-reset/ */
-
-/* Box sizing */
-
 * {
     transition: background 300ms ease;
 }
@@ -57,7 +49,7 @@ a {
 }
 
 body {
-    font-size: $fs-16;
+    font-size: $font-size-base;
 
     min-height: 100vh;
     width: 100%;

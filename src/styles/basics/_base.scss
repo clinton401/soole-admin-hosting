@@ -1,24 +1,48 @@
+@use '../setup/fonts.scss';
+@import '../setup/variables';
+
 * {
     box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    outline: none;
 }
 
 body {
-    direction: rtl;
-    font-size: 22px;
-    font-family: var(--font-Amatic_SC);
+    // font-size: 22px;
+    font-family: 'Mabry Pro', sans-serif;
     font-weight: 400;
     font-style: normal;
     margin: 0;
-    text-align: center;
-    min-height: 90vh;
-    max-width: 100vw;
-    background-color: #0f0529;
+    background-color: $bg-color;
     color: #9e72c3;
+    padding: 1em 2em;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+
+    &:before {
+     position: absolute;
+     left: 0;
+     top: 0;
+     width: 100%;
+     height: 100%;
+     background: linear-gradient(
+      163deg,
+      rgba(31, 29, 43, 1) 21%,
+      rgba(31, 29, 43, 0.3113620448179272) 64%
+     );
+     opacity: 0.4;
+     content: "";
+    }
 }
 
 p {
     line-height: 1.5;
     margin: 0;
+}
+
+img {
+    max-width: 100%;
 }
 
 a {
@@ -98,6 +122,18 @@ label {
 
 }
 
-.only-print {
-    display: none;
-}
+.container {
+    background-color: var(--theme-bg);
+    max-width: 1240px;
+    max-height: 900px;
+    height: 95vh;
+    display: flex;
+    overflow: hidden;
+    width: 100%;
+    border-radius: 20px;
+    font-size: 15px;
+    font-weight: 500;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+    position: relative;
+   }
+   
