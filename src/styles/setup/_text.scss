@@ -73,7 +73,8 @@
             /* 200% */
             letter-spacing: -0.04rem;
             
-            @include breakpoint.least-large-screen {
+            @media (max-width: breakpoint.$break-normal) {
+
                 font-family: 'Mabry Pro Semibold';
                 font-size: 2rem;
                 line-height: 4rem; 
@@ -93,7 +94,8 @@
             /* 100% */
             letter-spacing: -0.009rem;
             
-            @include breakpoint.least-large-screen {
+            @media (max-width: breakpoint.$break-narrow) {
+
                 font-family: 'Mabry Pro Semibold';
                 font-size: 3rem;
                 line-height: 3rem;
@@ -115,7 +117,8 @@
             letter-spacing: -0.001rem;
             
             
-            @include breakpoint.least-large-screen {
+            @media (max-width: breakpoint.$break-narrow) {
+
                 font-family: 'Mabry Pro Regular';
                 // font-family: 'Mabry Pro Medium';
                 font-size: 3rem;
@@ -137,7 +140,7 @@
             line-height: 1.575rem;
             /* 200% */
             
-            @include breakpoint.least-large-screen {
+            @media (max-width: breakpoint.$break-narrow) {
                 font-size: 1rem;
                 line-height: 2rem;
             }
@@ -156,7 +159,8 @@
             /* 133.333% */
             letter-spacing: -0.0225rem;
 
-            @include breakpoint.least-large-screen {
+            @media (max-width: breakpoint.$break-narrow) {
+
                 font-size: 1.125rem;
                 line-height: 1.5rem;
             }
@@ -215,7 +219,8 @@
             /* 137.5% */
             letter-spacing: -0.02rem;
             
-            @include breakpoint.least-large-screen {
+            @media (max-width: breakpoint.$break-narrow) {
+
                 font-family: 'Mabry Pro Medium';
                 font-size: 1rem;
             }
@@ -295,65 +300,10 @@
 }
 
 
-@include responsive.responsive-options('footer') {
-
-    &-regular {
-        /* Footer/Regular */
-        // color: var(--Accent-Active, #E16338);    
-        font-family: 'Mabry Pro Regular';
-        font-size: 0.875rem;
-        font-style: normal;
-        font-weight: 400;
-        line-height: 1.5rem;
-        /* 171.429% */
-        letter-spacing: -0.0175rem;
-    }
-
-    &-medium {
-        /* Footer/Medium */
-        // color: var(--Accent-Active, #E16338);
-        font-family: 'Mabry Pro Medium';
-        font-size: 0.875rem;
-        font-style: normal;
-        font-weight: 500;
-        line-height: 1.5rem;
-        /* 171.429% */
-        letter-spacing: -0.0175rem;
-    }
-
-    &-logo {
-        /* Footer/logo */
-        // color: var(--Accent-Active, #E16338);
-        font-family: 'Outfit medium';
-        font-size: 2rem;
-        font-style: normal;
-        font-weight: 500;
-        line-height: 3rem;
-        /* 150% */
-        letter-spacing: -0.1rem;
-    }
-
-    /* Footer/Links */
-    &-link,
-    &-links {
-        // color: var(--Accent-Active, #E16338);
-        color: inherit;
-        font-family: 'Mabry Pro Regular';
-        font-size: 0.875rem;
-        font-style: normal;
-        font-weight: 500;
-        line-height: 1.5rem;
-        /* 171.429% */
-        letter-spacing: -0.0175rem;
-        text-decoration-line: underline;
-    }
-}
-
-
 // ff  means font-family
 @include responsive.responsive-options('ff') {
 
-    &-Mabry Pro {
+    &-Mabry-Pro {
 
         &-light {
             font-family: 'Mabry Pro Light';
@@ -381,38 +331,6 @@
         }
     }
 
-    &-outfit {
-
-        &-extralight {
-            font-family: 'Outfit ExtraLight';
-            font-style: normal;
-        }
-
-        &-light {
-            font-family: 'Outfit Light';
-            font-style: normal;
-        }
-
-        &-regular {
-            font-family: 'Outfit Regular';
-            font-style: normal;
-        }
-
-        &-medium {
-            font-family: 'Outfit Medium';
-            font-style: normal;
-        }
-
-        &-semibold {
-            font-family: 'Outfit SemiBold';
-            font-style: normal;
-        }
-
-        &-bold {
-            font-family: 'Outfit Bold';
-            font-style: normal;
-        }
-    }
 }
 
 // fs means font-size

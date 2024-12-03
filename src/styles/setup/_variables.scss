@@ -171,3 +171,52 @@ $text-color: #202224;
 $text-color2: $clr25;
 $text-color-light: $clr22;
 $primary-color: $clr4;
+
+
+.section {
+    // General styles for all sections
+    &._top {
+      margin-top: 3.12; // Adjust as needed
+    }
+  
+    &.no-padding {
+      padding: 0;
+    }
+  
+    &.bg-color {
+      background-color: $bg-color; // Use a variable or custom dark color
+      color: $text-color; // Optional contrast color for dark backgrounds
+    }
+  
+    // Name-specific styling
+    &[class*="name-"] {
+      // Style rules can vary per name. Use `name-*` convention if dynamic.
+      &.name-header {
+        font-size: 24px;
+        font-weight: bold;
+        text-align: center;
+      }
+  
+      // Add more `name-*` styles as needed
+    }
+  
+    // Conditional styling for wrapped content
+    .wrapper {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem;
+  
+      &.custom-wrapper {
+        // Wrapper-specific overrides
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+    }
+  }
+  
+  // Sample variables in variables.scss
+  $bg-color: #f9f9f9;
+  $dark-bg-color: #2c2c2c;
+  $light-text-color: #ffffff;
+  $footer-bg-color: #1e1e1e;
+  $footer-text-color: #a9a9a9;
