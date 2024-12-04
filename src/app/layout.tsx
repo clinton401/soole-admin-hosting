@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import '@/styles/main.scss';
+import Searchbar from "./components/Searchbar";
+import Sidebar from './components/Sidebar';
 
 export const metadata: Metadata = {
   title: "Soole Dashboard",
@@ -13,7 +15,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
+      <body className="d-flex">
+      <Sidebar/>
+      <Searchbar/>
         {children}
       </body>
     </html>

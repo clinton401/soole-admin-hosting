@@ -15,9 +15,9 @@ const Wrapper = (props: Props) => {
         >
 
 
-        <p className="fs-20 my-2">
+        {/* <p className="fs-20 my-2">
             New Me
-            </p>
+            </p> */}
         </Section>
       </div>
     </div>

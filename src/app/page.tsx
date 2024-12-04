@@ -1,6 +1,6 @@
 // import Image from "next/image";
 
-import Sidebar from "./components/Sidebar";
+// import Sidebar from "./components/Sidebar";
 import Wrapper from "./components/Wrapper";
 
 
@@ -8,7 +8,7 @@ import Wrapper from "./components/Wrapper";
 export default function Home() {
   return (
     <div className="d-flex container">
-      <Sidebar/>
+      {/* <Sidebar/> */}
       <Wrapper/>
     </div>
   );
