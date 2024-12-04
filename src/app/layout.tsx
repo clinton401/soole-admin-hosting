@@ -17,8 +17,13 @@ export default function RootLayout({
     <html lang="en">
       <body className="d-flex">
       <Sidebar/>
+     <div className="d-flex gap-4 d-flex-1 flex-column">
+
       <Searchbar/>
-        {children}
+        <main className="d-flex-1">
+          {children}
+          </main>
+     </div>
       </body>
     </html>
   );

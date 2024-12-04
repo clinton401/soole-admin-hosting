@@ -45,7 +45,7 @@ const Sidebar: React.FC = () => {
       <div className="sidebar">
         {/* <span className="logo">S</span> */}
         <a className="logo-expand" href="#">
-          <Image src="/Soólè.svg" alt="Soólè" width={50} height={50} />
+          <Image src="/Soólè.svg" alt="Soólè" width={100} height={100} />
         </a>
         <div className="side-wrapper">
           <div className="side-menu">

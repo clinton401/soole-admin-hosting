@@ -171,6 +171,8 @@ $text-color: #202224;
 $text-color2: $clr25;
 $text-color-light: $clr22;
 $primary-color: $clr4;
+$light-bg-color: #F3F4F8;
+
 
 
 .section {
@@ -184,6 +186,11 @@ $primary-color: $clr4;
 
     &.bg-color {
         background-color: $bg-color; // Use variable for dark backgrounds
+        color: $text-color; // Optional contrast color
+    }
+
+    &.light-bg-color {
+        background-color: $light-bg-color; // Use variable for dark backgrounds
         color: $text-color; // Optional contrast color
     }
 
@@ -216,4 +223,5 @@ $primary-color: $clr4;
   // Sample variables in variables.scss
   $bg-color: #f9f9f9;
   $dark-bg-color: #2c2c2c;
+  $light-bg-color: #F3F4F8;
   $light-color: #ffffff;

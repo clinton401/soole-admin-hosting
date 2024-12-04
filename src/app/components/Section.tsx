@@ -3,6 +3,7 @@ import { PropsWithChildren } from "react";
 interface SectionProps extends PropsWithChildren{
     name?: string;
     dark?: boolean;
+    light?: boolean;
     notTop?: boolean;
     noPadding?: boolean;
     className?: string;
@@ -16,6 +17,7 @@ export default function Section(props: SectionProps) {
         ${props.noPadding ? 'no-padding' :''} 
         ${props.name} 
         ${props.dark ? 'bg-color':''}
+         ${props.light ? 'llight-bg-color':''}
         ${props.className}
         `.replaceAll('undefined','').trim();
     return (
