@@ -37,7 +37,11 @@ const Searchbar = ({ isVisible = true }: Props) => {
         src="/profilePic.png"
         alt=""
       />
-          <div className="user-name ff-Mabry-Pro-bold">Thomas</div>
+      <div>
+
+          <div className="user-name ff-Mabry-Pro-semibold fs-16" style={{width: "140px"}}>Adeyemi Korede</div>
+          <div className="user-name ff-Mabry-Pro-light fs-16 card-title" style={{color: "#"}}>Admin</div>
+      </div>
         </div>
       </div>
     </div>

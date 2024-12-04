@@ -35,7 +35,7 @@ export default function BarGraph({
               <div
                 className="bar"
                 style={{
-                  height: `${(item.value / scale) * 100}px`,
+                  height: `${(item.value / scale) * 150}px`,
                   backgroundColor: barColor,
                   width: "2.28438rem"
                 }}

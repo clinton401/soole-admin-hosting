@@ -3,7 +3,7 @@ import Image from "next/image";
 import Section from "./Section";
 import CardsList from "./CardList";
 import BarGraph from "./BarChat";
-
+import LineGraph from "./LineGraph";
 
 const Wrapper = () => {
   const data = [
@@ -34,6 +34,9 @@ const Wrapper = () => {
                       barColor="#D2AC47"
                       maxValue={150}
               />
+              <br /><br />
+
+              <LineGraph data={data} />
             </div>
         </Section>
       </div>

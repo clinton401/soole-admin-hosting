@@ -1,11 +1,15 @@
 "use client"
-
 import Image from "next/image";
-
 import React, { useEffect } from 'react';
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+
 
 const Sidebar: React.FC = () => {
-  // Function to handle sidebar responsiveness
+
+  const router = useRouter();
+
+
   const handleResize = () => {
     const sidebar = document.querySelector('.sidebar');
     if (sidebar) {
@@ -18,11 +22,9 @@ const Sidebar: React.FC = () => {
   };
 
   useEffect(() => {
-    // Initial resize check and event listener
     handleResize();
     window.addEventListener('resize', handleResize);
 
-    // Cleanup listener on component unmount
     return () => {
       window.removeEventListener('resize', handleResize);
     };
@@ -35,21 +37,23 @@ const Sidebar: React.FC = () => {
     e.currentTarget.classList.add('is-active');
   };
 
-// type Props = {};
-
-// const Sidebar = (props: Props) => {
-
+  const isActive = (path: string) => router.pathname === path;
 
   return (
     <div>
       <div className="sidebar">
-        {/* <span className="logo">S</span> */}
-        <a className="logo-expand" href="#">
+      <Link legacyBehavior href="/">
+
+        <a className="logo-expand">
           <Image src="/Soólè.svg" alt="Soólè" width={100} height={100} />
         </a>
+        </Link>
+
         <div className="side-wrapper">
           <div className="side-menu">
-            <a className="sidebar-link discover is-active" href="#" onClick={handleLinkClick}>
+      <Link legacyBehavior href="/">
+
+            <a className={`sidebar-link discover ${isActive("/") ? "is-active" : ""}`} onClick={handleLinkClick}>
             <svg viewBox="0 0 20 21" fill="currentcolor" xmlns="http://www.w3.org/2000/svg">
 <path d="M11.2859 1.48224H17.2859C17.7592 1.48224 18.143 1.95558 18.143 2.33938V10.9108C18.143 11.3841 17.7592 11.7679 17.2859 11.7679H11.2859C10.8125 11.7679 10.4287 11.2946 10.4287 10.9108V2.33938C10.4287 1.86604 10.8125 1.48224 11.2859 1.48224Z" fill="currentcolor"/>
 <path d="M1.85714 9.19656H7.85714C8.33048 9.19656 8.71428 9.66991 8.71428 10.0537V18.6251C8.71428 19.0985 8.33048 19.4823 7.85714 19.4823H1.85714C1.3838 19.4823 1 19.0089 1 18.6251V10.0537C1 9.58036 1.3838 9.19656 1.85714 9.19656Z" fill="currentcolor"/>
@@ -59,7 +63,11 @@ const Sidebar: React.FC = () => {
 
               Dashboard
             </a>
-            <a className="sidebar-link trending" href="#" onClick={handleLinkClick}>
+            </Link>
+
+      <Link legacyBehavior href="/rides">
+
+            <a className="sidebar-link trending" href="/rides" onClick={handleLinkClick}>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 21" fill="currentcolor">
   <mask id="mask0_2348_3369" maskUnits="userSpaceOnUse" x="0" y="0" width="20" height="21">
     <rect y="0.392517" width="20" height="20" fill="#D9D9D9"/>
@@ -70,19 +78,29 @@ const Sidebar: React.FC = () => {
 </svg>
               Rides
             </a>
-            <a className="sidebar-link" href="#" onClick={handleLinkClick}>
+      </Link>
+      <Link legacyBehavior href="/users">
+
+            <a  className={`sidebar-link ${isActive("/users") ? "is-active" : ""}`} onClick={handleLinkClick}>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 13" fill="none">
   <path d="M9.375 6.24023C9.73611 5.82357 10.0139 5.3644 10.2083 4.86273C10.4028 4.36107 10.5 3.84107 10.5 3.30273C10.5 2.76926 10.4028 2.25391 10.2083 1.75669C10.0139 1.25961 9.73611 0.79579 9.375 0.365234C9.48611 0.337457 9.59028 0.320095 9.6875 0.313151C9.78472 0.306207 9.88889 0.302734 10 0.302734C10.8333 0.302734 11.5417 0.594401 12.125 1.17773C12.7083 1.76107 13 2.4694 13 3.30273C13 4.13607 12.7083 4.8444 12.125 5.42773C11.5417 6.01107 10.8333 6.30273 10 6.30273C9.88889 6.30273 9.78125 6.29926 9.67708 6.29232C9.57292 6.28537 9.47222 6.26801 9.375 6.24023ZM13.5 12.3027V10.3861C13.5 9.81662 13.3681 9.28537 13.1042 8.79232C12.8403 8.29926 12.4722 7.87912 12 7.5319C12.9444 7.75412 13.8472 8.05968 14.7083 8.44857C15.5694 8.83746 16 9.48329 16 10.3861V12.3027H13.5ZM16.25 7.30273V5.55273H14.5V4.05273H16.25V2.30273H17.75V4.05273H19.5V5.55273H17.75V7.30273H16.25ZM6 6.30273C5.16667 6.30273 4.45833 6.01107 3.875 5.42773C3.29167 4.8444 3 4.13607 3 3.30273C3 2.4694 3.29167 1.76107 3.875 1.17773C4.45833 0.594401 5.16667 0.302734 6 0.302734C6.83333 0.302734 7.54167 0.594401 8.125 1.17773C8.70833 1.76107 9 2.4694 9 3.30273C9 4.13607 8.70833 4.8444 8.125 5.42773C7.54167 6.01107 6.83333 6.30273 6 6.30273ZM0 12.3027V10.3861C0 10.0332 0.0868056 9.70885 0.260417 9.41315C0.434028 9.11732 0.673611 8.87218 0.979167 8.67773C1.72917 8.20551 2.53153 7.85829 3.38625 7.63607C4.24097 7.41385 5.10903 7.30273 5.99042 7.30273C6.87181 7.30273 7.73611 7.42079 8.58333 7.6569C9.43056 7.89301 10.2431 8.23329 11.0208 8.67773C11.3125 8.87218 11.5486 9.11732 11.7292 9.41315C11.9097 9.70885 12 10.0332 12 10.3861V12.3027H0ZM5.98958 4.80273C6.39931 4.80273 6.75347 4.6569 7.05208 4.36523C7.35069 4.07343 7.5 3.72273 7.5 3.31315C7.5 2.90343 7.35069 2.54926 7.05208 2.25065C6.75347 1.95204 6.39931 1.80273 5.98958 1.80273C5.58 1.80273 5.22931 1.95204 4.9375 2.25065C4.64583 2.54926 4.5 2.90343 4.5 3.31315C4.5 3.72273 4.64583 4.07343 4.9375 4.36523C5.22931 4.6569 5.58 4.80273 5.98958 4.80273ZM1.5 10.8027H10.5V10.3861C10.5 10.3018 10.4792 10.2252 10.4375 10.1563C10.3958 10.0872 10.3403 10.025 10.2708 9.9694C9.60417 9.60829 8.91319 9.32357 8.19792 9.11523C7.48264 8.9069 6.74653 8.80273 5.98958 8.80273C5.23264 8.80273 4.49653 8.90343 3.78125 9.10482C3.06597 9.30621 2.38194 9.5944 1.72917 9.9694C1.65972 10.025 1.60417 10.0872 1.5625 10.1563C1.52083 10.2252 1.5 10.3018 1.5 10.3861V10.8027Z" fill="currentcolor"/>
 </svg>
               Users
             </a>
-            <a className="sidebar-link" href="#" onClick={handleLinkClick}>
+      </ Link>
+      <Link legacyBehavior href="/inbox">
+
+            <a className={`sidebar-link ${isActive("/inbox") ? "is-active" : ""}`} onClick={handleLinkClick}>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17 15" fill="none">
   <path d="M8 7.21313L1.5 3.48397V10.7131H9.5V12.2131H1.5C1.0875 12.2131 0.734375 12.0662 0.440625 11.7723C0.146875 11.4784 0 11.1251 0 10.7123V1.7073C0 1.29452 0.146875 0.942301 0.440625 0.650635C0.734375 0.358968 1.0875 0.213135 1.5 0.213135H14.5C14.9125 0.213135 15.2656 0.36001 15.5594 0.65376C15.8531 0.94751 16 1.30063 16 1.71313V7.21313H14.5V3.48397L8 7.21313ZM8 5.4423L14.5 1.71313H1.5L8 5.4423ZM14 14.4631L12.9375 13.4006L14.125 12.2131H11V10.7131H14.125L12.9375 9.52563L14 8.46313L17 11.4631L14 14.4631ZM1.5 3.48397V11.4215V1.71313V3.48397Z" fill="currentcolor"/>
 </svg>
               Inbox
             </a>
-            <a className="sidebar-link" href="#" onClick={handleLinkClick}>
+      </Link>
+
+      <Link legacyBehavior href="/settings">
+
+            <a className="sidebar-link" onClick={handleLinkClick}>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 21" fill="none">
   <mask id="mask0_2348_3510" maskUnits="userSpaceOnUse" x="0" y="0" width="20" height="21">
     <rect y="0.123291" width="20" height="20" fill="#D9D9D9"/>
@@ -93,6 +111,8 @@ const Sidebar: React.FC = () => {
 </svg>
               Settings
             </a>
+      </Link>
+
           </div>
         </div>
         <div className="side-wrapper">
