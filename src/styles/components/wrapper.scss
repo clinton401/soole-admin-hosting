@@ -110,3 +110,129 @@ background: #FFF;
       color: $clr18;
     }
    }
+
+
+
+   .White {
+    background-color: #fff;
+   }
+   
+  //  .bar-graph {
+  //   display: flex;
+  //   align-items: flex-end;
+  //   gap: 16px;
+  //   height: 200px;
+  //   padding: 16px;
+  //   // border: 1px solid #ddd;
+  //   border-radius: 8px;
+  //   // background: #fff;
+  // }
+  
+  // .bar-container {
+  //   display: flex;
+  //   flex-direction: column;
+  //   align-items: center;
+  //   flex: 1;
+  //   // width: 20px;
+  // }
+  
+  // .bar {
+  //   display: flex;
+  //   justify-content: center;
+  //   align-items: flex-end;
+  //   // background: #030202;
+  //   border-radius: 4px;
+  //   position: relative;
+  // }
+  
+  // .bar-value {
+  //   position: absolute;
+  //   bottom: 100%;
+  //   transform: translateY(-8px);
+  //   font-size: 12px;
+  //   color: #333;
+  // }
+  
+  // .bar-label {
+  //   margin-top: 8px;
+  //   font-size: 14px;
+  //   text-align: center;
+  //   color: #555;
+  //   word-wrap: break-word;
+  // }
+  
+
+
+  /* Wrapper for the entire bar graph */
+.bar-graph-wrapper {
+  background-color: #ffffff;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  // max-width: 600px;
+  margin: auto;
+}
+
+.graph-title {
+  font-weight: bold;
+  margin-bottom: 16px;
+  color: #333333;
+}
+
+/* Container holding the scale and bar graph */
+.bar-graph-container {
+  display: flex;
+  gap: 20px;
+}
+
+/* Y-axis scale section */
+.scale-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 200px;
+  margin-right: 16px;
+}
+
+.scale-step {
+  font-size: 12px;
+  color: #555555;
+  text-align: right;
+}
+
+/* The bar graph section */
+.bar-graph {
+  display: flex;
+  align-items: flex-end;
+  gap: 16px;
+  height: 200px;
+  padding: 16px;
+  width: 100%;
+  // border: 1px solid #dddddd;
+  border-radius: 8px;
+  // background-color: #f9f9f9;
+}
+
+/* Individual bar container */
+.bar-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  flex: 1;
+}
+
+/* Bar styling */
+.bar {
+  width: 20px;
+  border-radius: 4px;
+  transition: height 0.3s ease-in-out;
+}
+
+/* Bar label styling */
+.bar-label {
+  margin-top: 8px;
+  font-size: 12px;
+  color: #555555;
+  word-wrap: break-word;
+}
