@@ -1,9 +1,9 @@
-.button {
-    background-color: $color-dark;
-    color: $color-dark-text;
-    border: 0;
-    @include transition( background-color, .2s, linear );
-  }
+// .button {
+//     background-color: $color-dark;
+//     color: $color-dark-text;
+//     border: 0;
+//     @include transition( background-color, .2s, linear );
+//   }
   
   .button.party-blue {
     background: $color-accent-alternate;

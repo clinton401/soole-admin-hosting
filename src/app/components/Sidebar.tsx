@@ -2,12 +2,14 @@
 import Image from "next/image";
 import React, { useEffect } from 'react';
 import { useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 
 
 const Sidebar: React.FC = () => {
 
   const router = useRouter();
+  const pathname = usePathname(); 
 
 
   const handleResize = () => {
@@ -37,7 +39,7 @@ const Sidebar: React.FC = () => {
     e.currentTarget.classList.add('is-active');
   };
 
-  const isActive = (path: string) => router.pathname === path;
+  const isActive = (path: string) => pathname === path;
 
   return (
     <div>

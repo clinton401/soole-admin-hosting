@@ -1,10 +1,14 @@
 import React from 'react'
+import UserSearchbar from '../components/UserSearchbar'
 
 type Props = {}
 
 const users = (props: Props) => {
   return (
-    <div>users</div>
+    <div>
+        <UserSearchbar/>
+
+    </div>
   )
 }
 

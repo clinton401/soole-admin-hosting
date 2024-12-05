@@ -1,0 +1,57 @@
+.Search-bar {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 8px 12px;
+  justify-content: space-between;
+
+  background-color: #fff;
+}
+
+.Search-bar input {
+  border: none;
+  outline: none;
+  flex: 1;
+  background: none;
+  padding: 8px;
+  font-size: 14px;
+}
+
+.Search-bar .search-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+  color: #888;
+}
+
+.Search-bar .filter-btn {
+  background: none;
+  border: 0.3px solid #b9b9b9;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 0.625rem 1rem;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  color: #344054;
+}
+
+.Search-bar .filter-icon {
+  width: 20px;
+  height: 20px;
+  color: #888;
+}
+
+.Search-bar input::placeholder {
+  color: #aaa;
+  font-size: 0.875rem;
+  font-style: "Mabry Pro";
+}
+
+.Search-bar input:focus {
+  outline: none;
+  border-bottom: 1px solid #007bff;
+}
