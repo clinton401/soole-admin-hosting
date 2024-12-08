@@ -1,7 +1,19 @@
-import React from 'react'
+"use client"
+import React, { useState } from 'react'
 
+interface UserSearchbarProps {
+  onFilterChange: (status: string) => void;
+}
 
-const UserSearchbar = () => {
+const UserSearchbar: React.FC<UserSearchbarProps> = ({ onFilterChange }) => {
+
+  const [filterOpen, setFilterOpen] = useState(false);
+
+  const handleFilterClick = (status: string) => {
+    onFilterChange(status);
+    setFilterOpen(false);
+  };
+
   return (
     <div>
 
@@ -21,7 +33,9 @@ const UserSearchbar = () => {
     />
   </svg>
   <input type="text" placeholder="Search by name, number of trips, number of rides" />
-  <button className="filter-btn">
+  <button className="filter-btn"
+            onClick={() => setFilterOpen((prev) => !prev)}
+  >
     <svg
       xmlns="http://www.w3.org/2000/svg"
       className="filter-icon"
@@ -39,7 +53,19 @@ const UserSearchbar = () => {
         <p>Filter</p>
   </button>
 </div>
-
+{filterOpen && (
+        <div className="filter-dropdown">
+          {["Active", "Deactivated", "Inactive", "Suspended"].map((status) => (
+            <button
+              key={status}
+              className="filter-option"
+              onClick={() => handleFilterClick(status)}
+            >
+              {status}
+            </button>
+          ))}
+        </div>
+      )}
     </div>
   )
 }

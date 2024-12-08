@@ -146,7 +146,7 @@ interface User {
 
   ];
 
-const StatusTable: React.FC = () => {
+const StatusTable: React.FC<StatusTableProps> = ({ users }) => {
   return (
     <div className="table-container">
     <table className="user-table">
