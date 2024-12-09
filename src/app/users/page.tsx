@@ -11,12 +11,12 @@ interface User {
   totalRides: number;
   totalTrips: number;
   memberSince: string;
-  status: "Active" | "Deactivated" | "Inactive" | "Suspended";
+  status: "Active" | "Deactivated" | "Inactive" | "Suspended" | "All";
   profilePicture: string;
 }
 
 
-const users: React.FC = () => {
+const Users: React.FC = () => {
   const [filterStatus, setFilterStatus] = useState<string | null>(null);
 
   const users: User[] = [
@@ -166,4 +166,4 @@ return (
 };
 
 
-export default users;
+export default Users;

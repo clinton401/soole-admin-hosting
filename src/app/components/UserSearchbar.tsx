@@ -55,7 +55,7 @@ const UserSearchbar: React.FC<UserSearchbarProps> = ({ onFilterChange }) => {
 </div>
 {filterOpen && (
         <div className="filter-dropdown">
-          {["Active", "Deactivated", "Inactive", "Suspended"].map((status) => (
+          {["All", "Active", "Deactivated", "Inactive", "Suspended"].map((status) => (
             <button
               key={status}
               className="filter-option"
