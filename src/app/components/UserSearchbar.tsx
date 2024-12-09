@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 
 interface UserSearchbarProps {
-  onFilterChange: (status: string) => void;
+  onFilterChange: (status: string | null) => void;
 }
 
 const UserSearchbar: React.FC<UserSearchbarProps> = ({ onFilterChange }) => {
@@ -10,7 +10,7 @@ const UserSearchbar: React.FC<UserSearchbarProps> = ({ onFilterChange }) => {
   const [filterOpen, setFilterOpen] = useState(false);
 
   const handleFilterClick = (status: string) => {
-    onFilterChange(status);
+    onFilterChange(status === "All" ? null : status); 
     setFilterOpen(false);
   };
 

@@ -141,6 +141,7 @@
   padding: 10px;
   width: 200px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  right: 0;
 }
 
 .filter-option {
@@ -150,8 +151,10 @@
   text-align: left;
   cursor: pointer;
   width: 100%;
+  font-family: "Mabry Pro";
+  font-size: 18px;
 }
 
 .filter-option:hover {
-  background-color: #f0f0f0;
+  background-color: $primary-color;
 }
