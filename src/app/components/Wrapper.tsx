@@ -1,5 +1,5 @@
 import React from "react";
-import Image from "next/image";
+// import Image from "next/image";
 import Section from "./Section";
 import CardsList from "./CardList";
 import BarGraph from "./BarChat";

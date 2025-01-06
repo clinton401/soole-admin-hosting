@@ -1,8 +1,7 @@
 import React from 'react'
 
-type Props = {}
 
-const map = (props: Props) => {
+const map = () => {
   return (
     <div>map</div>
   )

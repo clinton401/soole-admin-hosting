@@ -18,6 +18,14 @@ export default function BarGraph({
   return (
     <div className="bar-graph-wrapper">
       <p className="graph-title fs-32 fw-700 ff-Mabry-Pro-bold my-1">Weekly Overview of New Users</p>
+      <select name="year" id="" >
+        <option value="2022">2022</option>
+        <option value="2021">2021</option>
+        <option value="2020">2020</option>
+        <option value="2019">2019</option>
+        <option value="2018">2018</option>
+        <option value="2017">2017</option>
+      </select>
       <div className="bar-graph-container">
         {/* Scale Section */}
         <div className="scale-section">

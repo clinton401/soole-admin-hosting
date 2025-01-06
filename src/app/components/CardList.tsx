@@ -1,11 +1,13 @@
 import React from "react";
 import Image from "next/image";
+import { StaticImageData } from "next/image";
 
 interface CardData {
   id: number;
   title: string;
   number: number;
-  icon: React.ReactNode;
+  // icon: React.ReactNode;
+  icon: string | StaticImageData;
   description: string;
 }
 
@@ -64,7 +66,6 @@ const CardsList: React.FC = () => {
               height={60}
             />
           </div>
-          {/* Description */}
           <p className="fs-14">{card.description}</p>
         </div>
       ))}
