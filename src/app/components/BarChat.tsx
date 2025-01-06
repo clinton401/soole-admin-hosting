@@ -17,15 +17,18 @@ export default function BarGraph({
 
   return (
     <div className="bar-graph-wrapper">
+      <div className="graph-header d-flex mb-2">
+
       <p className="graph-title fs-32 fw-700 ff-Mabry-Pro-bold my-1">Weekly Overview of New Users</p>
-      <select name="year" id="" >
-        <option value="2022">2022</option>
-        <option value="2021">2021</option>
-        <option value="2020">2020</option>
-        <option value="2019">2019</option>
-        <option value="2018">2018</option>
-        <option value="2017">2017</option>
+      <select name="year" id="year" className="list-of-years" >
+        <option value="Year">This week</option>
+        <option value="2022">Monday</option>
+        <option value="2021">Tuesday</option>
+        <option value="2020">Wednesday</option>
+        <option value="2019">Thursday</option>
+        <option value="2018">Friday</option>
       </select>
+      </div>
       <div className="bar-graph-container">
         {/* Scale Section */}
         <div className="scale-section">

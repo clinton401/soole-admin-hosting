@@ -43,7 +43,18 @@ export default function LineGraph({
 
   return (
     <div className="line-graph-wrapper mb-2">
+      <div className="graph-header d-flex mb-2">
+      
       <p className="graph-title">Revenue Overview</p>
+      <select name="year" id="year" className="list-of-years" >
+        <option value="Year">This Year</option>
+        <option value="2022">2022</option>
+        <option value="2021">2021</option>
+        <option value="2020">2020</option>
+        <option value="2019">2019</option>
+        <option value="2018">2018</option>
+      </select>
+      </div>
       <div className="line-graph-container">
         <svg
           className="line-graph-svg"
