@@ -177,6 +177,7 @@ const handlePreviousPage = () => {
 
 return (
 <div>
+  <h2 className="ff-Mabry-Pro-bold fs-32">User Management</h2>
   <UserSearchbar onFilterChange={setFilterStatus} />
 
   <StatusTable users={currentItems} />
