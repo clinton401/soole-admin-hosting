@@ -35,6 +35,7 @@
       margin-block: 20px;
       top: 0;
 
+
       &:before {
        content: "";
        position: absolute;
@@ -45,22 +46,22 @@
        height: 70px;
        z-index: -1;
       }
-     }
     }
-    &-link {
-     &:hover,
-     &.is-active {
+  }
+  &-link {
+    &:hover,
+    &.is-active {
       color: $bg-color;
       background-color: $primary-color;
       width: 192px;
       height: 47px;
       padding: 8px;
-     border-radius: 10px;
+      border-radius: 10px;
       font-weight: 600;
       position: relative;
- 
-
-
+      
+      
+      
       &::before {
         content: "";
         position: absolute;
@@ -73,24 +74,24 @@
         transform-origin: bottom;
         transition: transform 0.5s ease;
       }
-  
+      
       &.is-active::before {
-        transform: scaleY(1); /* Bar becomes visible */
+        transform: scaleY(1);
       }
-
+      
       &:nth-child(2n + 1) {
-       svg {
-        background: $primary-color;
-       }
+        svg {
+          background: $primary-color;
+        }
       }
       &:nth-child(2n) {
-       svg {
-        background: $primary-color;
-       }
+        svg {
+          background: $primary-color;
+        }
       }
-     }
     }
-    &.collapse {
+  }
+  &.collapse {
      width: 90px;
      border-right: 1px solid var(--border-color);
      .logo-expand,
@@ -132,6 +133,8 @@
      align-items: center;
      text-decoration: none;
      color: $text-color;
+     flex-wrap: nowrap;
+     font-size: 14px;
      & + a {
       margin-top: 26px;
      }
@@ -153,6 +156,7 @@
     font-size: 12px;
     letter-spacing: 0.07em;
     margin-bottom: 24px;
+
    }
    
    .side-wrapper {
