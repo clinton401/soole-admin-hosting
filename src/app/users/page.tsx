@@ -18,78 +18,81 @@ interface User {
 
 const Users: React.FC = () => {
   const [filterStatus, setFilterStatus] = useState<string | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 7;
+
 
   const users: User[] = [
    { name: "Jegede Glory",
-    username: "jegs",
+    username: "@jegs",
     phone: "+234567890878",
     totalRides: 120,
     totalTrips: 80,
-    memberSince: "2020-01-15",
+    memberSince: "Oct,2022",
     status: "Active",
     profilePicture: "/profilePic.png",
   },
   {
     name: "Adefarati Adedeji",
-    username: "Adedeji56",
+    username: "@adedeji56",
     phone: "+0987654321",
     totalRides: 50,
     totalTrips: 40,
-    memberSince: "2021-05-22",
+    memberSince: "Oct,2022",
     status: "Deactivated",
     profilePicture: "/profilePic.png",
 
   },
   {
     name: "Alice Johnson",
-    username: "alicejohnson789",
+    username: "@alicejohnson789",
     phone: "+1122334455",
     totalRides: 200,
     totalTrips: 150,
-    memberSince: "2019-03-11",
+    memberSince: "Oct,2022",
     status: "Inactive",
     profilePicture: "/profilePic.png",
 
   },
   {
     name: "Alice Johnson",
-    username: "alicejohnson789",
+    username: "@alicejohnson789",
     phone: "+1122334455",
     totalRides: 200,
     totalTrips: 150,
-    memberSince: "2019-03-11",
+    memberSince: "Oct,2022",
     status: "Inactive",
     profilePicture: "/profilePic.png",
 
   },
   {
     name: "Bob Brown",
-    username: "bobbrown321",
+    username: "@bobbrown321",
     phone: "+2233445566",
     totalRides: 0,
     totalTrips: 0,
-    memberSince: "2022-07-18",
+    memberSince: "Oct,2022",
     status: "Suspended",
     profilePicture: "/profilePic.png",
 
   },
   {
     name: "Jegede Glory",
-    username: "jegs",
+    username: "@jegs",
     phone: "+234567890878",
     totalRides: 120,
     totalTrips: 80,
-    memberSince: "2020-01-15",
+    memberSince: "Oct,2022",
     status: "Active",
     profilePicture: "/profilePic.png",
   },
   {
     name: "Adefarati Adedeji",
-    username: "Adedeji56",
+    username: "@adedeji56",
     phone: "+0987654321",
     totalRides: 50,
     totalTrips: 40,
-    memberSince: "2021-05-22",
+    memberSince: "Oct,2022",
     status: "Deactivated",
     profilePicture: "/profilePic.png",
 
@@ -97,54 +100,54 @@ const Users: React.FC = () => {
 
   {
     name: "Bob Brown",
-    username: "bobbrown321",
+    username: "@bobbrown321",
     phone: "+2233445566",
     totalRides: 0,
     totalTrips: 0,
-    memberSince: "2022-07-18",
+    memberSince: "Oct,2022",
     status: "Suspended",
     profilePicture: "/profilePic.png",
 
   },
   {
     name: "Bob Brown",
-    username: "bobbrown321",
+    username: "@bobbrown321",
     phone: "+2233445566",
     totalRides: 0,
     totalTrips: 0,
-    memberSince: "2022-07-18",
+    memberSince: "Oct,2022",
     status: "Suspended",
     profilePicture: "/profilePic.png",
 
   },
   {
-    name: "Jegede Glory",
-    username: "jegs",
+    name: "@Jegede Glory",
+    username: "@jegs",
     phone: "+234567890878",
     totalRides: 120,
     totalTrips: 80,
-    memberSince: "2020-01-15",
+    memberSince: "Oct,2022",
     status: "Active",
     profilePicture: "/profilePic.png",
   },
   {
     name: "Adefarati Adedeji",
-    username: "Adedeji56",
+    username: "@adedeji56",
     phone: "+0987654321",
     totalRides: 50,
     totalTrips: 40,
-    memberSince: "2021-05-22",
+    memberSince: "Oct,2022",
     status: "Deactivated",
     profilePicture: "/profilePic.png",
 
   },
   {
     name: "Alice Johnson",
-    username: "alicejohnson789",
+    username: "@alicejohnson789",
     phone: "+1122334455",
     totalRides: 200,
     totalTrips: 150,
-    memberSince: "2019-03-11",
+    memberSince: "Oct,2022",
     status: "Inactive",
     profilePicture: "/profilePic.png",
 
@@ -156,11 +159,49 @@ const filteredUsers = filterStatus
 ? users.filter((user) => user.status === filterStatus)
 : users;
 
+const totalItems = filteredUsers.length;
+const totalPages = Math.ceil(totalItems / itemsPerPage);
+const currentItems = filteredUsers.slice(
+  (currentPage - 1) * itemsPerPage,
+  currentPage * itemsPerPage
+);
+
+const handleNextPage = () => {
+  if (currentPage < totalPages) setCurrentPage(currentPage + 1);
+};
+
+const handlePreviousPage = () => {
+  if (currentPage > 1) setCurrentPage(currentPage - 1);
+};
+
+
 return (
 <div>
   <UserSearchbar onFilterChange={setFilterStatus} />
 
-  <StatusTable users={filteredUsers} />
+  <StatusTable users={currentItems} />
+  <div className="pagination d-flex justify-between align-center mt-3">
+        <div className="pagination-info">
+          Showing {Math.min((currentPage - 1) * itemsPerPage + 1, totalItems)}-
+          {Math.min(currentPage * itemsPerPage, totalItems)} of {totalItems}
+        </div>
+        <div className="pagination-controls">
+          <button
+            className="pagination-button"
+            onClick={handlePreviousPage}
+            disabled={currentPage === 1}
+          >
+            &lt;
+          </button>
+          <button
+            className="pagination-button"
+            onClick={handleNextPage}
+            disabled={currentPage === totalPages}
+          >
+            &gt;
+          </button>
+        </div>
+      </div>
 </div>
 );
 };
