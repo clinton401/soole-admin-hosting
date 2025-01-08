@@ -1,14 +1,13 @@
 .inbox-container {
     display: flex;
     gap: 20px;
-    // background-color: #333;
-    
+    // background-color: #333;    
     .customer-tickets {
     background-color: white;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border-radius: 0.875rem;
     padding: 16px;
-    width: 300px;
+    width: 20vw;
     // height: 800px;
     display: flex;
     flex-direction: column;
@@ -66,7 +65,7 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border-radius: 0.875rem;
     padding: 16px;
-    width: 100%;
+    width: 60vw;
     // height: 800px;
     display: flex;
     flex-direction: column;
@@ -177,5 +176,101 @@
         white-space: nowrap;
       }
     }
+
+}
+.message-detail {
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 0.875rem;
+    padding: 16px;
+    width: 60vw;
+    // height: 800px;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    box-sizing: border-box;
+
+    .back-button {
+        border: none;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .message-button-wrapper {
+        display: flex;
+        align-items: center;
+        // margin-bottom: 1rem;
+        justify-content: space-between;
+}
+.icon-button {
+    background: none;
+    border: none;
+    margin-left: 0.5rem;
+    cursor: pointer;
+
+    // svg {
+    //   fill: black;
+    // }
   }
+
+  .reply-section {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  
+  .profile-picture .profile-img {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+  }
+  
+  .reply-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    background-color: #d2ac47;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+  }
+  
+  .reply-input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    color: #fff;
+    font-size: 1rem;
+    outline: none;
+    resize: none;
+    padding: 0.5rem;
+  }
+  
+  .send-button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: #d2ac47;
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+  }
+  
+  .send-button svg {
+    width: 16px;
+    height: 16px;
+  }
+  
+  .send-button:hover {
+    background-color: #bf9638;
+  }
+  
+}
     
