@@ -1,11 +1,18 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 
+type Message = {
+    id: number;
+    name: string;
+    sentence: string;
+    time: string;
+  };
+
 const InboxContent = () => {
   const [starred, setStarred] = useState(Array(200).fill(false));
   const [expanded, setExpanded] = useState(Array(200).fill(false));
   const [currentPage, setCurrentPage] = useState(1);
-  const [selectedMessage, setSelectedMessage] = useState(null);
+  const [selectedMessage, setSelectedMessage] = useState<Message | null>(null);
   const itemsPerPage = 10;
   const totalItems = 200;
 
@@ -49,7 +56,7 @@ const InboxContent = () => {
   );
 
 
-  const handleMessageClick = (message) => {
+  const handleMessageClick = (message: Message) => {
     setSelectedMessage(message);
   };
 
