@@ -8,7 +8,7 @@ const Inbox = () => {
   return (
     <div>
       <h2 className="ff-Mabry-Pro-bold fs-32">Inbox</h2>
-      <div className="d-flex gap-1">
+      <div className="d-flex gap-1" style={{width: "auto"}}>
 
 <InboxList />
 <InboxContent />
