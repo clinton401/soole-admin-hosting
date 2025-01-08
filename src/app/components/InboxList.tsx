@@ -70,12 +70,22 @@ const InboxList = () => {
                     strokeLinejoin="round"
                   />
                 )}
-
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d={item.iconPath}
-                />
+{Array.isArray(item.iconPath)
+                  ? item.iconPath.map((path, index) => (
+                      <path
+                        key={index}
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d={path}
+                      />
+                    ))
+                  : item.iconPath && (
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d={item.iconPath}
+                      />
+                    )}
               </svg>
               {item.label}
             </button>

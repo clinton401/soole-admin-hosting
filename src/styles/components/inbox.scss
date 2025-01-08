@@ -165,39 +165,38 @@
         border-radius: 0.1rem;
       }
       
-  
       .star-button {
         background: none;
         border: none;
         margin-right: 1rem;
         color: #b9b9b9b9;
         cursor: pointer;
-  
+        
         &.starred {
           color: #ffd700;
         }
-  
+        
         svg {
-          width: 24px;
-          height: 24px;
+            width: 24px;
+            height: 24px;
         }
-      }
-  
-      .message-content {
+    }
+    
+    .message-content {
         flex: 1;
-  
+        
         strong {
-          display: block;
+            display: block;
         }
-  
+        
         p {
-          margin: 0;
-          cursor: pointer;
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-  
-          &.expanded {
+            margin: 0;
+            cursor: pointer;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            
+            &.expanded {
             white-space: normal;
           }
         }
@@ -221,7 +220,12 @@
     flex-direction: column;
     margin: 0;
     box-sizing: border-box;
-
+    
+    .messages-content {
+      width: 30%;
+      background-color: "#ccc";
+      height: auto;
+    }
     .back-button {
         border: none;
         width: 30px;
@@ -231,7 +235,7 @@
         align-items: center;
         justify-content: center;
     }
-
+    
     .message-button-wrapper {
         display: flex;
         align-items: center;

@@ -15,6 +15,7 @@ const InboxContent = () => {
   const [selectedMessage, setSelectedMessage] = useState<Message | null>(null);
   const itemsPerPage = 10;
   const totalItems = 200;
+  let hour = 0;
 
   const totalPages = Math.ceil(totalItems / itemsPerPage);
 
@@ -42,12 +43,16 @@ const InboxContent = () => {
     setExpanded(newExpanded);
   };
 
-  const messages = Array.from({ length: totalItems }, (_, i) => ({
+  const messages = Array.from({ length: totalItems }, (_, i) => {
+    const time = `${hour % 24}:20AM`;
+    hour++;
+    return {
     id: i + 1,
     name: `Korede Bello`,
     sentence: `This is a sample message number ${i + 1} for testing purposes. lorem ipsum dolor sit amet sem non  proident null tempor invidunt ut labore et dolore magna aliqu lorem`,
-    time: `${8 + i}:20AM`,
-  }));
+    time,
+    };
+  });
 
   // Paginate messages
   const paginatedMessages = messages.slice(
@@ -235,7 +240,7 @@ const InboxContent = () => {
                 height={20}
               />
             </div>
-            <div className='ff-Mabry-Pro fs-16'>
+            <div className='ff-Mabry-Pro fs-16 messages-content'>
 
           <p>{selectedMessage.sentence}</p>
             </div>
