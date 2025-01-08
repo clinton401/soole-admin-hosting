@@ -38,7 +38,7 @@ const InboxContent = () => {
   const messages = Array.from({ length: totalItems }, (_, i) => ({
     id: i + 1,
     name: `Korede Bello`,
-    sentence: `This is a sample message number ${i + 1} for testing purposes.`,
+    sentence: `This is a sample message number ${i + 1} for testing purposes. lorem ipsum dolor sit amet sem non  proident null tempor invidunt ut labore et dolore magna aliqu lorem`,
     time: `${8 + i}:20AM`,
   }));
 
@@ -130,11 +130,13 @@ const InboxContent = () => {
             <div className="message-content d-flex gap-4 align-center justify-evenly">
               <strong className="d-flex justify-left">{msg.name}</strong>
               <p
-                onClick={() => toggleExpanded(index)}
-                className={expanded[index] ? 'expanded' : ''}
-              >
-                {msg.sentence}
-              </p>
+        onClick={() => toggleExpanded(index)}
+        className={expanded[index] ? 'expanded' : ''}
+      >
+        {expanded[index]
+          ? msg.sentence
+          : msg.sentence.split(' ').slice(0, 10).join(' ') + '...'}
+      </p>
             </div>
             <span className="message-time">{msg.time}</span>
           </div>
@@ -172,7 +174,11 @@ const InboxContent = () => {
           <div className="message-button-wrapper">
 
 <div className='d-flex gap-1 align-center'>
-          <button onClick={() => setSelectedMessage(null)} className="back-button">
+          <button onClick={() => {
+            setSelectedMessage(null);
+            setExpanded(Array(200).fill(false))
+          }}
+           className="back-button">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
   <rect y="0.5" width="24" height="24" rx="5" fill="#F5F5F5"/>
   <g opacity="0.8">
@@ -212,6 +218,7 @@ const InboxContent = () => {
 
 </div>
 
+    <div className='d-flex '>
 <div className="profile-picture">
               <Image
                 src="/profilePic.png"
@@ -221,7 +228,12 @@ const InboxContent = () => {
                 height={20}
               />
             </div>
+            <div className='ff-Mabry-Pro fs-16'>
+
           <p>{selectedMessage.sentence}</p>
+            </div>
+
+          </div>
           
                 {/* Profile Picture and Reply Section */}
                 <div className="reply-section">
@@ -231,6 +243,8 @@ const InboxContent = () => {
                 className="reply-input"
                 placeholder="Type your reply here..."
               ></textarea>
+            </div>
+                </div>
               <button className="send-button">
                 <span>Send</span>
                 <svg
@@ -243,8 +257,6 @@ const InboxContent = () => {
                   <path d="M2 21l21-9L2 3v7l15 2-15 2v7z" />
                 </svg>
               </button>
-            </div>
-        </div>
 
         </div>
       )}
