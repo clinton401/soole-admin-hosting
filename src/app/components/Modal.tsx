@@ -1,33 +1,61 @@
 "use client";
 
-import React, { FC } from "react";
+import React, { FC, ReactNode } from "react";
 
 interface ModalProps {
   isOpen: boolean;
   title?: string;
   content?: string;
   preamble?: string;
-  onConfirm: () => void;
-  onCancel: () => void;
   preambleStyle?: React.CSSProperties;
+  onConfirm?: () => void;
+  onCancel?: () => void;
+  onAdd?: () => void; // New Add action handler
+  children?: ReactNode;
+  actionButtons?: "confirm-cancel" | "add"
 }
 
-const Modal: FC<ModalProps> = ({ isOpen, title, preamble, content, onConfirm, onCancel, preambleStyle }) => {
+const Modal: FC<ModalProps> = ({
+  isOpen,
+  title,
+  preamble,
+  content,
+  preambleStyle,
+  onConfirm,
+  onCancel,
+  onAdd,
+  children,
+  actionButtons = "confirm-cancel",
+}) => {
   if (!isOpen) return null;
 
   return (
     <div className="modal-overlay">
       <div className="modal-container">
-        <h3 className="modal-title">{title}</h3>
-        <p className="modal-content">{content}</p>
-        <p className="modal-preamble" style={preambleStyle}>{preamble}</p>
+        {title && <h3 className="modal-title">{title}</h3>}
+        {content && <p className="modal-content">{content}</p>}
+        {preamble && (
+          <p className="modal-preamble" style={preambleStyle}>
+            {preamble}
+          </p>
+        )}
+        {children && <div className="modal-children">{children}</div>}
         <div className="modal-actions">
-          <button className="modal-button confirm" onClick={onConfirm}>
-            Confirm
-          </button>
-          <button className="modal-button cancel" onClick={onCancel}>
-            Cancel
-          </button>
+          {actionButtons === "confirm-cancel" && (
+            <>
+              <button className="modal-button confirm" onClick={onConfirm}>
+                Confirm
+              </button>
+              <button className="modal-button cancel" onClick={onCancel}>
+                Cancel
+              </button>
+            </>
+          )}
+          {actionButtons === "add" && (
+            <button className="modal-button add" onClick={onAdd}>
+              Add
+            </button>
+          )}
         </div>
       </div>
     </div>

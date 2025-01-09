@@ -38,21 +38,18 @@ const TeamManagement = () => {
 
   const [activeMenu, setActiveMenu] = useState<number | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalType, setModalType] = useState<"action" | "add">("action");
   const [modalContent, setModalContent] = useState({
     preamble: "",
     action: () => {},
   });
 
-  const addNewProfile = () => {
-    const newProfile = {
-      id: profiles.length + 1,
-      name: "New User",
-      title: "New Title",
-      email: "new.user@example.com",
-      image: "/profilePic.png",
-    };
-    setProfiles([...profiles, newProfile]);
-  };
+  const [newAgent, setNewAgent] = useState({
+    name: "",
+    title: "",
+    email: "",
+    phone: "",
+  });
 
   const handleMenuClick = (id: number) => {
     setActiveMenu((prev) => (prev === id ? null : id));
@@ -72,7 +69,8 @@ const TeamManagement = () => {
     };
   }, []);
 
-  const openModal = (preamble: string, action: () => void) => {
+  const openModal = (type: "action" | "add", preamble: string, action: () => void) => {
+    setModalType(type);
     setModalContent({ preamble, action });
     setIsModalOpen(true);
   };
@@ -86,10 +84,26 @@ const TeamManagement = () => {
     setIsModalOpen(false);
   };
 
+  const handleAddAgent = () => {
+    setProfiles((prev) => [
+      ...prev,
+      {
+        id: prev.length + 1,
+        name: newAgent.name,
+        title: newAgent.title,
+        email: newAgent.email,
+        phone: newAgent.phone,
+        image: "/profilePic.png", // Default image
+      },
+    ]);
+    setNewAgent({ name: "", title: "", email: "", phone: "" }); // Reset inputs
+    setIsModalOpen(false);
+  };
+
   return (
     <div className="ff-Mabry-Pro">
       <h2 className="ff-Mabry-Pro-bold fs-32">Team Management</h2>
-      <div className="profile-container ff-Mabry-Pro-bold ">
+      <div className="profile-container ff-Mabry-Pro-bold">
         {profiles.map((profile) => (
           <div key={profile.id} className="profile-card">
             <div className="menu-button" onClick={() => handleMenuClick(profile.id)}>
@@ -101,6 +115,7 @@ const TeamManagement = () => {
                   className="popup-button"
                   onClick={() =>
                     openModal(
+                      "action",
                       `You are about to give full access to ${profile.name} by making them a Super Admin.`,
                       () => console.log(`${profile.name} is now a Super Admin.`)
                     )
@@ -112,6 +127,7 @@ const TeamManagement = () => {
                   className="popup-button"
                   onClick={() =>
                     openModal(
+                      "action",
                       `You are about to remove ${profile.name}.`,
                       () =>
                         setProfiles((prev) =>
@@ -136,7 +152,16 @@ const TeamManagement = () => {
             <p className="profile-email">{profile.email}</p>
           </div>
         ))}
-        <div className="add-card" onClick={addNewProfile}>
+        <div
+          className="add-card"
+          onClick={() =>
+            openModal(
+              "add",
+              "Add New Agent",
+              handleAddAgent
+            )
+          }
+        >
           <div className="add-icon-container">
             <span className="add-icon">+</span>
           </div>
@@ -145,11 +170,49 @@ const TeamManagement = () => {
       </div>
       <Modal
         isOpen={isModalOpen}
+        // title={modalType === "add" ? "Add New Agent" : undefined}
         preamble={modalContent.preamble}
         preambleStyle={{ fontSize: "1.5rem" }}
-        onConfirm={handleConfirm}
+        onConfirm={modalType === "action" ? handleConfirm : undefined}
         onCancel={handleCancel}
-      />
+        onAdd={modalType === "add" ? handleAddAgent : undefined}
+        actionButtons={modalType === "add" ? "add" : "confirm-cancel"}
+      >
+        {modalType === "add" && (
+          <form>
+            <label>Name</label>
+            <input
+              type="text"
+              value={newAgent.name}
+              onChange={(e) => setNewAgent({ ...newAgent, name: e.target.value })}
+            />
+            <label>Title</label>
+            <input
+              type="text"
+              value={newAgent.title}
+              onChange={(e) =>
+                setNewAgent({ ...newAgent, title: e.target.value })
+              }
+            />
+            <label>Work Email</label>
+            <input
+              type="email"
+              value={newAgent.email}
+              onChange={(e) =>
+                setNewAgent({ ...newAgent, email: e.target.value })
+              }
+            />
+            <label>Phone Number</label>
+            <input
+              type="tel"
+              value={newAgent.phone}
+              onChange={(e) =>
+                setNewAgent({ ...newAgent, phone: e.target.value })
+              }
+            />
+          </form>
+        )}
+      </Modal>
     </div>
   );
 };
