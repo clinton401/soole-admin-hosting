@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 
 const TeamManagement = () => {
@@ -9,28 +9,28 @@ const TeamManagement = () => {
       id: 1,
       name: 'Korede Bello',
       title: 'Software Engineer',
-      email: 'korede.bello@example.com',
+      email: 'koredebello@example.com',
       image: '/profilePic.png',
     },
     {
       id: 2,
       name: 'Jane Doe',
       title: 'Project Manager',
-      email: 'jane.doe@example.com',
+      email: 'janedoe@example.com',
       image: '/profilePic.png',
     },
     {
       id: 3,
       name: 'John Smith',
       title: 'UI/UX Designer',
-      email: 'john.smith@example.com',
+      email: 'johnsmith@example.com',
       image: '/profilePic.png',
     },
     {
       id: 4,
       name: 'Sarah Lee',
       title: 'QA Specialist',
-      email: 'sarah.lee@example.com',
+      email: 'sarahlee@example.com',
       image: '/profilePic.png',
     },
   ]);
@@ -51,6 +51,21 @@ const TeamManagement = () => {
   const handleMenuClick = (id: number) => {
     setActiveMenu((prev) => (prev === id ? null : id));
   };
+
+
+  const handleClickOutside = (event: MouseEvent) => {
+    const target = event.target as HTMLElement;
+    if (!target.closest(".popup-menu") && !target.closest(".menu-button")) {
+      setActiveMenu(null);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <div>
@@ -83,7 +98,7 @@ const TeamManagement = () => {
         <div className="add-icon-container">
     <span className="add-icon">+</span>
   </div>
-  <p className="add-text">Add New</p>
+  <p className="add-text">Add new agent</p>
         </div>
       </div>
     </div>

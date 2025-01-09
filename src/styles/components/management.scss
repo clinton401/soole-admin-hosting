@@ -83,14 +83,14 @@
   
   .add-icon {
     font-size: 2.5rem;
-    color: #fff; /* Icon color matches parent */
-    z-index: 2; /* Ensure the icon is above the yellow circle */
+    color: #fff;
+    z-index: 2;
     position: relative;
   }
   
   .add-text {
     font-size: 1rem;
-    color: #666;
+    color: #D2AC47;
     margin: 0;
     text-align: center;
   }
@@ -98,12 +98,14 @@
   .popup-menu {
     position: absolute;
     top: 2rem;
-    right: 1rem;
+    right: 1.2rem;
     background: #fff;
     border: 1px solid #ccc;
     border-radius: 0.5rem;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     z-index: 10;
+    // width: 13rem;
+    // height: 4rem;
     padding: 0.5rem 1rem;
   }
   
@@ -114,8 +116,9 @@
     color: #333;
     text-align: left;
     width: 100%;
-    padding: 0.5rem 0;
     cursor: pointer;
+    padding: 6px;
+
   }
   
   .popup-button:hover {
