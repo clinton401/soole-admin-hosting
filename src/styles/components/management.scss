@@ -4,50 +4,54 @@
     gap: 1.5rem;
     margin-top: 2rem;
     margin-inline-end: 2rem;
-  }
-  
-  .profile-card {
-    position: relative;
-    background: #fff;
-    border-radius: 1rem;
+
+
+    
+    .profile-card {
+        position: relative;
+        background: #fff;
+        border-radius: 1rem;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 1rem;
     text-align: center;
     height: 15.25rem;
     width: 21.5333rem;
-  }
-  
-  .menu-button {
+}
+
+.menu-button {
     position: absolute;
     top: 1rem;
     right: 1rem;
     font-size: 1.5rem;
     cursor: pointer;
     color: #999;
-  }
-  
-  .profile-picture {
+}
+
+.profile-picture {
     width: 80px;
     height: 80px;
     border-radius: 50%;
     margin: 0 auto;
-  }
-  
-  .profile-name {
+}
+
+.profile-name {
     font-size: 1.2rem;
     font-weight: bold;
     margin-top: 0.5rem;
-  }
-  
-  .profile-title {
+}
+
+.profile-title {
     color: #d2ac47;
     margin: 0.3rem 0;
-  }
-  
-  .profile-email {
+}
+
+.profile-email {
     color: #777;
     font-size: 0.9rem;
-  }
+}
+
+}
+
   
   .add-card {
     display: flex;
@@ -118,7 +122,6 @@
     width: 100%;
     cursor: pointer;
     padding: 6px;
-
   }
   
   .popup-button:hover {
