@@ -247,17 +247,13 @@
     border: none;
     margin-left: 0.5rem;
     cursor: pointer;
-
-    // svg {
-    //   fill: black;
-    // }
   }
 
   .reply-section {
     display: flex;
-    align-items: flex-start;
+    align-items: flex-end;
     gap: 1rem;
-    margin-top: 1rem;
+    margin-block: 1rem;
     flex-direction: column;
   }
   
@@ -273,8 +269,11 @@
     display: flex;
     align-items: center;
     background-color: #d2ac47;
-    border-radius: 0.5rem;
+    border-radius: 1rem 1rem 0 1rem;
     padding: 0.5rem;
+    width: 37rem;
+    height: 7.25rem;
+    overflow: hidden;
   }
   
   .reply-input {
@@ -286,7 +285,6 @@
     outline: none;
     resize: none;
     padding: 0.5rem;
-
   }
   
   .send-button {
