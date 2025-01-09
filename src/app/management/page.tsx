@@ -80,7 +80,10 @@ const TeamManagement = () => {
           </div>
         ))}
         <div className="add-card" onClick={addNewProfile}>
-          <span className="add-icon">+</span>
+        <div className="add-icon-container">
+    <span className="add-icon">+</span>
+  </div>
+  <p className="add-text">Add New</p>
         </div>
       </div>
     </div>

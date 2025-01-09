@@ -1,8 +1,9 @@
 .profile-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 1.5rem;
     margin-top: 2rem;
+    margin-inline-end: 2rem;
   }
   
   .profile-card {
@@ -12,6 +13,8 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 1rem;
     text-align: center;
+    height: 15.25rem;
+    width: 21.5333rem;
   }
   
   .menu-button {
@@ -48,23 +51,50 @@
   
   .add-card {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     background: #fff;
-    // border: 2px dashed #d2ac47;
     border-radius: 1rem;
-    height: 200px;
+    height: 15.25rem;
+    width: 21.5333rem;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     cursor: pointer;
+    position: relative;
+  }
+  
+  .add-icon-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1rem; /* Add space between the icon and text */
+  }
+  
+  .add-icon-container::before {
+    content: '';
+    position: absolute;
+    width: 3rem;
+    height: 3rem;
+    background-color: #d2ac47; /* Yellow background */
+    border-radius: 50%;
+    z-index: 1;
   }
   
   .add-icon {
-    font-size: 2rem;
-    color: #d2ac47;
-    font-weight: bold;
+    font-size: 2.5rem;
+    color: #fff; /* Icon color matches parent */
+    z-index: 2; /* Ensure the icon is above the yellow circle */
+    position: relative;
   }
   
-
+  .add-text {
+    font-size: 1rem;
+    color: #666;
+    margin: 0;
+    text-align: center;
+  }
+  
   .popup-menu {
     position: absolute;
     top: 2rem;
