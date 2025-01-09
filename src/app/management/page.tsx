@@ -15,16 +15,16 @@ const TeamManagement = () => {
     },
     {
       id: 2,
-      name: "Jane Doe",
+      name: "Jegede Glory",
       title: "Project Manager",
-      email: "janedoe@example.com",
+      email: "jegedeglory@gmail.com",
       image: "/profilePic.png",
     },
     {
       id: 3,
-      name: "John Smith",
+      name: "Banso Tolulope",
       title: "UI/UX Designer",
-      email: "johnsmith@example.com",
+      email: "Bansotolulope@gmail.com",
       image: "/profilePic.png",
     },
     {
@@ -57,8 +57,15 @@ const TeamManagement = () => {
 
   const handleClickOutside = (event: MouseEvent) => {
     const target = event.target as HTMLElement;
-    if (!target.closest(".popup-menu") && !target.closest(".menu-button")) {
+    if (
+      !target.closest(".popup-menu") && 
+      !target.closest(".add") && 
+      !target.closest(".modal-content") // Ensure the modal's content doesn't trigger close
+    ) {
       setActiveMenu(null);
+      if (isModalOpen) {
+        setIsModalOpen(false); // Close the modal if it's open
+      }
     }
   };
 
@@ -157,7 +164,7 @@ const TeamManagement = () => {
           onClick={() =>
             openModal(
               "add",
-              "Add New Agent",
+              "Add Admin",
               handleAddAgent
             )
           }

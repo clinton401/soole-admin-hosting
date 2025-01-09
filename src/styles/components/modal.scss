@@ -29,6 +29,7 @@
   .modal-content {
     margin-bottom: 20px;
     font-size: 40px;
+    
   }
 
   .modal-preamble {
@@ -37,9 +38,9 @@
     font-weight: 700;
     color: #333;
     margin-bottom: 20px;
+    text-align: center;
   }
 
-  /* Form Styles */
 form {
   display: flex;
   flex-direction: column;
@@ -74,6 +75,7 @@ form input:focus {
     // justify-content: flex-end;
     flex-direction: column;
     gap: 10px;
+    
   }
   
   .modal-button {
