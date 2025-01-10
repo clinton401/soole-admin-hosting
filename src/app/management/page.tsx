@@ -64,7 +64,7 @@ const TeamManagement = () => {
     ) {
       setActiveMenu(null);
       if (isModalOpen) {
-        setIsModalOpen(false); // Close the modal if it's open
+        setIsModalOpen(false);
       }
     }
   };
@@ -100,10 +100,10 @@ const TeamManagement = () => {
         title: newAgent.title,
         email: newAgent.email,
         phone: newAgent.phone,
-        image: "/profilePic.png", // Default image
+        image: "/profilePic.png",
       },
     ]);
-    setNewAgent({ name: "", title: "", email: "", phone: "" }); // Reset inputs
+    setNewAgent({ name: "", title: "", email: "", phone: "" });
     setIsModalOpen(false);
   };
 
