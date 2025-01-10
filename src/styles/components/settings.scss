@@ -1,11 +1,25 @@
 .settings-container {
     padding: 2rem;
+    background-color: #F3F4F8;
+    height: 100vh;
+    border-radius: 1rem;
+    box-sizing: border-box;
   }
   
   .settings-content {
     display: flex;
     gap: 2rem;
     margin-top: 2rem;
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 1rem;
+  }
+
+  .left-section {
+    display: flex;
+    flex-direction: column;
+    // align-items: flex-start;
+    gap: 1rem;
   }
   
   .left-section,
@@ -27,7 +41,6 @@
   .profile-details {
     display: flex;
     flex-direction: column;
-    // align-items: center;
   }
   
   .profile-picture-container {
@@ -35,7 +48,7 @@
     align-items: center;
   }
   
-  .profile-picture {
+  .profile-pix {
     border-radius: 50%;
     border: 5px solid black;
   }
@@ -51,6 +64,9 @@
   .upload-photo,
   .remove-photo {
     margin: 0.5rem 0;
+    border: none;
+    display: flex;
+    align-items: center;
   }
   
   .remove-photo {

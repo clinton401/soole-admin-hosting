@@ -65,7 +65,7 @@ export default function RideTracker() {
   }, []);
 
   return (
- <div className="ride-tracker">
+ <div className="ride-tracker wrapper-container">
      {/* <div className="ride-tracker"> */}
       <div className="graph-header d-flex mb-2">
 
