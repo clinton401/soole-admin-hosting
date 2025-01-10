@@ -108,7 +108,7 @@ const TeamManagement = () => {
   };
 
   return (
-    <div className="ff-Mabry-Pro wrapper-container">
+    <div className="ff-Mabry-Pro">
       <h2 className="ff-Mabry-Pro-bold fs-32">Team Management</h2>
       <div className="profile-container ff-Mabry-Pro-bold">
         {profiles.map((profile) => (
