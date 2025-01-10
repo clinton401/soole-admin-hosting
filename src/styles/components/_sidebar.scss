@@ -49,7 +49,19 @@
     }
   }
   &-link {
-    &:hover,
+    &:hover{
+      color: $bg-color;
+      background-color: $primary-color;
+      width: 192px;
+      height: 47px;
+      padding: 8px;
+      border-radius: 10px;
+      font-weight: 600;
+      position: relative;
+    }
+
+
+
     &.is-active {
       color: $bg-color;
       background-color: $primary-color;
@@ -134,9 +146,11 @@
      text-decoration: none;
      color: $text-color;
      flex-wrap: nowrap;
+     width: 192px;
+     height: 47px;
      font-size: 14px;
      & + a {
-      margin-top: 26px;
+      margin-top: 20px;
      }
     }
     svg {
