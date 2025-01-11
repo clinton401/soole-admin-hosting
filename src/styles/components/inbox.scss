@@ -36,6 +36,46 @@
         color: #333;
         cursor: pointer;
     }
+
+
+    .ticket-option {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    
+    .ticket-option.active {
+      background-color: rgba(210, 172, 71, 0.1317);
+      color: #d2ac47;
+    }
+    
+    // .ticket-button {
+    //   display: flex;
+    //   align-items: center;
+    //   border: none;
+    //   background: none;
+    //   color: inherit;
+    //   font-size: 1rem;
+    //   font-weight: bold;
+    //   cursor: pointer;
+    // }
+    
+    // .ticket-count {
+    //   font-size: 0.9rem;
+    //   color: inherit;
+    // }
+    
+    // .icon {
+    //   width: 24px;
+    //   height: 24px;
+    //   margin-right: 0.5rem;
+    //   color: inherit;
+    // }
+    
     
     .ticket-button .icon {
         width: 20px;
@@ -49,7 +89,7 @@
     }
     
     .ticket-count {
-        background-color: #f8f9fa;
+        // background-color: #f8f9fa;
         color: #495057;
         font-size: 12px;
         font-weight: bold;
