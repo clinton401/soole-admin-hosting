@@ -140,6 +140,7 @@
    .side-menu {
     display: flex;
     flex-direction: column;
+    // gap: 20px;
     a {
      display: flex;
      align-items: center;
@@ -177,6 +178,7 @@
     border-bottom: 1px solid var(--border-color);
     padding: 36px 0;
     width: 145px;
+    margin-bottom: 20px;
     & + & {
      border-bottom: none;
     }
