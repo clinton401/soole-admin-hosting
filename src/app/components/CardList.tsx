@@ -6,7 +6,6 @@ interface CardData {
   id: number;
   title: string;
   number: number;
-  // icon: React.ReactNode;
   icon: string | StaticImageData;
   description: string;
 }
@@ -31,18 +30,65 @@ const cardData: CardData[] = [
     title: "Completed Rides",
     number: 140,
     icon: "/Car2.svg",
-    description: "8.5% Up from 1 hour ago",
+    description: "8.5% up from 1 hour ago",
   },
   {
     id: 4,
     title: "Total Rides Today",
     number: 150,
     icon: "./Car3.svg",
-    description: "8.5% Up from yestrday",
+    description: "8.5% up from yesterday",
   },
 ];
 
 const CardsList: React.FC = () => {
+  // const getDescriptionWithColor = (description: string) => {
+  //   const regex = /(\d+(\.\d+)?)/; // Match numeric values, including decimals
+  //   const match = description.match(regex);
+
+  //   if (match) {
+  //     const value = parseFloat(match[0]); // Extract numeric value
+  //     const color = value >= 6.0 ? "green" : "red"; // Determine color based on the value
+
+  //     return (
+  //       <>
+  //         {description.split(regex).map((part, index) =>
+  //           part === match[0] ? (
+  //             <span key={index} style={{ color }}>
+  //               {part}
+  //             </span>
+  //           ) : (
+  //             part
+  //           )
+  //         )}
+  //       </>
+  //     );
+  //   }
+
+  //   return description; // Return the original description if no number is found
+  // };
+
+  const getDescriptionWithColor = (description: string) => {
+    const regex = /(\d+(\.\d+)?)/; // Match numeric values, including decimals
+    const match = description.match(regex);
+  
+    if (match) {
+      const value = parseFloat(match[0]); // Extract numeric value
+      const color = value >= 6.0 ? "green" : "red"; // Determine color based on the value
+  
+      // Replace the numeric value in the description with a colored span
+      const highlightedDescription = description.replace(
+        regex,
+        `<span style="color:${color};">${match[0]}</span>`
+      );
+  
+      return <span dangerouslySetInnerHTML={{ __html: highlightedDescription }} />;
+    }
+  
+    return description; // Return the original description if no number is found
+  };
+
+
   return (
     <div className="card-grid mt-1">
       {cardData.map((card) => (
@@ -55,18 +101,14 @@ const CardsList: React.FC = () => {
             style={{ width: "100%" }}
           >
             <div>
-              <p className="fs-16 mb-1 ff-Mabry-Pro-semibold card-title">{card.title}</p>
-              <span className=" ff-Mabry-Pro-bold fs-24">{card.number}</span>
+              <p className="fs-16 mb-1 ff-Mabry-Pro-semibold card-title">
+                {card.title}
+              </p>
+              <span className="ff-Mabry-Pro-bold fs-24">{card.number}</span>
             </div>
-            <Image
-              alt="Icon"
-              className=""
-              src={card.icon}
-              width={60}
-              height={60}
-            />
+            <Image alt="Icon" src={card.icon} width={60} height={60} />
           </div>
-          <p className="fs-14">{card.description}</p>
+          <p className="fs-14">{getDescriptionWithColor(card.description)}</p>
         </div>
       ))}
     </div>
