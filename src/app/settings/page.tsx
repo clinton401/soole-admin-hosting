@@ -3,6 +3,8 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { BinRedIcon, CameraIcon, MoreIcon } from "../components/Icons";
+import Modal from "../components/Modal";
+import PasswordResetForm from "../components/PasswordResetForm";
 
 const Settings = () => {
   const [newAgent, setNewAgent] = useState({
@@ -11,6 +13,7 @@ const Settings = () => {
     email: "",
     phone: "",
   });
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <div className="wrapper-container ff-Mabry-Pro">
@@ -46,7 +49,10 @@ const Settings = () => {
 
           <div className="login-details">
             <h3>Login Details</h3>
-            <button className="change-password">
+            <button
+              className="change-password"
+              onClick={() => setIsModalOpen(true)}
+            >
               Change Password
               <MoreIcon />
             </button>
@@ -95,6 +101,15 @@ const Settings = () => {
           </div>
         </div>
       </div>
+
+      <Modal
+        isOpen={isModalOpen}
+        title="Reset Password"
+        onCancel={() => setIsModalOpen(false)}
+        actionButtons="confirm-cancel"
+      >
+        <PasswordResetForm />
+      </Modal>
     </div>
   );
 };
