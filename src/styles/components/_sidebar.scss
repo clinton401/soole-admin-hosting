@@ -49,7 +49,8 @@
     }
   }
   &-link {
-    &:hover{
+    // padding-left: 16px;
+    &:hover {
       color: $bg-color;
       background-color: $primary-color;
       width: 192px;
@@ -60,46 +61,26 @@
       position: relative;
     }
 
-
-
     &.is-active {
       color: $bg-color;
       background-color: $primary-color;
       width: 192px;
       height: 47px;
-      padding: 8px;
+      padding: 0.96rem;
+      // margin-block: 2rem;
       border-radius: 10px;
       font-weight: 600;
       position: relative;
-      
-      
-      
+
       &::before {
         content: "";
         position: absolute;
-        left: 2px;
-        top: 2px;
-        bottom: 2px;
-        width: 5px;
-        background-color: inherit;
-        transform: scaleY(0);
-        transform-origin: bottom;
-        transition: transform 0.5s ease;
-      }
-      
-      &.is-active::before {
-        transform: scaleY(1);
-      }
-      
-      &:nth-child(2n + 1) {
-        svg {
-          background: $primary-color;
-        }
-      }
-      &:nth-child(2n) {
-        svg {
-          background: $primary-color;
-        }
+        left: -1.2rem;
+        top: 0;
+        bottom: 0;
+        width: 4px;
+        background-color: $primary-color;
+        border-radius: 0;
       }
     }
   }
@@ -140,7 +121,6 @@
    .side-menu {
     display: flex;
     flex-direction: column;
-    // gap: 20px;
     a {
      display: flex;
      align-items: center;
@@ -160,7 +140,6 @@
      border-radius: 10px;
      margin-right: 16px;
      &:hover {
-      // color: #fff;
       fill: #fff;
      }
     }
@@ -170,7 +149,7 @@
    .side-title {
     font-size: 12px;
     letter-spacing: 0.07em;
-    margin-bottom: 24px;
+    // margin-bottom: 24px;
 
    }
    
@@ -178,7 +157,9 @@
     border-bottom: 1px solid var(--border-color);
     padding: 36px 0;
     width: 145px;
-    margin-bottom: 20px;
+    margin-bottom: 2.25rem;
+
+    // margin-bottom: 20px;
     & + & {
      border-bottom: none;
     }
