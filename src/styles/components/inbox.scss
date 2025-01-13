@@ -1,14 +1,13 @@
 .inbox-container {
     display: flex;
-    gap: 20px;
-    // background-color: #333;    
-    .customer-tickets {
+    flex-direction: column;
     background-color: white;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border-radius: 0.875rem;
     padding: 16px;
     width: 20vw;
-    // height: 800px;
+
+    .customer-tickets {
     display: flex;
     flex-direction: column;
     // justify-content: space-between;
@@ -17,7 +16,7 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        margin-bottom: 16px;
+        // margin-bottom: 16px;
         cursor: pointer;
     }
 
@@ -35,6 +34,8 @@
         font-size: 14px;
         color: #333;
         cursor: pointer;
+  font-family: "MabryPro regular";
+
     }
 
 
@@ -97,6 +98,52 @@
         border-radius: 12px;
     }
 }
+
+.label-section {
+  margin-top: 2.94rem;
+  background-color: white;
+  padding: 16px;
+  border-radius: 0.875rem;
+  }
+
+.label-option {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+  font-family: "MabryPro regular";
+  
+}
+
+.checkbox {
+  width: 16px;
+  height: 16px;
+  margin-right: 10px;
+  border: 2px solid #d2ac47;
+  border-radius: 4px;
+  appearance: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.checkbox:checked {
+  background-color: #d2ac47;
+}
+
+.checkbox.resolved {
+  border-color: green;
+}
+
+.checkbox.unresolved {
+  border-color: #d2ac47;
+}
+
+.label-text {
+  gap: 1rem;
+  font-size: 14px;
+  color: #333;
+  display: flex;
+}
+
 
 
 }

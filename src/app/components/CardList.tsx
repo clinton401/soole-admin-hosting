@@ -69,14 +69,13 @@ const CardsList: React.FC = () => {
   // };
 
   const getDescriptionWithColor = (description: string) => {
-    const regex = /(\d+(\.\d+)?)/; // Match numeric values, including decimals
+    const regex = /(\d+(\.\d+)?)/;
     const match = description.match(regex);
   
     if (match) {
-      const value = parseFloat(match[0]); // Extract numeric value
-      const color = value >= 6.0 ? "green" : "red"; // Determine color based on the value
+      const value = parseFloat(match[0]);
+      const color = value >= 6.0 ? "green" : "red";
   
-      // Replace the numeric value in the description with a colored span
       const highlightedDescription = description.replace(
         regex,
         `<span style="color:${color};">${match[0]}</span>`
@@ -85,7 +84,7 @@ const CardsList: React.FC = () => {
       return <span dangerouslySetInnerHTML={{ __html: highlightedDescription }} />;
     }
   
-    return description; // Return the original description if no number is found
+    return description; 
   };
 
 

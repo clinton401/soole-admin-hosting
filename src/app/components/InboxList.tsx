@@ -3,6 +3,11 @@ import React, { useState } from "react";
 
 const InboxList = () => {
   const [activeButton, setActiveButton] = useState<string>("All Inbox");
+  const [labelStates, setLabelStates] = useState({
+    Resolved: false,
+    Unresolved: false,
+  });
+
   const menuItems = [
     {
       label: "All Inbox",
@@ -37,9 +42,17 @@ const InboxList = () => {
     },
   ];
 
+  const handleCheckboxChange = (label: string) => {
+    setLabelStates((prevState) => ({
+      ...prevState,
+      [label]: !prevState[label],
+    }));
+  };
+
   return (
     <div className="inbox-container">
       <div className="customer-tickets">
+        <h2 className="ff-Mabry-Pro-bold fs-16">Custom Ticket</h2>
         {menuItems.map((item) => (
           <div
             key={item.label}
@@ -57,20 +70,20 @@ const InboxList = () => {
                 stroke="currentColor"
                 className="icon"
               >
-                {item.label === "All Inbox" && (
+                            {item.label === "All Inbox" && (
                   <rect
                     x="1.25049"
                     y="1.04547"
                     width="15.2727"
                     height="10.9091"
                     rx="1.5"
-                    stroke="black"
+                    stroke=""
                     strokeWidth="1.2"
                     strokeLinecap="round"
                     strokeLinejoin="round"
                   />
                 )}
-{Array.isArray(item.iconPath)
+                {Array.isArray(item.iconPath)
                   ? item.iconPath.map((path, index) => (
                       <path
                         key={index}
@@ -90,6 +103,28 @@ const InboxList = () => {
               {item.label}
             </button>
             <span className="ticket-count">{item.count}</span>
+          </div>
+        ))}
+      </div>
+
+      
+      <div className="label-section">
+      <h2 className="ff-Mabry-Pro-bold fs-16">Label</h2>
+
+        {["Resolved", "Unresolved"].map((label) => (
+          <div key={label} className="label-option">
+            <input
+              type="checkbox"
+              id={label}
+              checked={labelStates[label as "Resolved" | "Unresolved"]}
+              onChange={() => handleCheckboxChange(label)}
+              className={`checkbox ${
+                label === "Resolved" ? "resolved" : "unresolved"
+              }`}
+            />
+                <label htmlFor={label} className="label-text">
+              {label}
+            </label>
           </div>
         ))}
       </div>
