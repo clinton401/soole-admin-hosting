@@ -42,11 +42,11 @@ const InboxList = () => {
     },
   ];
 
-  const handleCheckboxChange = (label: string) => {
-    setLabelStates((prevState) => ({
-      ...prevState,
-      [label]: !prevState[label],
-    }));
+  const handleCheckboxChange = (label: "Resolved" | "Unresolved") => {
+    setLabelStates({
+      Resolved: label === "Resolved",
+      Unresolved: label === "Unresolved",
+    });
   };
 
   return (
@@ -117,7 +117,7 @@ const InboxList = () => {
               type="checkbox"
               id={label}
               checked={labelStates[label as "Resolved" | "Unresolved"]}
-              onChange={() => handleCheckboxChange(label)}
+              onChange={() => handleCheckboxChange(label as "Resolved" | "Unresolved")}
               className={`checkbox ${
                 label === "Resolved" ? "resolved" : "unresolved"
               }`}

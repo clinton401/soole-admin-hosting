@@ -85,14 +85,14 @@
 .card-grid {
   display: grid;
   // grid-template-columns: repeat(4, 1fr);
-  grid-template-columns: repeat(4, 360px);
+  grid-template-columns: repeat(4, 260px);
   // gap: 16px;
   width: 100%;
   justify-content: space-evenly;
-  gap: 1rem;
+  gap: 1.88rem;
 
   .cards {
-    width: 22.375rem;
+    width: 16.375rem;
     height: auto;
     background-color: #fff;
     padding: 20px;
@@ -293,3 +293,4 @@
   border-radius: 8px;
   // overflow: hidden;
 }
+

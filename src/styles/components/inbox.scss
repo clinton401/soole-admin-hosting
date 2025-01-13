@@ -125,16 +125,20 @@
   cursor: pointer;
 }
 
-.checkbox:checked {
-  background-color: #d2ac47;
-}
 
 .checkbox.resolved {
   border-color: green;
 }
+.checkbox.resolved:checked{
+background-color: green;
+
+}
 
 .checkbox.unresolved {
   border-color: #d2ac47;
+}
+.checkbox.unresolved:checked{
+background-color: #d2ac47;
 }
 
 .label-text {
@@ -213,7 +217,7 @@
       align-items: center;
       padding: 0.5rem 0;
       gap: 2rem;
-      width: 60rem;
+      // width: 60rem;
       cursor: pointer;
     //   border-bottom: 1px solid #ccc;
   

@@ -19,7 +19,6 @@ const Wrapper = () => {
   ];
 
   return (
-    <div>
       <div className="mx-2 mt-0">
         <Section noWrapper name="cards">
 
@@ -40,7 +39,6 @@ const Wrapper = () => {
             </div>
         </Section>
       </div>
-    </div>
   );
 };
 
