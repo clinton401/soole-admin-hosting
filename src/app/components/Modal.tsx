@@ -10,9 +10,10 @@ interface ModalProps {
   preambleStyle?: React.CSSProperties;
   onConfirm?: () => void;
   onCancel?: () => void;
-  onAdd?: () => void; // New Add action handler
+  onAdd?: () => void;
   children?: ReactNode;
-  actionButtons?: "confirm-cancel" | "add"
+  actionButtons?: "confirm-cancel" | "add";
+  showCloseButton?: boolean;
 }
 
 const Modal: FC<ModalProps> = ({
@@ -26,14 +27,18 @@ const Modal: FC<ModalProps> = ({
   onAdd,
   children,
   actionButtons = "confirm-cancel",
+  showCloseButton = false,
 }) => {
   if (!isOpen) return null;
-
-  
 
   return (
     <div className="modal-overlay">
       <div className="modal-container">
+      {showCloseButton && (
+          <button className="close-button" onClick={onCancel}>
+            &times;
+          </button>
+        )}
         {title && <h3 className="modal-title">{title}</h3>}
         {content && <p className="modal-content">{content}</p>}
         {preamble && (

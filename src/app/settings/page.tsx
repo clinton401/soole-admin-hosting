@@ -107,6 +107,7 @@ const Settings = () => {
         title="Reset Password"
         onCancel={() => setIsModalOpen(false)}
         actionButtons="confirm-cancel"
+        showCloseButton={true}
       >
         <PasswordResetForm />
       </Modal>

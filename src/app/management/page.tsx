@@ -184,6 +184,7 @@ const TeamManagement = () => {
         onCancel={handleCancel}
         onAdd={modalType === "add" ? handleAddAgent : undefined}
         actionButtons={modalType === "add" ? "add" : "confirm-cancel"}
+        showCloseButton={false}
       >
         {modalType === "add" && (
           <form>
