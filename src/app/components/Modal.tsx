@@ -31,10 +31,18 @@ const Modal: FC<ModalProps> = ({
 }) => {
   if (!isOpen) return null;
 
+  const handleOverlayClick = (e: React.MouseEvent) => {
+    if (onCancel) onCancel();
+  };
+
+  const handleModalClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+  };
+
   return (
-    <div className="modal-overlay">
-      <div className="modal-container">
-      {showCloseButton && (
+    <div className="modal-overlay" onClick={handleOverlayClick}>
+      <div className="modal-container" onClick={handleModalClick}>
+        {showCloseButton && (
           <button className="close-button" onClick={onCancel}>
             &times;
           </button>

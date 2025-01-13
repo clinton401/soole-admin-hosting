@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import {
@@ -12,10 +12,13 @@ import {
   SettingsIcon,
   UsersIcon,
 } from "./Icons";
+import Modal from "./Modal";
 
 const Sidebar: React.FC = () => {
   // const router = useRouter();
   const pathname = usePathname();
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleResize = () => {
     const sidebar = document.querySelector(".sidebar");
@@ -44,6 +47,15 @@ const Sidebar: React.FC = () => {
   };
 
   const isActive = (path: string) => pathname === path;
+
+  const handleLogout = () => {
+    console.log("User logged out"); // Replace with actual logout logic
+    setIsModalOpen(false);
+  };
+
+  const handleCancelLogout = () => {
+    setIsModalOpen(false);
+  };
 
   return (
     <div>
@@ -118,13 +130,23 @@ const Sidebar: React.FC = () => {
         </div>
         <div className="side-wrapper">
           <div className="side-menu">
-            <a className="sidebar-link" href="#" onClick={handleLinkClick}>
+            <a className="sidebar-link" href="#" onClick={
+            () => setIsModalOpen(true)
+            }>
               <LogoutIcon />
               Logout
             </a>
           </div>
         </div>
       </div>
+      <Modal
+        isOpen={isModalOpen}
+        title="Are you sure you want to logout?"
+        onConfirm={handleLogout}
+        onCancel={handleCancelLogout}
+        actionButtons="confirm-cancel"
+      />
+
     </div>
   );
 };
