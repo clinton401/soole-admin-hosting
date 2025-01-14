@@ -116,10 +116,10 @@ const InboxContent = () => {
                   <StarIcon />
                 </button>
                 <div className="message-content d-flex gap-4 align-center justify-evenly">
-                  <strong className="d-flex justify-left">{msg.name}</strong>
+                  <p className="d-flex justify-left ff-Mabry-Pro-Regular fs-14">{msg.name}</p>
                   <p
                     onClick={() => toggleExpanded(index)}
-                    className={expanded[index] ? "expanded" : ""}
+                    className={`${expanded[index] ? "expanded" : ""} fs-14`}
                   >
                     {expanded[index]
                       ? msg.sentence
