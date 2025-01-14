@@ -75,16 +75,25 @@ const CardsList: React.FC = () => {
     if (match) {
       const value = parseFloat(match[0]);
       const color = value >= 6.0 ? "green" : "red";
-  
-      const highlightedDescription = description.replace(
-        regex,
-        `<span style="color:${color};">${match[0]}</span>`
+
+      const iconSrc = value >= 6.0 ? "/trending-up.svg" : "/trending-down.svg"; // Icon path
+
+      return (
+        <span style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+          <Image
+            src={iconSrc}
+            alt={value >= 6.0 ? "Trending Up" : "Trending Down"}
+            width={14}
+            height={14}
+            style={{ color }}
+          />
+          <span style={{ color }}>{match[0]}</span>
+          {description.slice(match.index! + match[0].length)} {/* Remaining text */}
+        </span>
       );
-  
-      return <span dangerouslySetInnerHTML={{ __html: highlightedDescription }} />;
     }
-  
-    return description; 
+
+    return description; // Return original description if no number is found
   };
 
 

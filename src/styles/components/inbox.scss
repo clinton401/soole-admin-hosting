@@ -54,29 +54,6 @@
       color: #d2ac47;
     }
     
-    // .ticket-button {
-    //   display: flex;
-    //   align-items: center;
-    //   border: none;
-    //   background: none;
-    //   color: inherit;
-    //   font-size: 1rem;
-    //   font-weight: bold;
-    //   cursor: pointer;
-    // }
-    
-    // .ticket-count {
-    //   font-size: 0.9rem;
-    //   color: inherit;
-    // }
-    
-    // .icon {
-    //   width: 24px;
-    //   height: 24px;
-    //   margin-right: 0.5rem;
-    //   color: inherit;
-    // }
-    
     
     .ticket-button .icon {
         width: 20px;
@@ -217,16 +194,13 @@ background-color: #d2ac47;
       align-items: center;
       padding: 0.5rem 0;
       gap: 2rem;
-      // width: 60rem;
       cursor: pointer;
-    //   border-bottom: 1px solid #ccc;
   
     .message-checkbox {
-        // appearance: none;
         width: 1.2rem;
         height: 1.2rem;
         border: 2px solid black;
-        border-radius: 0.2rem; /* Optional: Makes the checkbox slightly rounded */
+        border-radius: 0.2rem;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -250,9 +224,6 @@ background-color: #d2ac47;
         border: solid white;
         border-width: 0 0.2rem 0.2rem 0;
         transform: rotate(45deg);
-        // top: 10%;
-        // left: 50%;
-        // transform-origin: center;
         border-radius: 0.1rem;
       }
       
@@ -306,7 +277,6 @@ background-color: #d2ac47;
     border-radius: 0.875rem;
     padding: 16px;
     width: 60vw;
-    // height: 800px;
     display: flex;
     flex-direction: column;
     margin: 0;
@@ -330,7 +300,6 @@ background-color: #d2ac47;
     .message-button-wrapper {
         display: flex;
         align-items: center;
-        // margin-bottom: 1rem;
         justify-content: space-between;
 }
 .icon-button {
@@ -368,7 +337,6 @@ background-color: #d2ac47;
   }
   
   .reply-input {
-    // flex: 1;
     border: none;
     background: transparent;
     color: #fff;
