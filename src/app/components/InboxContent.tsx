@@ -115,8 +115,8 @@ const InboxContent = () => {
                 >
                   <StarIcon />
                 </button>
-                <div className="message-content d-flex gap-4 align-center justify-evenly">
-                  <p className="d-flex justify-left ff-Mabry-Pro-Regular fs-14">{msg.name}</p>
+                <div className="message-content d-flex gap-3 align-center justify-evenly">
+                  <p className="ff-Mabry-Pro-Regular fs-14">{msg.name}</p>
                   <p
                     onClick={() => toggleExpanded(index)}
                     className={`${expanded[index] ? "expanded" : ""} fs-14`}
@@ -125,8 +125,8 @@ const InboxContent = () => {
                       ? msg.sentence
                       : msg.sentence.split(" ").slice(0, 10).join(" ") + "..."}
                   </p>
-                </div>
                 <span className="message-time">{msg.time}</span>
+                </div>
               </div>
             ))}
           </div>

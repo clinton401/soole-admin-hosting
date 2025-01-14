@@ -247,7 +247,7 @@ background-color: #d2ac47;
     .message-content {
         flex: 1;
         
-        strong {
+        p {
             display: block;
         }
         
@@ -266,7 +266,9 @@ background-color: #d2ac47;
   
       .message-time {
         margin-left: auto;
-        white-space: nowrap;
+        font-size: 14px;
+        font-family: "MabryPro regular";
+        // white-space: nowrap;
       }
     }
 
