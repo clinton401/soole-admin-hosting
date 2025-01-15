@@ -31,7 +31,7 @@ const Modal: FC<ModalProps> = ({
 }) => {
   if (!isOpen) return null;
 
-  const handleOverlayClick = (e: React.MouseEvent) => {
+  const handleOverlayClick = () => {
     if (onCancel) onCancel();
   };
 

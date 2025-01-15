@@ -74,7 +74,7 @@ const TeamManagement = () => {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, []);
+  });
 
   const openModal = (type: "action" | "add", preamble: string, action: () => void) => {
     setModalType(type);
