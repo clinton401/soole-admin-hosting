@@ -17,7 +17,7 @@ export default function RootLayout({
     <html lang="en">
       <body className="d-flex">
       <Sidebar/>
-     <div className="d-flex gap-4 d-flex-1 flex-column">
+     <div className="d-flex gap-2 d-flex-1 flex-column">
 
       <Searchbar/>
         <main className="d-flex-1">

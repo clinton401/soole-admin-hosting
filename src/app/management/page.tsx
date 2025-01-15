@@ -155,7 +155,7 @@ const TeamManagement = () => {
               width={20}
               height={20}
             />
-            <h3 className="profile-name">{profile.name}</h3>
+            <p className="profile-name">{profile.name}</p>
             <p className="profile-title">{profile.title}</p>
             <p className="profile-email">{profile.email}</p>
           </div>
