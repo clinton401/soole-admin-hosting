@@ -22,7 +22,7 @@ const Settings = () => {
         <div className="left-section">
           <div>
             <div className="personal-details">
-              <h3>Personal Details</h3>
+              <h3 className="ff-Mabry-Pro-bold">Personal Details</h3>
             </div>
             <div className="profile-details">
               <div className="profile-picture-container">
@@ -48,7 +48,7 @@ const Settings = () => {
           </div>
 
           <div className="login-details">
-            <h3>Login Details</h3>
+            <h3 className="ff-Mabry-Pro-bold">Login Details</h3>
             <button
               className="change-password"
               onClick={() => setIsModalOpen(true)}
