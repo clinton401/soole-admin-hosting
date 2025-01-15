@@ -60,7 +60,7 @@ const TeamManagement = () => {
     if (
       !target.closest(".popup-menu") && 
       !target.closest(".add") && 
-      !target.closest(".modal-content") // Ensure the modal's content doesn't trigger close
+      !target.closest(".modal-content")
     ) {
       setActiveMenu(null);
       if (isModalOpen) {

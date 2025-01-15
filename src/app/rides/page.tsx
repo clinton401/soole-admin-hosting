@@ -61,6 +61,8 @@ export default function RideTracker() {
   }, []);
 
   return (
+    <div className="container">
+
     <div className="ride-tracker">
       <div className="graph-header d-flex mb-2">
         <h2 className="ride-tracker-title ff-Mabry-Pro-bold">Real-Time Ride Tracker</h2>
@@ -74,6 +76,7 @@ export default function RideTracker() {
         </select>
       </div>
       <div id="ride-tracker-map" className="map-content"></div>
+    </div>
     </div>
   );
 }
