@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import Modal from "../components/Modal";
 
@@ -55,27 +55,6 @@ const TeamManagement = () => {
     setActiveMenu((prev) => (prev === id ? null : id));
   };
 
-  const handleClickOutside = (event: MouseEvent) => {
-    const target = event.target as HTMLElement;
-    if (
-      !target.closest(".popup-menu") && 
-      !target.closest(".add") && 
-      !target.closest(".modal-content")
-    ) {
-      setActiveMenu(null);
-      if (isModalOpen) {
-        setIsModalOpen(false);
-      }
-    }
-  };
-
-  useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  });
-
   const openModal = (type: "action" | "add", preamble: string, action: () => void) => {
     setModalType(type);
     setModalContent({ preamble, action });
@@ -92,6 +71,11 @@ const TeamManagement = () => {
   };
 
   const handleAddAgent = () => {
+    if (!newAgent.name || !newAgent.title || !newAgent.email) {
+      alert("Please fill in all required fields.");
+      return;
+    }
+
     setProfiles((prev) => [
       ...prev,
       {
@@ -106,30 +90,6 @@ const TeamManagement = () => {
     setNewAgent({ name: "", title: "", email: "", phone: "" });
     setIsModalOpen(false);
   };
-
-
-  // const handleAddAgent = () => {
-  //   if (!newAgent.name || !newAgent.title || !newAgent.email) {
-  //     alert("Please fill in all required fields (Name, Title, and Email).");
-  //     return;
-  //   }
-  
-  //   setProfiles((prev) => [
-  //     ...prev,
-  //     {
-  //       id: Date.now(),
-  //       name: newAgent.name,
-  //       title: newAgent.title,
-  //       email: newAgent.email,
-  //       phone: newAgent.phone,
-  //       image: "/profilePic.png",
-  //     },
-  //   ]);
-  //   setNewAgent({ name: "", title: "", email: "", phone: "" });
-  //   setIsModalOpen(false);
-  // };
-  
-  
 
   return (
     <div className="ff-Mabry-Pro wrapper-container">
