@@ -106,6 +106,29 @@ const TeamManagement = () => {
     setNewAgent({ name: "", title: "", email: "", phone: "" });
     setIsModalOpen(false);
   };
+
+
+  // const handleAddAgent = () => {
+  //   if (!newAgent.name || !newAgent.title || !newAgent.email) {
+  //     alert("Please fill in all required fields (Name, Title, and Email).");
+  //     return;
+  //   }
+  
+  //   setProfiles((prev) => [
+  //     ...prev,
+  //     {
+  //       id: Date.now(),
+  //       name: newAgent.name,
+  //       title: newAgent.title,
+  //       email: newAgent.email,
+  //       phone: newAgent.phone,
+  //       image: "/profilePic.png",
+  //     },
+  //   ]);
+  //   setNewAgent({ name: "", title: "", email: "", phone: "" });
+  //   setIsModalOpen(false);
+  // };
+  
   
 
   return (
@@ -178,7 +201,6 @@ const TeamManagement = () => {
       </div>
       <Modal
         isOpen={isModalOpen}
-        // title={modalType === "add" ? "Add New Agent" : undefined}
         preamble={modalContent.preamble}
         preambleStyle={{ fontSize: "1.5rem" }}
         onConfirm={modalType === "action" ? handleConfirm : undefined}
