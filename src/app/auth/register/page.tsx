@@ -10,7 +10,6 @@ export default function Register() {
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Implement registration logic here (e.g., API call to register)
     console.log("Registered:", { email, password });
     alert("Registration successful. Please log in.");
     router.push("/auth/login");
@@ -18,7 +17,7 @@ export default function Register() {
 
   return (
     <div className="auth-container">
-      <h1>Register</h1>
+      <h1 className="ff-Mabry-Pro-bold">Register</h1>
       <form onSubmit={handleRegister}>
         <label>Email</label>
         <input
