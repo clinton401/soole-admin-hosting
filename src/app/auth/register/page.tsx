@@ -17,7 +17,7 @@ export default function Register() {
 
   return (
     <div className="auth-container">
-      <h1 className="ff-Mabry-Pro-bold">Register</h1>
+      <h1 className="ff-Mabry-Pro-bold">Admin Dashboard</h1>
       <form onSubmit={handleRegister}>
         <label>Email</label>
         <input
