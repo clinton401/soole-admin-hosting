@@ -1,24 +1,59 @@
 "use client";
 
-import React, { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import React, { useEffect, useState, useContext } from "react";
+import { useRouter, usePathname } from "next/navigation";
+import Searchbar from "./Searchbar";
+import Sidebar from "./Sidebar";
+import { AppContext } from "./ContextProvider";
 
-export default function AuthWrapper({ children }: { children: React.ReactNode }) {
+
+export default function AuthWrapper({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const {isAuthenticated} = useContext(AppContext)
   const router = useRouter();
+  const pathname = usePathname();
+const authRoutes = ["/auth/login", "/auth/register"];
+const isAuthRoute = authRoutes.includes(pathname)
+ 
+const handleRedirect = () => {
+  console.log({pathname, isAuthenticated, isAuthRoute})
+  if (!isAuthenticated && !isAuthRoute) {
+    console.log("Unauthenticated")
+    router.push("/auth/login");
+    return;
+  }
+  
+  if (isAuthenticated && isAuthRoute) {
+    router.push("/");
+    return;
+  }
+};
 
-  useEffect(() => {
-    const isAuthenticated = Boolean(localStorage.getItem("token"));
-    if (!isAuthenticated) {
-      router.push("/auth/login");
-    }
-  }, [router]);
+  useEffect(()=>  {
+    handleRedirect()
+  },[isAuthenticated, pathname])
 
-  return <>{children}</>;
+  return (
+    <>
+     {!isAuthRoute && (
+  
+  <Sidebar />
+
+)}
+      <div className="d-flex gap-2 d-flex-1 flex-column">
+          { !isAuthRoute && <Searchbar /> }
+          <div className="d-flex-1">
+            {children}
+          </div>
+        </div>
+     
+      {/* {children} */}
+    </>
+  );
 }
-
-
-
-
 
 // "use client";
 

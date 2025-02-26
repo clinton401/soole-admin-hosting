@@ -11,7 +11,7 @@ $container-width: 400px;
 
 .auth-container {
   max-width: 26.4375rem;
-  height: 36rem;
+  min-height: 36rem;
   margin: auto;
   padding: 20px;
   border: 1px solid $border-color;
@@ -35,12 +35,12 @@ $container-width: 400px;
     flex-direction: column;
 
     label {
-      margin-bottom: 8px;
+      margin-bottom: 4px;
       font-weight: bold;
     }
 
     input {
-      margin-bottom: 16px;
+      margin-bottom: 8px;
       padding: $input-padding;
       border: 1px solid $border-color;
       border-radius: 4px;
@@ -49,6 +49,12 @@ $container-width: 400px;
       &:focus {
         outline: none;
         border-color: $primary-color;
+      }
+      &::placeholder {
+        font-size: 0.85rem;
+        font-style: italic; 
+     
+        // opacity: 1;
       }
     }
 
