@@ -10,10 +10,14 @@ import { LoginSchema } from "../../../../schema";
 import { z } from "zod";
 import useToast from "../../../../hooks/use-toast";
 import { handleAxiosError } from "../../../../config/handleAxiosError";
+import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
+
 export default function Login() {
   const [contactInfo, setContactInfo] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [isPending, setIsPending] = useState(false);
+
   const { push } = useRouter();
   const { setIsAuthenticated, setUser, setAccessToken } =
     useContext(AppContext);
@@ -55,6 +59,10 @@ export default function Login() {
     }
   };
 
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
   return (
     <div className="auth-container">
       <Image
@@ -67,7 +75,6 @@ export default function Login() {
 
       <h1 className="ff-Mabry-Pro-bold">Admin Dashboard</h1>
       <form onSubmit={handleLogin}>
-        <label>Enter phone number or email address</label>
         <input
           disabled={isPending}
           type="text"
@@ -75,15 +82,27 @@ export default function Login() {
           value={contactInfo}
           onChange={(e) => setContactInfo(e.target.value)}
           required
+          placeholder="Enter phone number or email address"
+          className="px-2"
         />
-        <label>Password</label>
+          <div className="password-input-container">
         <input
           disabled={isPending}
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
+          placeholder="Enter password"
+
         />
+                    <button
+              type="button"
+              onClick={togglePasswordVisibility}
+              className="light password-toggle-button"
+            >
+              {showPassword ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
+            </button>
+          </div>
         <SubmitButton isPending={isPending} text="Login" />
       </form>
       <p>
