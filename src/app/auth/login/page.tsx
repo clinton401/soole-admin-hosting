@@ -76,10 +76,6 @@ export default function Login() {
 
       <h1 className="ff-Mabry-Pro-bold">Admin Dashboard</h1>
       <form onSubmit={handleLogin}>
-<<<<<<< HEAD
-        <label> Phone number or email address</label>
-=======
->>>>>>> 5e31741506ee94bffef375b6c2b45d062aa69c92
         <input
           disabled={isPending}
           type="text"
