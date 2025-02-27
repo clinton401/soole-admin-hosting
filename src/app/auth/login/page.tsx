@@ -35,7 +35,11 @@ export default function Login() {
     try {
       setIsPending(true);
       const body = validatedFields.data;
+<<<<<<< HEAD
       console.log(body)
+=======
+      // console.log(body)
+>>>>>>> main
       const response = await api.post("/auth/login", body);
       if (response.status === 200 && response.data) {
         setAccessToken(response.data.access_token);

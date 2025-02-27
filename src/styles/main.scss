@@ -20,7 +20,20 @@
 @import 'components/auth.scss';
 @import 'components/loader.scss';
 
-
+.refetch-button {
+    padding: $button-padding;
+        background-color: $primary-color;
+        color: white;
+        width: 100px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: bold;
+  
+        &:hover {
+          background-color: $primary-color-hover;
+        }
+  }
 .wrapper-container {
     padding: 0.2rem 2rem;
     background-color: #F3F4F8;

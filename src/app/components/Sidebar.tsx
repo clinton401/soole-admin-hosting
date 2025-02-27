@@ -56,75 +56,90 @@ const Sidebar: React.FC = () => {
   const handleCancelLogout = () => {
     setIsModalOpen(false);
   };
+ 
 
   return (
     <div>
       <div className="sidebar">
-        <Link legacyBehavior href="/">
-          <a className="logo-expand">
+        <Link  href="/" className="logo-expand">
+          {/* <a className="logo-expand"> */}
             <Image src="/Soólè.svg" alt="Soólè" width={100} height={100} />
-          </a>
+          {/* </a> */}
         </Link>
 
         <div className="side-wrapper">
           <div className="side-menu">
-            <Link legacyBehavior href="/">
-              <a
+            <Link  href="/" className={`sidebar-link discover ${
+                  isActive("/") ? "is-active" : ""
+                }`} >
+              {/* <a
                 className={`sidebar-link discover ${
                   isActive("/") ? "is-active" : ""
                 }`}
                 onClick={handleLinkClick}
-              >
+              > */}
                 <DashboardIcon />
                 Dashboard
-              </a>
+              {/* </a> */}
             </Link>
 
-            <Link legacyBehavior href="/rides">
-              <a
+            <Link  href="/rides" className={`sidebar-link trending ${
+                  isActive("/rides") ? "is-active" : ""
+                }` }
+                // onClick={handleLinkClick}
+                >
+              {/* <a
                 className="sidebar-link trending"
                 href="/rides"
                 onClick={handleLinkClick}
-              >
+              > */}
                 <RidesIcon />
                 Rides
-              </a>
+              {/* </a> */}
             </Link>
-            <Link legacyBehavior href="/users">
-              <a
+            <Link  href="/users" className={`sidebar-link ${
+                  isActive("/users") ? "is-active" : ""
+                }`}>
+              {/* <a
                 className={`sidebar-link ${
                   isActive("/users") ? "is-active" : ""
                 }`}
                 onClick={handleLinkClick}
-              >
+              > */}
                 <UsersIcon />
                 Users
-              </a>
+              {/* </a> */}
             </Link>
-            <Link legacyBehavior href="/inbox">
-              <a
+            <Link  href="/inbox"  className={`sidebar-link ${
+                  isActive("/inbox") ? "is-active" : ""
+                }`}>
+              {/* <a
                 className={`sidebar-link ${
                   isActive("/inbox") ? "is-active" : ""
                 }`}
                 onClick={handleLinkClick}
-              >
+              > */}
                 <InboxIcon />
                 Inbox
-              </a>
+              {/* </a> */}
             </Link>
 
-            <Link legacyBehavior href="/management">
-              <a className="sidebar-link" onClick={handleLinkClick}>
+            <Link  href="/management"  className={`sidebar-link ${
+                  isActive("/management") ? "is-active" : ""
+                }`}>
+              {/* <a className="sidebar-link" onClick={handleLinkClick}> */}
                 <ManagementIcon />
                 Team Management
-              </a>
+              {/* </a> */}
             </Link>
 
-            <Link legacyBehavior href="/settings">
-              <a className="sidebar-link" onClick={handleLinkClick}>
+            <Link  href="/settings" className={`sidebar-link ${
+                  isActive("/settings") ? "is-active " : ""
+                }`}>
+              {/* <a className="sidebar-link" onClick={handleLinkClick}> */}
                 <SettingsIcon />
                 Settings
-              </a>
+              {/* </a> */}
             </Link>
           </div>
         </div>

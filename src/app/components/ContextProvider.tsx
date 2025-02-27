@@ -139,7 +139,6 @@ push("/auth/login")
     getHeaders,
     logout
   };
-  console.log({ isAuthenticated, accessToken, user });
   return <AppContext.Provider value={values}>{children}</AppContext.Provider>;
 };
 

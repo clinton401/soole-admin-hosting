@@ -111,13 +111,24 @@
 
 .card-grid {
   display: grid;
-  grid-template-columns: repeat(4, 260px);
-  width: 100%;
-  justify-content: space-evenly;
-  gap: 1.88rem;
+  grid-template-columns: repeat(4, 23.5%);
+  // width: calc(10vw - 230px);
+  // justify-content: space-evenly;
+  // gap: 2.6%;
+  // display: flex;
+  // justify-content: space-between;
+  gap: 16px 2%;
+  overflow: hidden;
+  width: calc(100vw - 350px);
+  
+
 
   .cards {
-    width: 16.375rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    // width: 23.5%;
     height: auto;
     background-color: #fff;
     padding: 20px;

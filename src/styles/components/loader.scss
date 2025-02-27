@@ -1,12 +1,20 @@
 .custom-loader {
     width: 16px; // Set width
-    height: 16px; 
+    aspect-ratio: 1;
     color: #ffffff; 
     animation: spin 1s linear infinite; 
-  
+   &.large-loader {
+    width: 40px;
+    color: #000000;
+
+   }
     // &:hover {
     //   color: #2980b9; 
     // }
+  }
+
+  .loader-comp {
+    width: 100%;
   }
   @keyframes spin {
     from {
