@@ -8,4 +8,4 @@ const getEnvVariable = (key: string): string => {
 };
 
 // export const API_URL = getEnvVariable("API_URL");
-export const NEXT_API_URL = "http://localhost:3001/api";
+export const NEXT_API_URL = "https://soole-backend.onrender.com/api";
