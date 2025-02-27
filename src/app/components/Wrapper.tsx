@@ -127,7 +127,9 @@ const Wrapper = () => {
   })
 
   const handleYearChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedYear(event.target.value);
+    const value = Number(event.target.value);
+    if(!value) return 
+    setSelectedYear(value);
   };
   return (
     <div className="mx-2 mt-0">

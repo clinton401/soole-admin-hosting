@@ -8,7 +8,7 @@ import SubmitButton from "@/app/components/SubmitButton";
 import api from "../../../../config/api";
 import { LoginSchema } from "../../../../schema";
 import { z } from "zod";
-import useToast from "../../../../hooks/use-toast";
+import showToast from "../../../../hooks/use-toast";
 import { handleAxiosError } from "../../../../config/handleAxiosError";
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 
@@ -17,7 +17,7 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isPending, setIsPending] = useState(false);
-
+  // const toast = useToast();
   const { push } = useRouter();
   const { setIsAuthenticated, setUser, setAccessToken } =
     useContext(AppContext);
@@ -30,19 +30,20 @@ export default function Login() {
     };
     const validatedFields = LoginSchema.safeParse(data);
     if (!validatedFields.success) {
-      useToast("Invalid input. Please check your email and password.", "error");
+    showToast("Invalid input. Please check your email and password.", "error");
       return;
     }
     try {
       setIsPending(true);
       const body = validatedFields.data;
+      // console.log(body)
       const response = await api.post("/auth/login", body);
       if (response.status === 200 && response.data) {
         setAccessToken(response.data.access_token);
         setUser(response.data.user);
         setIsAuthenticated(true);
 
-        useToast(response.data.message || "Login successful", "success");
+      showToast(response.data.message || "Login successful", "success");
         setPassword("");
         setContactInfo("");
         push("/");
@@ -51,7 +52,7 @@ export default function Login() {
       }
     } catch (error) {
       const { message } = handleAxiosError(error);
-      useToast(message, "error");
+      showToast(message, "error");
 
       console.error(`Unable to login: ${error}`);
     } finally {
@@ -75,10 +76,6 @@ export default function Login() {
 
       <h1 className="ff-Mabry-Pro-bold">Admin Dashboard</h1>
       <form onSubmit={handleLogin}>
-<<<<<<< HEAD
-        <label> Phone number or email address</label>
-=======
->>>>>>> 5e31741506ee94bffef375b6c2b45d062aa69c92
         <input
           disabled={isPending}
           type="text"
@@ -92,7 +89,7 @@ export default function Login() {
           <div className="password-input-container">
         <input
           disabled={isPending}
-          type="password"
+          type={showPassword ? "text" : "password"}
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required

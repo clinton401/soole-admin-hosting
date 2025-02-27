@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { RegisterSchema } from "../../../../schema";
-import useToast from "../../../../hooks/use-toast";
+import showToast from "../../../../hooks/use-toast";
 import { handleAxiosError } from "../../../../config/handleAxiosError";
 import SubmitButton from "@/app/components/SubmitButton";
 import { z } from "zod";
@@ -37,7 +37,7 @@ export default function Register() {
 
     const validatedFields = RegisterSchema.safeParse(formData);
     if (!validatedFields.success) {
-      useToast(
+      showToast(
         "Invalid input detected. Ensure all fields are filled correctly.",
         "error"
       );
@@ -47,7 +47,7 @@ export default function Register() {
       setIsPending(true);
       const response = await api.post("/auth/register", formData);
       if (response.status === 201 && response.data) {
-        useToast(
+        showToast(
           response.data.message || "Admin request submitted!",
           "success"
         );
@@ -58,7 +58,7 @@ export default function Register() {
       }
     } catch (error) {
       const { message } = handleAxiosError(error);
-      useToast(message, "error");
+      showToast(message, "error");
 
       console.error(`Unable to register: ${message}`);
     } finally {
