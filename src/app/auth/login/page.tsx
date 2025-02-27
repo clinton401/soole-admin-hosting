@@ -23,7 +23,6 @@ export default function Login() {
     useContext(AppContext);
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-
     const data: z.infer<typeof LoginSchema> = {
       contactInfo,
       password,
@@ -36,7 +35,7 @@ export default function Login() {
     try {
       setIsPending(true);
       const body = validatedFields.data;
-      // console.log(body)
+      console.log(body)
       const response = await api.post("/auth/login", body);
       if (response.status === 200 && response.data) {
         setAccessToken(response.data.access_token);
