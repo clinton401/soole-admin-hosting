@@ -1,8 +1,8 @@
 import React from "react";
-
+import DayCountsBarChart from "./DayCountBarChart"
 // Define types for props
 interface BarGraphProps {
-  data: { label: string; value: number }[];
+  data: { day: string; count: number }[];
   maxValue?: number; // Optional max value for scaling
   barColor?: string; // Customizable bar color
 }
@@ -12,8 +12,8 @@ export default function BarGraph({
   maxValue,
   barColor = "#D2AC47",
 }: BarGraphProps) {
-  const scale = maxValue || Math.max(...data.map((item) => item.value));
-  const scaleSteps = [180, 140, 100, 60, 20, 0]; // Scale values for the Y-axis
+  // const scale = maxValue || Math.max(...data.map((item) => item.value));
+  // const scaleSteps = [180, 140, 100, 60, 20, 0]; // Scale values for the Y-axis
 
   return (
     <div className="bar-graph-wrapper">
@@ -29,8 +29,9 @@ export default function BarGraph({
         <option value="2018">Friday</option>
       </select>
       </div>
-      <div className="bar-graph-container">
-        {/* Scale Section */}
+      <DayCountsBarChart data={data}/>
+      {/* <div className="bar-graph-container">
+        
         <div className="scale-section">
           {scaleSteps.map((step, index) => (
             <span key={index} className="scale-step">
@@ -39,7 +40,6 @@ export default function BarGraph({
           ))}
         </div>
 
-        {/* Bars Section */}
         <div className="bar-graph">
           {data.map((item, index) => (
             <div key={index} className="bar-container">
@@ -55,7 +55,7 @@ export default function BarGraph({
             </div>
           ))}
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

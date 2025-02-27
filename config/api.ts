@@ -3,6 +3,7 @@ import { NEXT_API_URL } from "./variables";
 
 const api = axios.create({
   baseURL: `${NEXT_API_URL}/admin`,
+  timeout: 15000,
   headers: { "Content-Type": "application/json" },
 });
 

@@ -19,7 +19,6 @@ const authRoutes = ["/auth/login", "/auth/register"];
 const isAuthRoute = authRoutes.includes(pathname)
  
 const handleRedirect = () => {
-  console.log({pathname, isAuthenticated, isAuthRoute})
   if (!isAuthenticated && !isAuthRoute) {
     console.log("Unauthenticated")
     router.push("/auth/login");
