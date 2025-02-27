@@ -8,6 +8,8 @@ import { handleAxiosError } from "../../../../config/handleAxiosError";
 import SubmitButton from "@/app/components/SubmitButton";
 import { z } from "zod";
 import api from "../../../../config/api";
+import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
+
 export default function Register() {
   const [formData, setFormData] = useState<z.infer<typeof RegisterSchema>>({
     personalEmail: "",
@@ -18,6 +20,8 @@ export default function Register() {
   });
   const [isPending, setIsPending] = useState(false);
   const { push } = useRouter();
+  const [showPassword, setShowPassword] = useState(false);
+
   const { personalEmail, phone, password, name, workEmail } = formData;
   const clearFormData = () => {
     setFormData({
@@ -68,12 +72,14 @@ export default function Register() {
   ) => {
     setFormData((prev) => ({ ...prev, [type]: value }));
   };
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
   return (
     <div className="auth-container">
       <h1 className="ff-Mabry-Pro-bold">Admin Dashboard</h1>
       <form onSubmit={handleRegister}>
-        <label>Name</label>
         <input
           disabled={isPending}
           value={name}
@@ -83,7 +89,6 @@ export default function Register() {
           maxLength={50}
           required
         />
-        <label>Work Email</label>
         <input
           disabled={isPending}
           type="email"
@@ -92,7 +97,6 @@ export default function Register() {
           placeholder="Enter your work email address"
           required
         />
-        <label>Personal Email</label>
         <input
           disabled={isPending}
           type="email"
@@ -101,7 +105,6 @@ export default function Register() {
           placeholder="Enter your personal email address"
           required
         />
-        <label>Phone Number</label>
         <input
           disabled={isPending}
           type="tel"
@@ -113,16 +116,25 @@ export default function Register() {
           maxLength={15}
           required
         />
-        <label>Password</label>
+          <div className="password-input-container">
+
         <input
           disabled={isPending}
-          type="password"
+          type={showPassword ? "text" : "password"}
           value={password}
           onChange={(e) => handleFormChange("password", e.target.value)}
           placeholder="Create password"
           minLength={6}
           required
         />
+                    <button
+              type="button"
+              onClick={togglePasswordVisibility}
+              className="light password-toggle-button"
+            >
+              {showPassword ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
+            </button>
+          </div>
         <SubmitButton text="Register" isPending={isPending} />
       </form>
       <p>
