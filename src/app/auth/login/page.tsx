@@ -37,9 +37,15 @@ export default function Login() {
       const body = validatedFields.data;
       const response = await api.post("/auth/login", body);
       if (response.status === 200 && response.data) {
-        setAccessToken(response.data.access_token);
+        const token = response.data.access_token;
+
+        // Store the token in context
+        setAccessToken(token);
         setUser(response.data.user);
         setIsAuthenticated(true);
+  
+        // Persist the token in localStorage
+        localStorage.setItem("access_token", token);
 
       showToast(response.data.message || "Login successful", "success");
         setPassword("");

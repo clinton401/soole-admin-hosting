@@ -93,7 +93,6 @@ const Wrapper = () => {
           justifyContent: "center",
           width: "100%",
           height: "50px",
-          // border: "1px solid red"
         }}
       >
         <Loader className="custom-loader large-loader" />
@@ -127,7 +126,7 @@ const Wrapper = () => {
   })
 
   const handleYearChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedYear(event.target.value);
+    setSelectedYear(Number(event.target.value));
   };
   return (
     <div className="mx-2 mt-0">
