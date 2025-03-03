@@ -19,7 +19,7 @@ interface Profile {
 
 const TeamManagement = () => {
   const { accessToken } = useContext(AppContext);
-  const [profiles, setProfiles] = useState<Profile[]>([]); // Initialize with Profile type
+  const [profiles, setProfiles] = useState<Profile[]>([]);
   const [activeMenu, setActiveMenu] = useState<number | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalType, setModalType] = useState<"action" | "add">("action");
@@ -101,7 +101,6 @@ const TeamManagement = () => {
           },
         ]);
 
-        // Resetting the newAgent state
         setNewAgent({
           id: null,
           name: '',
@@ -109,8 +108,6 @@ const TeamManagement = () => {
           email: '',
           phone: '',
         });
-
-        // Close modal and notify user
         setIsModalOpen(false);
         alert("Admin added successfully!");
       } else {

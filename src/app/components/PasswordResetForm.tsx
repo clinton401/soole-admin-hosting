@@ -1,13 +1,20 @@
+"use client";
+
 import React, { useState } from "react";
-import { EyeIcon, EyeOffIcon, LockIcon } from "../components/Icons"; // Assume icons exist in your project
+import { EyeIcon, EyeOffIcon, LockIcon } from "../components/Icons";
 
-const PasswordResetForm = ({ onSubmit }: any) => {
-  const [formData, setFormData] = useState({
-    oldPassword: "",
-    newPassword: "",
-    confirmPassword: "",
-  });
+interface FormData {
+  oldPassword?: string;
+  newPassword?: string;
+  confirmPassword?: string;
+}
 
+interface PasswordResetFormProps {
+  setFormData: React.Dispatch<React.SetStateAction<FormData>>;
+  formData: FormData;
+}
+
+const PasswordResetForm = ({ setFormData, formData }: PasswordResetFormProps) => {
   const [visibility, setVisibility] = useState({
     oldPassword: false,
     newPassword: false,
@@ -20,12 +27,7 @@ const PasswordResetForm = ({ onSubmit }: any) => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onSubmit(formData); // Call the onSubmit function with form data
+    setFormData((prev: FormData) => ({ ...prev, [name]: value }));
   };
 
   return (
@@ -46,7 +48,7 @@ const PasswordResetForm = ({ onSubmit }: any) => {
               id={field}
               name={field}
               placeholder={`Enter ${field.replace(/([A-Z])/g, " $1").toLowerCase()}`}
-              value={formData[field as keyof typeof formData]}
+              value={formData[field as keyof FormData] || ""}
               onChange={handleInputChange}
               className="password-input"
             />

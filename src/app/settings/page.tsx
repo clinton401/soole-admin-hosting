@@ -1,12 +1,18 @@
 "use client";
 
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, ChangeEvent } from "react";
 import Image from "next/image";
 import { BinRedIcon, CameraIcon, MoreIcon } from "../components/Icons";
 import Modal from "../components/Modal";
 import PasswordResetForm from "../components/PasswordResetForm";
-import { AppContext } from "../components/ContextProvider";
-import axios from 'axios';
+import { AppContext } from '../components/ContextProvider';
+import axios, { AxiosError } from 'axios';
+
+interface FormData {
+  oldPassword?: string;
+  newPassword?: string;
+  confirmPassword?: string;
+}
 
 const Settings = () => {
   const [newAgent, setNewAgent] = useState({
@@ -17,11 +23,13 @@ const Settings = () => {
   });
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isPasswordUpdated, setIsPasswordUpdated] = useState(false);
-  const [passwordChangeError, setPasswordChangeError] = useState(null);
+  const [passwordChangeError, setPasswordChangeError] = useState<string | null>(null);
   const { user, setUser, accessToken } = useContext(AppContext);
-  
-  const handleImageChange = async (event) => {
-    const file = event.target.files[0];
+  const [passwordFormData, setPasswordFormData] = useState<FormData>({});
+
+  const handleImageChange = async (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
@@ -29,7 +37,7 @@ const Settings = () => {
           if (prevUser) {
             return {
               ...prevUser,
-              avatarUrl: reader.result as string
+              avatarUrl: reader.result as string,
             };
           }
           return null;
@@ -38,7 +46,7 @@ const Settings = () => {
       reader.readAsDataURL(file);
     }
   };
-  
+
   const handleRemovePhoto = () => {
     setUser((prevUser) => {
       if (prevUser) {
@@ -58,6 +66,9 @@ const Settings = () => {
       phone: newAgent.phone || user?.phone,
       avatarUrl: user?.avatarUrl || null
     };
+
+    console.log("Updated Data:", updatedData);
+    
     const token = accessToken || localStorage.getItem("access_token");
     try {
       const response = await axios.put('https://soole-backend.onrender.com/api/admin/me/update', updatedData, {
@@ -69,7 +80,7 @@ const Settings = () => {
       if (response.status === 200) {
         setUser((prevUser) => ({
           ...prevUser,
-          ...response.data.user
+          ...response?.data?.user
         }));
         alert(response.data.message);
       }
@@ -79,11 +90,11 @@ const Settings = () => {
     }
   };
 
-  const handlePasswordChange = async () => {
+  const handlePasswordChange = async (formData: FormData) => {
     const token = accessToken || localStorage.getItem("access_token");
 
     try {
-      const response = await axios.post('https://soole-backend.onrender.com/api/admin/reset-password', formData, {
+      const response = await axios.patch('https://soole-backend.onrender.com/api/admin/me/update/password', formData, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
@@ -96,7 +107,12 @@ const Settings = () => {
       }
     } catch (error) {
       console.error("Error changing password:", error);
-      setPasswordChangeError(error.response?.data?.message || "Failed to change password. Please try again.");
+      if (axios.isAxiosError(error)) {
+        const axiosError = error as AxiosError;
+        setPasswordChangeError(axiosError.response?.data?.message || "Failed to change password. Please try again.");
+      } else {
+        setPasswordChangeError("Failed to change password. Please try again.");
+      }
     }
   };
 
@@ -203,8 +219,12 @@ const Settings = () => {
         onCancel={() => setIsModalOpen(false)}
         actionButtons="confirm-cancel"
         showCloseButton={true}
+        onConfirm={() => handlePasswordChange(passwordFormData)}
       >
-        <PasswordResetForm onSubmit={handlePasswordChange} />
+        <PasswordResetForm
+          setFormData={setPasswordFormData}
+          formData={passwordFormData}
+        />
         {passwordChangeError && (
           <div className="error-message">{passwordChangeError}</div>
         )}

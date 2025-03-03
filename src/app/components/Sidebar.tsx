@@ -43,11 +43,11 @@ const Sidebar: React.FC = () => {
     };
   }, []);
 
-  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    const sidebarLinks = document.querySelectorAll(".sidebar-link");
-    sidebarLinks.forEach((link) => link.classList.remove("is-active"));
-    e.currentTarget.classList.add("is-active");
-  };
+  // const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  //   const sidebarLinks = document.querySelectorAll(".sidebar-link");
+  //   sidebarLinks.forEach((link) => link.classList.remove("is-active"));
+  //   e.currentTarget.classList.add("is-active");
+  // };
 
   const isActive = (path: string) => pathname === path;
   const handleLogout = () => {
