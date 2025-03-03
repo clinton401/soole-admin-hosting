@@ -187,7 +187,7 @@ const InboxContent = () => {
           <div className="d-flex ">
             <div className="profile-picture">
               <Image
-                src="/profilePic.png"
+                src="/Default-Img.png"
                 alt="Profile"
                 className="profile-img"
                 width={20}

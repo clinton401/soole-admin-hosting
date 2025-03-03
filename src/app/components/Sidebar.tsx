@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import {
@@ -13,9 +13,12 @@ import {
   UsersIcon,
 } from "./Icons";
 import Modal from "./Modal";
+import { AppContext } from "./ContextProvider";
 
 const Sidebar: React.FC = () => {
-  // const router = useRouter();
+  const { logout } = useContext(AppContext); 
+
+
   const pathname = usePathname();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -47,9 +50,8 @@ const Sidebar: React.FC = () => {
   };
 
   const isActive = (path: string) => pathname === path;
-
   const handleLogout = () => {
-    console.log("User logged out"); // Replace with actual logout logic
+    logout();
     setIsModalOpen(false);
   };
 

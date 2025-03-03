@@ -47,7 +47,7 @@ const Searchbar = ({ isVisible = true }: Props) => {
               width={40}
               height={40}
               objectFit="cover"
-              src={user?.avatarUrl || "/profilePic.png"}
+              src={user?.avatarUrl || "/Default-Img.jpg"}
               alt=""
             />
             <div className="user-details">

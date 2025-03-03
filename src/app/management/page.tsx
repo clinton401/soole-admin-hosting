@@ -56,7 +56,6 @@ const TeamManagement = () => {
   };
 
   const handleAddAdmin = async () => {
-    // Validate the newAgent object has all required fields
     if (!newAgent.name || !newAgent.email || !newAgent.phone || !newAgent.title) {
       alert("Please fill in all required fields.");
       return;
@@ -95,10 +94,10 @@ const TeamManagement = () => {
             id: newAdmin.id,
             name: newAdmin.name,
             title: newAgent.title,
-            email: newAdmin.personalEmail, // Use the correct email from the response
-            phone: newAdmin.phone, // Assuming phone will also be part of the returned admin object
-            image: "/profilePic.png", // Default image or adjust as needed
-            role: newAdmin.role, // Ensure to set role from response if applicable
+            email: newAdmin.personalEmail,
+            phone: newAdmin.phone, 
+            image: "/profilePic.png",
+            role: newAdmin.role,
           },
         ]);
 

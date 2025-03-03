@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { EyeIcon, EyeOffIcon, LockIcon } from "../components/Icons"; // Assume icons exist in your project
 
-const PasswordResetForm = () => {
+const PasswordResetForm = ({ onSubmit }: any) => {
   const [formData, setFormData] = useState({
     oldPassword: "",
     newPassword: "",
@@ -21,6 +21,11 @@ const PasswordResetForm = () => {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onSubmit(formData); // Call the onSubmit function with form data
   };
 
   return (
