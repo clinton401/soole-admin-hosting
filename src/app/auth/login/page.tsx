@@ -23,7 +23,6 @@ export default function Login() {
     useContext(AppContext);
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-
     const data: z.infer<typeof LoginSchema> = {
       contactInfo,
       password,
@@ -36,12 +35,17 @@ export default function Login() {
     try {
       setIsPending(true);
       const body = validatedFields.data;
-      // console.log(body)
       const response = await api.post("/auth/login", body);
       if (response.status === 200 && response.data) {
-        setAccessToken(response.data.access_token);
+        const token = response.data.access_token;
+
+        // Store the token in context
+        setAccessToken(token);
         setUser(response.data.user);
         setIsAuthenticated(true);
+  
+        // Persist the token in localStorage
+        localStorage.setItem("access_token", token);
 
       showToast(response.data.message || "Login successful", "success");
         setPassword("");

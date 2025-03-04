@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import {
@@ -13,9 +13,12 @@ import {
   UsersIcon,
 } from "./Icons";
 import Modal from "./Modal";
+import { AppContext } from "./ContextProvider";
 
 const Sidebar: React.FC = () => {
-  // const router = useRouter();
+  const { logout } = useContext(AppContext); 
+
+
   const pathname = usePathname();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -40,16 +43,15 @@ const Sidebar: React.FC = () => {
     };
   }, []);
 
-  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    const sidebarLinks = document.querySelectorAll(".sidebar-link");
-    sidebarLinks.forEach((link) => link.classList.remove("is-active"));
-    e.currentTarget.classList.add("is-active");
-  };
+  // const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  //   const sidebarLinks = document.querySelectorAll(".sidebar-link");
+  //   sidebarLinks.forEach((link) => link.classList.remove("is-active"));
+  //   e.currentTarget.classList.add("is-active");
+  // };
 
   const isActive = (path: string) => pathname === path;
-
   const handleLogout = () => {
-    setIsModalOpen(false);
+    logout();
   };
 
   const handleCancelLogout = () => {

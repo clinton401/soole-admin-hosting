@@ -1,32 +1,43 @@
 "use client"
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
+import { AppContext } from './ContextProvider';
 
 interface UserSearchbarProps {
   onFilterChange: (status: string | null) => void;
+  users: Array<{
+    name: string;
+    username: string;
+    phone: string;
+    totalRides: number;
+    totalTrips: number;
+    memberSince: string;
+    status: "Active" | "Deactivated" | "Inactive" | "Suspended";
+    profilePicture: string;
+  }>;
 }
 
 const UserSearchbar: React.FC<UserSearchbarProps> = ({ onFilterChange }) => {
 
   const [filterOpen, setFilterOpen] = useState(false);
   const [search, setSearch] = useState("");
+  const { users } = useContext(AppContext)
 
   const handleFilterClick = (status: string) => {
     onFilterChange(status === "All" ? null : status); 
     setFilterOpen(false);
   };
 
+  const filteredUsers = users?.filter((user) => {
+    const searchTerm = search.toLowerCase();
 
-  // const filteredSaleRequests = filterOpen.filter((request) => {
-  //   const searchTerm = search.toLowerCase();
-  
-  //   return (
-  //     (request.title?.toLowerCase().includes(searchTerm)) ||
-  //     (request.name?.toLowerCase().includes(searchTerm)) ||
-  //     (request.price?.toString()?.toLowerCase().includes(searchTerm)) ||
-  //     (request.status?.toLowerCase().includes(searchTerm)) ||
-  //     (request.details?.toLowerCase().includes(searchTerm))
-  //   );
-  // });
+    return (
+      user?.name.toLowerCase().includes(searchTerm) ||
+      user.status.toLowerCase().includes(searchTerm)
+    );
+  });
+
+
+ 
 
   return (
     <div>

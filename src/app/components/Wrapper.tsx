@@ -75,9 +75,8 @@ const Wrapper = () => {
 
   if (isLoading) {
     return (
-      // <div className="container">
+
         <LoaderComp />
-      // </div>
     );
   }
   if (error  || !analytics_data) {
@@ -105,6 +104,7 @@ const Wrapper = () => {
   })
 
   const handleYearChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+
     const value = Number(event.target.value);
     if(!value) return 
     setSelectedYear(value);
@@ -113,6 +113,7 @@ const Wrapper = () => {
     const value = Number(event.target.value);
     if(isNaN(value) || value < 0) return 
     setSelectedWeek(value);
+
   };
   return (
     <div className="mx-2 mt-0">
