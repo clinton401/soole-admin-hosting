@@ -273,6 +273,28 @@
 
 }
 
+@include responsive.responsive-options('p'){
+
+    &-1 {
+        padding: 1rem;
+    }
+
+    &-2{
+        padding: 2rem;
+    }
+    &-3{
+        padding: 3rem;
+    }
+    &-4{
+        padding: 4rem;
+    }
+
+    &-auto{
+        padding: auto;
+    }
+
+}
+
 
 @include responsive.responsive-options('px'){
 
@@ -392,6 +414,9 @@
 
 @include responsive.responsive-options ('gap'){
 
+    &-0-5 {
+        gap: 0.5rem;
+    }
     &-1 {
         gap: 1rem;
     }

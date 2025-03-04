@@ -9,6 +9,7 @@ import SubmitButton from "@/app/components/SubmitButton";
 import { z } from "zod";
 import api from "../../../../config/api";
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
+import { HeadPhoneIcon } from "@/app/components/Icons";
 
 export default function Register() {
   const [formData, setFormData] = useState<z.infer<typeof RegisterSchema>>({
@@ -77,6 +78,7 @@ export default function Register() {
   };
 
   return (
+    <>
     <div className="auth-container">
       <h1 className="ff-Mabry-Pro-bold">Admin Dashboard</h1>
       <form onSubmit={handleRegister}>
@@ -88,6 +90,7 @@ export default function Register() {
           minLength={3}
           maxLength={50}
           required
+          className=""
         />
         <input
           disabled={isPending}
@@ -141,5 +144,15 @@ export default function Register() {
         Already have an account? <a href="/auth/login">Login</a>
       </p>
     </div>
+    <div
+      className="d-flex flex-column align-center justify-center text-center p-1"
+    >
+      <p className="mb-1">Need Help?</p>
+      <span className="align-center d-flex gap-0-5">
+        <HeadPhoneIcon />
+        Contact Support
+      </span>
+    </div>
+    </>
   );
 }

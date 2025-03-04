@@ -10,7 +10,8 @@ import { LoginSchema } from "../../../../schema";
 import { z } from "zod";
 import showToast from "../../../../hooks/use-toast";
 import { handleAxiosError } from "../../../../config/handleAxiosError";
-import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import { HeadPhoneIcon } from "@/app/components/Icons";
 
 export default function Login() {
   const [contactInfo, setContactInfo] = useState("");
@@ -29,7 +30,10 @@ export default function Login() {
     };
     const validatedFields = LoginSchema.safeParse(data);
     if (!validatedFields.success) {
-    showToast("Invalid input. Please check your email and password.", "error");
+      showToast(
+        "Invalid input. Please check your email and password.",
+        "error"
+      );
       return;
     }
     try {
@@ -43,11 +47,11 @@ export default function Login() {
         setAccessToken(token);
         setUser(response.data.user);
         setIsAuthenticated(true);
-  
+
         // Persist the token in localStorage
         localStorage.setItem("access_token", token);
 
-      showToast(response.data.message || "Login successful", "success");
+        showToast(response.data.message || "Login successful", "success");
         setPassword("");
         setContactInfo("");
         push("/");
@@ -69,38 +73,38 @@ export default function Login() {
   };
 
   return (
-    <div className="auth-container">
-      <Image
-        src="/Soólè.svg"
-        className="auth-image"
-        alt="Soólè"
-        width={100}
-        height={100}
-      />
-
-      <h1 className="ff-Mabry-Pro-bold">Admin Dashboard</h1>
-      <form onSubmit={handleLogin}>
-        <input
-          disabled={isPending}
-          type="text"
-          name="contact_info"
-          value={contactInfo}
-          onChange={(e) => setContactInfo(e.target.value)}
-          required
-          placeholder="Enter phone number or email address"
-          className="px-2"
+    <>
+      <div className="auth-container">
+        <Image
+          src="/Soólè.svg"
+          className="auth-image"
+          alt="Soólè"
+          width={100}
+          height={100}
         />
+
+        <h1 className="ff-Mabry-Pro-bold">Admin Dashboard</h1>
+        <form onSubmit={handleLogin}>
+          <input
+            disabled={isPending}
+            type="text"
+            name="contact_info"
+            value={contactInfo}
+            onChange={(e) => setContactInfo(e.target.value)}
+            required
+            placeholder="Enter phone number or email address"
+            className="px-2"
+          />
           <div className="password-input-container">
-        <input
-          disabled={isPending}
-          type={showPassword ? "text" : "password"}
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-          placeholder="Enter password"
-
-        />
-                    <button
+            <input
+              disabled={isPending}
+              type={showPassword ? "text" : "password"}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              placeholder="Enter password"
+            />
+            <button
               type="button"
               onClick={togglePasswordVisibility}
               className="light password-toggle-button"
@@ -108,11 +112,19 @@ export default function Login() {
               {showPassword ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
             </button>
           </div>
-        <SubmitButton isPending={isPending} text="Login" />
-      </form>
-      <p>
-        Don&lsquo;t have an account? <a href="/auth/register">Register</a>
-      </p>
-    </div>
+          <SubmitButton isPending={isPending} text="Login" />
+        </form>
+        <p>
+          Don&lsquo;t have an account? <a href="/auth/register">Register</a>
+        </p>
+      </div>
+      <div className="d-flex flex-column align-center justify-center text-center p-1">
+        <p className="mb-1">Need Help?</p>
+        <span className="align-center d-flex gap-0-5">
+          <HeadPhoneIcon />
+          Contact Support
+        </span>
+      </div>
+    </>
   );
 }
