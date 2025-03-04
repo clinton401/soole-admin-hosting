@@ -82,7 +82,7 @@ export const AppContext = createContext<ContextProviderType>({
       if (axios.isAxiosError(error)) {
         console.error(
           "Unable to fetch user details:",
-          error.response?.data.error
+          error.response?.data?.error || error
         );
         if (error.response?.status === 401) {
           console.warn("Unauthorized access - logging out.");

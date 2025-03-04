@@ -24,7 +24,6 @@ api.interceptors.response.use(
         console.warn("Unauthorized request, logging out...");
         localStorage.removeItem("authToken");
         const pathname = window.location.pathname;
-        console.log({pathname})
         if(pathname !== "/auth/login" && pathname !== "/auth/register"){
         window.location.href = "/auth/login"; 
         }

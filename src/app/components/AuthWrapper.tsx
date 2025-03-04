@@ -20,7 +20,6 @@ const isAuthRoute = authRoutes.includes(pathname)
  
 const handleRedirect = () => {
   if (!isAuthenticated && !isAuthRoute) {
-    console.log("Unauthenticated")
     router.push("/auth/login");
     return;
   }

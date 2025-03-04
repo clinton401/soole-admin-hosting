@@ -1,0 +1,98 @@
+.alert-dialog {
+  background-color: rgba(0, 0, 0, 0.8);
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  cursor: default;
+  width: 100%;
+  height: 100dvh;
+  padding: 32px 2.5%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  & .dialog-container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 6;
+    // flex-direction: column;
+    justify-content: center;
+    position: relative;
+    height: 100%;
+    & .close-button {
+      border-radius: 9999px;
+      // inset: 0;
+      top: 20px;
+      left: 30px;
+      background-color: none;
+      border: 1px solid $light-bg-color;
+      position: absolute;
+      z-index: 5;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      justify-content: center;
+      aspect-ratio: 1;
+      color: $light-bg-color;
+      transition: color 0.3s ease-in;
+      &:hover {
+        color: #000000;
+        background-color: $light-bg-color;
+      }
+      // & .close-icon {
+
+      // }
+    }
+    & .dialog-menu-container {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    & .dialog-menu {
+      display: flex;
+      width: 50%;
+      min-width: 300px;
+      max-width: 500px;
+      border-radius: 16px;
+      background-color: #ffffff;
+      padding:  24px;
+      align-items: center;
+      flex-direction: column;
+      gap: 24px;
+      justify-content: center;
+       & > h3{
+        font-size: 21px;
+        font-family: "MabryPro regular";
+        // border: 1px solid red;
+        font-weight: bold;
+        text-align: center;
+        .error{
+          color: #D60000;
+        }
+        .success {
+          color: #228B22
+        }
+      }
+      & .dialog-menu-btns {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        width: 100%;
+        button:nth-child(1) {
+          background-color: #D2AC47;
+          border: none;
+          color: white;
+        }
+        & > * {
+          border: 1px solid #272829;
+          width: 100%;
+          padding: 12px;
+          border-radius: 10px;
+        }
+      }
+    }
+  }
+}

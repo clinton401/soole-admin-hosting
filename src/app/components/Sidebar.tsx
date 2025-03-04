@@ -49,7 +49,6 @@ const Sidebar: React.FC = () => {
   const isActive = (path: string) => pathname === path;
 
   const handleLogout = () => {
-    console.log("User logged out"); // Replace with actual logout logic
     setIsModalOpen(false);
   };
 
@@ -110,8 +109,8 @@ const Sidebar: React.FC = () => {
                 Users
               {/* </a> */}
             </Link>
-            <Link  href="/inbox"  className={`sidebar-link ${
-                  isActive("/inbox") ? "is-active" : ""
+            <Link  href="/inbox/all"  className={`sidebar-link ${
+                  pathname.startsWith("/inbox") ? "is-active" : ""
                 }`}>
               {/* <a
                 className={`sidebar-link ${
