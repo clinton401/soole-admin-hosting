@@ -19,7 +19,57 @@
 @import 'components/settings.scss';
 @import 'components/auth.scss';
 @import 'components/loader.scss';
+@import 'components/dropdown.scss';
+@import 'components/table.scss';
+@import 'components/message.scss';
+@import 'components/not-found.scss';
+@import 'components/alert-dialog.scss';
 
+
+
+.table-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+  width: 100%;
+  padding-top: 16px;
+
+  background: #fff;
+  p {
+color: #202224;
+font-size: 12px;
+  }
+   & .buttons{
+    display: flex;
+    align-items: center;
+     button {
+      height: 30px;
+      width: 40px;
+      cursor: pointer;
+      border: 1px solid $light-bg-color;
+      background-color: #D5D5D5;
+      &:nth-child(1) {
+        border-radius: 6px 0 0 6px
+      }
+      &:nth-child(2) {
+        border-radius: 0 6px  6px 0;
+      }
+      &:disabled {
+        // background-color: gray;
+        color: 202224;
+        cursor: not-allowed;
+        opacity: 0.6;
+      }
+     }
+   }
+ }
+.truncate {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 .refetch-button {
     padding: $button-padding;
         background-color: $primary-color;
@@ -41,7 +91,27 @@
     border-radius: 1rem;
     box-sizing: border-box;
 }
-
+.search {
+position: relative;
+input {
+  background-color: #fff;
+  font-size: 14px;
+  width: 350px;
+  padding: 10px 16px 10px 48px ;
+  &::placeholder {
+    font-size: 14px;
+    font-style: italic;
+  }
+}
+& .search-icon {
+  height: 16px;
+  width: 16px;
+  position: absolute;
+  left:  16px;
+  top: 50%;
+  transform: translateY(-50%)
+}
+}
 p, input, button {
     font-family: "MabryPro regular";
 }
@@ -52,4 +122,9 @@ h1,h2, h3 {
 }
 
 
-
+button:disabled {
+  cursor: not-allowed;
+}
+button {
+  cursor: pointer;
+}

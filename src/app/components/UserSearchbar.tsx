@@ -36,6 +36,9 @@ const UserSearchbar: React.FC<UserSearchbarProps> = ({ onFilterChange }) => {
     );
   });
 
+
+ 
+
   return (
     <div>
 
@@ -54,7 +57,7 @@ const UserSearchbar: React.FC<UserSearchbarProps> = ({ onFilterChange }) => {
       d="M21 21l-4.35-4.35m1.2-6.6a7.5 7.5 0 11-15 0 7.5 7.5 0 0115 0z"
     />
   </svg>
-  <input type="text" placeholder="Search by name, number of trips, number of rides" value={search} onChange={setSearch}/>
+  <input type="text" placeholder="Search by name, number of trips, number of rides" value={search} onChange={e => setSearch(e.target.value)}/>
   <button className="filter-btn"
             onClick={() => setFilterOpen((prev) => !prev)}
   >

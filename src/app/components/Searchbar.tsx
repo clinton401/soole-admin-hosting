@@ -1,17 +1,53 @@
 import React, { useContext } from "react";
 import Image from "next/image";
 import { AppContext } from "./ContextProvider";
+import { useRouter } from "next/navigation";
+import fetchData from "../../../hooks/fetch-data";
+import { QueryFunctionContext } from "@tanstack/react-query";
+import api from "../../../config/api";
+type InboxCountQueryKey = ["inbox-count"];
+type InboxCountResponse = {
+  total_count: number;
+  sent_count: number;
+  starred_count: number;
+  bin_count: number;
+};
+const fetchInboxCount = async ({
+  queryKey,
+  signal,
+}: QueryFunctionContext<InboxCountQueryKey>): Promise<InboxCountResponse> => {
+  try {
+    const response = await api.get(`/complaints/summary`, {
+      signal,
+    });
+
+    return response.data.data;
+  } catch (error: any) {
+    throw new Error(error.response?.data?.error || "Unknown error occurred");
+  }
+};
 
 type Props = {
   isVisible?: boolean;
 };
 
 const Searchbar = ({ isVisible = true }: Props) => {
+  const {
+    data: inbox_count,
+    error,
+    isLoading,
+    
+  } = fetchData<InboxCountResponse, InboxCountQueryKey>(
+    ["inbox-count"],
+    fetchInboxCount
+  );
+
   const { user } = useContext(AppContext);
+  const { push } = useRouter();
   if (!isVisible) return null;
 
   return (
-    <div className="" style={{ width: "calc(100% - 230px)" }}>
+    <div className="header-parent" >
       <div className="header ">
         <div className="search-bar">
           <input type="text" placeholder="Search" />
@@ -19,9 +55,14 @@ const Searchbar = ({ isVisible = true }: Props) => {
 
         {user && (
           <div className="user-settings">
-            <div className="notify mx-1">
+            <div className="notify mx-1"  onClick={() => push("/inbox/all")}>
               <div className="notification">
-                <p className="">6</p>
+                {!isLoading &&
+                  !error &&
+                  inbox_count &&
+                  inbox_count.total_count > 0 && (
+                    <p className="">{inbox_count.total_count}</p>
+                  )}
               </div>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -46,8 +87,8 @@ const Searchbar = ({ isVisible = true }: Props) => {
               className="user-img"
               width={40}
               height={40}
-              objectFit="cover"
               src={user?.avatarUrl || "/Default-Img.jpg"}
+
               alt=""
             />
             <div className="user-details">

@@ -5,7 +5,11 @@
     box-sizing: border-box;
     -webkit-font-smoothing: antialiased;
     outline: none;
+    scroll-behavior: smooth;
 }
+ body {
+    font-family: "MabryPro regular";
+ }
 
 // body {
 //     font-family: 'Mabry Pro', sans-serif;
@@ -104,9 +108,10 @@ label {
     background-color: $light-bg-color;
     // max-width: 1640px;
     // max-height: 1000px;
-    min-height: 100vi;
+    min-height: calc(100dvh - 100px);
     // overflow: hidden;
     width: 100%;
+    padding-bottom: 24px;
     position: relative;
    }
    
