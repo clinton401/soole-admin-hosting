@@ -20,7 +20,7 @@ interface Profile {
 const TeamManagement = () => {
   const { accessToken } = useContext(AppContext);
   const [profiles, setProfiles] = useState<Profile[]>([]);
-  const [activeMenu, setActiveMenu] = useState<number | null>(null);
+  const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalType, setModalType] = useState<"action" | "add">("action");
   const [modalContent, setModalContent] = useState({
@@ -36,7 +36,7 @@ const TeamManagement = () => {
     phone: "",
   });
 
-  const handleMenuClick = (id: number) => {
+  const handleMenuClick = (id: string) => {
     setActiveMenu((prev) => (prev === id ? null : id));
   };
 
@@ -200,7 +200,7 @@ const TeamManagement = () => {
       <div className="profile-container ff-Mabry-Pro-bold">
         {profiles.map((profile) => (
           <div key={profile.id || profile.name} className="profile-card">
-            <div className="menu-button" onClick={() => handleMenuClick(profile.id)}>
+            <div className="menu-button" onClick={() => handleMenuClick(profile.id as string)}>
               ⋮
             </div>
             {activeMenu === profile.id && (
