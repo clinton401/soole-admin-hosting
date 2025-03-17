@@ -11,7 +11,7 @@ const ErrorComp: FC<{error: Error | null; refetch: () => void}> = ({error, refet
         >
           {errorMessage}
         </h2>
-        <button  onClick={(e: React.MouseEvent<HTMLButtonElement>) => refetch()} className="refetch-button">Retry</button>
+        <button  onClick={() => refetch()} className="refetch-button">Retry</button>
       </div>
     )
 }

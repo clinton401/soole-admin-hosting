@@ -1,6 +1,6 @@
 "use client"
-import React, { useState, useContext } from 'react'
-import { AppContext } from './ContextProvider';
+import React, { useState } from 'react'
+// import { AppContext } from './ContextProvider';
 
 interface UserSearchbarProps {
   onFilterChange: (status: string | null) => void;
@@ -20,21 +20,21 @@ const UserSearchbar: React.FC<UserSearchbarProps> = ({ onFilterChange }) => {
 
   const [filterOpen, setFilterOpen] = useState(false);
   const [search, setSearch] = useState("");
-  const { users } = useContext(AppContext)
+  // const { users } = useContext(AppContext)
 
   const handleFilterClick = (status: string) => {
     onFilterChange(status === "All" ? null : status); 
     setFilterOpen(false);
   };
 
-  const filteredUsers = users?.filter((user) => {
-    const searchTerm = search.toLowerCase();
+  // const filteredUsers = users?.filter((user) => {
+  //   const searchTerm = search.toLowerCase();
 
-    return (
-      user?.name.toLowerCase().includes(searchTerm) ||
-      user.status.toLowerCase().includes(searchTerm)
-    );
-  });
+  //   return (
+  //     user?.name.toLowerCase().includes(searchTerm) ||
+  //     user.status.toLowerCase().includes(searchTerm)
+  //   );
+  // });
 
 
  

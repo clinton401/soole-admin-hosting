@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import mapboxgl from "mapbox-gl";
 import { ListFilter, Search } from "lucide-react";
 import useInfiniteScroll from "../../../hooks/use-infinite-scroll";
 import api from "../../../config/api";
@@ -12,6 +11,7 @@ import useDebounce from "../../../hooks/use-debounce";
 import { handleAxiosError } from "../../../config/handleAxiosError";
 import { useQueryClient } from "@tanstack/react-query";
 import useCloseOnEscKey from "../../../hooks/use-close-on-esc-key";
+import axios from "axios"
 
 export interface Ride {
   userId: string;
@@ -84,8 +84,12 @@ export default function RideTracker() {
         nextPage: data.nextPage,
         prevPage: data.prevPage,
       };
-    } catch (error: any) {
-      throw new Error(error.response?.data?.error || "Unknown error occurred");
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw new Error(error.response?.data?.error || "Unknown error occurred");
+    } else {
+        throw new Error("An unexpected error occurred");
+    }
     }
   };
   const {
@@ -177,11 +181,11 @@ export default function RideTracker() {
       );
       if (response.status === 200 && response.data) {
         // console.log(response.data.data);
-        queryClient.setQueryData(["rides", selectedFilter], (old: any) => {
+        queryClient.setQueryData(["rides", selectedFilter], (old: unknown) => {
           if (!old) return old;
 
           return {
-            ...old,
+            ...(old as any),
             pageParams: [1],
             pages: [
               { data: response.data.data.rides, prevPage: null, nextPage: 2 },

@@ -12,8 +12,8 @@ interface BarGraphProps {
 
 export default function BarGraph({
   data,
-  maxValue,
-  barColor = "#D2AC47",
+  // maxValue,
+  // barColor = "#D2AC47",
   selectedWeek,
   handleWeekChange
 }: BarGraphProps) {

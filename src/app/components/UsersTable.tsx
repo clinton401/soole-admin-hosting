@@ -1,7 +1,6 @@
 import { FC } from "react";
-import { User, UserStatus } from "../users/page";
+import { User } from "../users/page";
 import Image from "next/image";
-import {EllipsisVertical} from "lucide-react";
 import UsersTableMoreOption from "./UsersTableMoreOption"
 
 const UsersTable: FC<{ users: User[], selectedFilter: string }> = ({ users, selectedFilter }) => {

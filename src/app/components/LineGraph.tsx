@@ -12,9 +12,6 @@ interface LineGraphProps {
 
 export default function LineGraph({
   data,
-  maxValue,
-  lineColor = "#D2AC47",
-  fillColor = "rgba(76, 175, 80, 0.1)",
   handleYearChange,
   selectedYear
   

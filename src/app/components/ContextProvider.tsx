@@ -10,7 +10,7 @@ import {
 } from "react";
 import axios from "axios";
 import api from "../../../config/api";
-import { usePathname, useRouter } from "next/navigation";
+import {  useRouter } from "next/navigation";
 export enum UserRole {
   ADMIN = "ADMIN",
   SUPER_ADMIN = "SUPER_ADMIN",
@@ -66,7 +66,6 @@ export const AppContext = createContext<ContextProviderType>({
     }
     return false;
   });
-  const pathname = usePathname();
   const {push} = useRouter()
   const fetchUser = async () => {
     try {

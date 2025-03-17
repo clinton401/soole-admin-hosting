@@ -48,15 +48,15 @@ const queryClient = useQueryClient()
       if (response.status === 200 && response.data) {
         const returnedUser = response.data?.user;
         if(returnedUser){
-          queryClient.setQueryData(["users", selectedFilter], (old: any) => {
+          queryClient.setQueryData(["users", selectedFilter], (old: unknown) => {
             if (!old) return old;
           
           
             return {
-              ...old,
-              pages: old.pages.map((page: any) => ({
-                ...page,
-                data: page.data.map((validUser: User) => 
+              ...(old as any),
+              pages: (old as any).pages.map((page: unknown) => ({
+                ...(page as any),
+                data: (page as any).data.map((validUser: User) => 
                   validUser.id === user.id ? returnedUser : validUser
                 ),
               })),

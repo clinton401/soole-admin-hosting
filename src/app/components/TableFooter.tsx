@@ -6,7 +6,7 @@ import {ChevronRight, ChevronLeft} from "lucide-react"
 
 
 
-const TableFooter: FC<{pageSize: number; currentPage: number; total: number; hasNextPage: boolean, hasPreviousPage: boolean; fetchNextPage: () => void; fetchPreviousPage: () => void; isPending: boolean; setSearchValue: Dispatch<SetStateAction<string>>}> = ({pageSize, currentPage, total, hasNextPage, hasPreviousPage, fetchNextPage, fetchPreviousPage, isPending, setSearchValue}) => {
+const TableFooter: FC<{pageSize: number; currentPage: number; total: number; hasNextPage: boolean, hasPreviousPage: boolean; fetchNextPage: () => void; fetchPreviousPage: () => void; isPending: boolean; setSearchValue: Dispatch<SetStateAction<string>>}> = ({pageSize, currentPage, total, hasNextPage, fetchNextPage, fetchPreviousPage, isPending, setSearchValue}) => {
     return (
         <section className="table-footer"><p>{getPaginationText(pageSize, currentPage, total)}</p>
         <div className="buttons">

@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import "@/styles/main.scss";
 import AuthWrapper from "./components/AuthWrapper";
-import Searchbar from "./components/Searchbar";
-import Sidebar from "./components/Sidebar";
 import  ContextProvider  from "./components/ContextProvider";
 import TanstackQueryClient from "./components/TanstackQueryClient";
 import { ToastContainer, Bounce } from "react-toastify";

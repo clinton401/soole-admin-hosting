@@ -8,6 +8,7 @@ import { QueryFunctionContext } from "@tanstack/react-query";
 import api from "../../../config/api";
 import LoaderComp from "../components/LoaderComp";
 import ErrorComp from "../components/ErrorComp";
+import axios from "axios";
 type InboxCountQueryKey = ["inbox-count"];
 type InboxCountResponse = {
   total_count: number;
@@ -16,7 +17,7 @@ type InboxCountResponse = {
   bin_count: number;
 };
 const fetchInboxCount = async ({
-  queryKey,
+
   signal,
 }: QueryFunctionContext<InboxCountQueryKey>): Promise<InboxCountResponse> => {
   try {
@@ -25,8 +26,12 @@ const fetchInboxCount = async ({
     });
 
     return response.data.data;
-  } catch (error: any) {
-    throw new Error(error.response?.data?.error || "Unknown error occurred");
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      throw new Error(error.response?.data?.error || "Unknown error occurred");
+  } else {
+      throw new Error("An unexpected error occurred");
+  }
   }
 };
 export enum InboxFilter {

@@ -10,6 +10,7 @@ import { QueryFunctionContext } from "@tanstack/react-query";
 import api from "../../../config/api";
 import LoaderComp from "../components/LoaderComp";
 import ErrorComp from "../components/ErrorComp";
+import axios from "axios";
 type GrowthStatus = "increase" | "decrease" | "draw";
 
 export type GrowthData = {
@@ -50,7 +51,7 @@ const Wrapper = () => {
   const [selectedWeek, setSelectedWeek] = useState(0)
 
   const fetchAnalytics = async ({
-    queryKey,
+  
     signal,
   }: QueryFunctionContext<AnalyticsQueryKey>): Promise<AnalyticsResponse> => {
     try {
@@ -59,8 +60,12 @@ const Wrapper = () => {
       });
   
       return response.data.data;
-    } catch (error: any) {
-      throw new Error(error.response?.data?.error || "Unknown error occurred");
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw new Error(error.response?.data?.error || "Unknown error occurred");
+    } else {
+        throw new Error("An unexpected error occurred");
+    }
     }
   };
   const {

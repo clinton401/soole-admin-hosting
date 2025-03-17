@@ -15,6 +15,7 @@ import LoaderComp from "./LoaderComp";
 import ErrorComp from "./ErrorComp";
 import useToggleStar from "../../../hooks/use-toggle-star";
 import { CiStar } from "react-icons/ci";
+import axios from "axios";
 import { FaStar } from "react-icons/fa";
 import showToast from "../../../hooks/use-toast";
 import Image from "next/image";
@@ -63,8 +64,12 @@ const InboxChat: FC = () => {
         nextPage: data.nextPage,
         prevPage: data.prevPage,
       };
-    } catch (error: any) {
-      throw new Error(error.response?.data?.error || "Unknown error occurred");
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw new Error(error.response?.data?.error || "Unknown error occurred");
+    } else {
+        throw new Error("An unexpected error occurred");
+    }
     }
   };
   const {

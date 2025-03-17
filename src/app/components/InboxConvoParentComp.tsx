@@ -11,6 +11,7 @@ import { handleAxiosError } from "../../../config/handleAxiosError";
 import { useQueryClient } from "@tanstack/react-query";
 import InboxConvoSearch from "./InboxConvoSearch";
 import ConvoCard from "./ConvoCard";
+import axios from "axios";
 
 export enum ComplaintStatus {
   IN_PROGRESS = "IN_PROGRESS",
@@ -67,8 +68,12 @@ const InboxConvoParentComp: FC<{ type: "total" | "bin" | "starred" }> = ({
         nextPage: data.nextPage,
         prevPage: data.prevPage,
       };
-    } catch (error: any) {
-      throw new Error(error.response?.data?.error || "Unknown error occurred");
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw new Error(error.response?.data?.error || "Unknown error occurred");
+    } else {
+        throw new Error("An unexpected error occurred");
+    }
     }
   };
   const {
@@ -100,7 +105,7 @@ const InboxConvoParentComp: FC<{ type: "total" | "bin" | "starred" }> = ({
       const response = await api.get(`/complaints/search?query=${searchValue}`);
       if (response.status === 200 && response.data) {
         // console.log(response.data.data);
-        queryClient.setQueryData([`${type}-conversations`], (old: any) => {
+        queryClient.setQueryData([`${type}-conversations`], (old) => {
           if (!old) return old;
 
           return {

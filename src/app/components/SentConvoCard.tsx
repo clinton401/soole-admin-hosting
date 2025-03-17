@@ -1,13 +1,11 @@
-import { FC, Dispatch, SetStateAction } from "react";
+import { FC } from "react";
 import { formatDate } from "../../../lib/utils";
-import useToggleStar from "../../../hooks/use-toggle-star";
 import { ComplaintMessage } from "../(message)/inbox/sent/page";
 import {useRouter} from "next/navigation"
 
 const SentConvoCard: FC<{
   message: ComplaintMessage;
 }> = ({ message }) => {
-  const { mutate: toggleStar } = useToggleStar();
   const {push} = useRouter()
   
   const createdAt = new Date(message.createdAt);

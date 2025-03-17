@@ -12,6 +12,7 @@ import { handleAxiosError } from "../../../config/handleAxiosError";
 import { useQueryClient } from "@tanstack/react-query";
 import UsersTable from "../components/UsersTable";
 import useCloseOnEscKey from "../../../hooks/use-close-on-esc-key";
+import axios from "axios";
 export enum UserStatus {
   SUSPENDED = "SUSPENDED",
   ACTIVE = "ACTIVE",
@@ -82,7 +83,11 @@ const UsersPage: FC = () => {
         prevPage: data.prevPage,
       };
     } catch (error: any) {
-      throw new Error(error.response?.data?.error || "Unknown error occurred");
+      if (axios.isAxiosError(error)) {
+        throw new Error(error.response?.data?.error || "Unknown error occurred");
+    } else {
+        throw new Error("An unexpected error occurred");
+    }
     }
   };
   const {
@@ -132,11 +137,11 @@ const UsersPage: FC = () => {
       );
       if (response.status === 200 && response.data) {
         // console.log(response.data.data);
-        queryClient.setQueryData(["users", selectedFilter], (old: any) => {
+        queryClient.setQueryData(["users", selectedFilter], (old: unknown) => {
           if (!old) return old;
 
           return {
-            ...old,
+            ...(old as any),
             pageParams: [1],
             pages: [
               { data: response.data.data.users, prevPage: null, nextPage: 2 },
