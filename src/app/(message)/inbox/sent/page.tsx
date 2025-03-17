@@ -10,6 +10,7 @@ import { handleAxiosError } from "../../../../../config/handleAxiosError";
 import { useQueryClient } from "@tanstack/react-query";
 import SentConvoCard from "../../../components/SentConvoCard";
 import { Search } from "lucide-react";
+import axios from "axios";
 export enum ComplaintSenderType {
   USER = "USER",
   ADMIN = "ADMIN",
@@ -57,7 +58,11 @@ const SentPage: FC = () => {
         prevPage: data.prevPage,
       };
     } catch (error: any) {
-      throw new Error(error.response?.data?.error || "Unknown error occurred");
+      if (axios.isAxiosError(error)) {
+        throw new Error(error.response?.data?.error || "Unknown error occurred");
+    } else {
+        throw new Error("An unexpected error occurred");
+    }
     }
   };
   const {
@@ -86,12 +91,14 @@ const SentPage: FC = () => {
       setSearchError(null);
       const response = await api.get(`/complaints/search/sent?query=${searchValue}`);
       if (response.status === 200 && response.data) {
-        // console.log(response.data.data);
-        queryClient.setQueryData(["sent-messages"], (old: any) => {
+        
+        
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        queryClient.setQueryData(["sent-messages"], (old: unknown) => {
           if (!old) return old;
 
           return {
-            ...old,
+            ...(old as any),
             pageParams: [1],
             pages: [
               { data: response.data.data.messages, prevPage: null, nextPage: 2 },

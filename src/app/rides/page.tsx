@@ -181,6 +181,7 @@ export default function RideTracker() {
       );
       if (response.status === 200 && response.data) {
         // console.log(response.data.data);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         queryClient.setQueryData(["rides", selectedFilter], (old: unknown) => {
           if (!old) return old;
 

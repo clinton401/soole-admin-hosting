@@ -81,7 +81,7 @@ const UsersPage: FC = () => {
         nextPage: data.nextPage,
         prevPage: data.prevPage,
       };
-    } catch (error: any) {
+    } catch (error) {
       if (axios.isAxiosError(error)) {
         throw new Error(error.response?.data?.error || "Unknown error occurred");
     } else {
@@ -136,6 +136,7 @@ const UsersPage: FC = () => {
       );
       if (response.status === 200 && response.data) {
         // console.log(response.data.data);
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
         queryClient.setQueryData(["users", selectedFilter], (old: unknown) => {
           if (!old) return old;
 

@@ -48,6 +48,7 @@ const queryClient = useQueryClient()
       if (response.status === 200 && response.data) {
         const returnedUser = response.data?.user;
         if(returnedUser){
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           queryClient.setQueryData(["users", selectedFilter], (old: unknown) => {
             if (!old) return old;
           
