@@ -1,6 +1,5 @@
 "use client";
 import React, { FC, useEffect, useState } from "react";
-import mapboxgl from "mapbox-gl";
 import { ListFilter, Search } from "lucide-react";
 import useInfiniteScroll from "../../../hooks/use-infinite-scroll";
 import api from "../../../config/api";
