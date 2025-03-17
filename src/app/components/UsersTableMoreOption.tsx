@@ -1,12 +1,18 @@
 import { FC, useState, useEffect } from "react";
 import { EllipsisVertical, Loader } from "lucide-react";
 import useCloseOnEscKey from "../../../hooks/use-close-on-esc-key";
-import { User, UserStatus } from "../users/page";
+import { User } from "../users/page";
 import AlertDialog from "./AlertDialog";
 import { handleAxiosError } from "../../../config/handleAxiosError";
 import showToast from "../../../hooks/use-toast";
 import api from "../../../config/api";
 import { useQueryClient } from "@tanstack/react-query";
+enum UserStatus {
+  SUSPENDED = "SUSPENDED",
+  ACTIVE = "ACTIVE",
+  INACTIVE = "INACTIVE",
+  DEACTIVATED = "DEACTIVATED",
+}
 
 const UsersTableMoreOption: FC<{ user: User, selectedFilter: string }> = ({ user, selectedFilter }) => {
   const [isLoading, setIsLoading] = useState(false);

@@ -12,7 +12,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import UsersTable from "../components/UsersTable";
 import useCloseOnEscKey from "../../../hooks/use-close-on-esc-key";
 import axios from "axios";
-export enum UserStatus {
+ enum UserStatus {
   SUSPENDED = "SUSPENDED",
   ACTIVE = "ACTIVE",
   INACTIVE = "INACTIVE",
