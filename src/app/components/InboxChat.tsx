@@ -9,7 +9,7 @@ import api from "../../../config/api";
 import { useQueryClient } from "@tanstack/react-query";
 import {
   ComplaintMessage,
-  ComplaintSenderType,
+  
 } from "../(message)/inbox/sent/page";
 import LoaderComp from "./LoaderComp";
 import ErrorComp from "./ErrorComp";
@@ -29,6 +29,10 @@ type FetchConversationMessagesResult = {
   nextPage?: number;
   prevPage?: number;
 };
+enum ComplaintSenderType {
+  USER = "USER",
+  ADMIN = "ADMIN",
+}
 
 const InboxChat: FC = () => {
   const [conversation, setConversation] =

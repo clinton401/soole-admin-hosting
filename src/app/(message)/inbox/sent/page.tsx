@@ -11,7 +11,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import SentConvoCard from "../../../components/SentConvoCard";
 import { Search } from "lucide-react";
 import axios from "axios";
-export enum ComplaintSenderType {
+ enum ComplaintSenderType {
   USER = "USER",
   ADMIN = "ADMIN",
 }

@@ -1,8 +1,12 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import api from "../config/api";
 import { v4 as uuidv4 } from 'uuid';
-import {ComplaintSenderType} from "../src/app/(message)/inbox/sent/page"
+// import {ComplaintSenderType} from "../src/app/(message)/inbox/sent/page"
 
+enum ComplaintSenderType {
+  USER = "USER",
+  ADMIN = "ADMIN",
+}
 const useSendMessage = () => {
   const queryClient = useQueryClient();
 
