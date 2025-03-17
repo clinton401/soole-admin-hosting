@@ -57,7 +57,7 @@ const SentPage: FC = () => {
         nextPage: data.nextPage,
         prevPage: data.prevPage,
       };
-    } catch (error: any) {
+    } catch (error ) {
       if (axios.isAxiosError(error)) {
         throw new Error(error.response?.data?.error || "Unknown error occurred");
     } else {
