@@ -92,13 +92,13 @@ const SentPage: FC = () => {
       const response = await api.get(`/complaints/search/sent?query=${searchValue}`);
       if (response.status === 200 && response.data) {
         
-        
+
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        queryClient.setQueryData(["sent-messages"], (old: unknown) => {
+        queryClient.setQueryData(["sent-messages"], (old: {pageParams: number[],pages: {data: ComplaintMessage[]}[]}) => {
           if (!old) return old;
 
           return {
-            ...(old as any),
+            ...old,
             pageParams: [1],
             pages: [
               { data: response.data.data.messages, prevPage: null, nextPage: 2 },

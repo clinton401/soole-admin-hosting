@@ -49,15 +49,15 @@ const queryClient = useQueryClient()
         const returnedUser = response.data?.user;
         if(returnedUser){
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          queryClient.setQueryData(["users", selectedFilter], (old: unknown) => {
+          queryClient.setQueryData(["users", selectedFilter], (old: {pageParams: number[],pages: {data: User[]}[]}) => {
             if (!old) return old;
           
           
             return {
-              ...(old as any),
-              pages: (old as any).pages.map((page: unknown) => ({
-                ...(page as any),
-                data: (page as any).data.map((validUser: User) => 
+              ...(old),
+              pages: (old).pages.map((page) => ({
+                ...page,
+                data: page.data.map((validUser: User) => 
                   validUser.id === user.id ? returnedUser : validUser
                 ),
               })),

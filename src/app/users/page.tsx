@@ -137,11 +137,11 @@ const UsersPage: FC = () => {
       if (response.status === 200 && response.data) {
         // console.log(response.data.data);
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        queryClient.setQueryData(["users", selectedFilter], (old: unknown) => {
+        queryClient.setQueryData(["users", selectedFilter], (old: {pageParams: number[],pages: {data: User[]}[]}) => {
           if (!old) return old;
 
           return {
-            ...(old as any),
+            ...(old),
             pageParams: [1],
             pages: [
               { data: response.data.data.users, prevPage: null, nextPage: 2 },
