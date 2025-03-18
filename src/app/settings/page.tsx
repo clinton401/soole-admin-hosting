@@ -6,7 +6,7 @@ import { BinRedIcon, CameraIcon, MoreIcon } from "../components/Icons";
 import Modal from "../components/Modal";
 import PasswordResetForm from "../components/PasswordResetForm";
 import { AppContext } from '../components/ContextProvider';
-import axios,  from 'axios';
+import axios  from 'axios';
 
 interface FormData {
   oldPassword?: string;
