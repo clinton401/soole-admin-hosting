@@ -17,7 +17,7 @@ interface FormData {
 const Settings = () => {
   const [newAgent, setNewAgent] = useState({
     name: "",
-    title: "",
+    workEmail: "",
     email: "",
     phone: "",
   });
@@ -64,7 +64,8 @@ const Settings = () => {
       name: newAgent.name || user?.name,
       personalEmail: newAgent.email || user?.personalEmail,
       phone: newAgent.phone || user?.phone,
-      avatarUrl: user?.avatarUrl || null
+      avatarUrl: user?.avatarUrl || null,
+      workEmail: newAgent?.workEmail
     };
 
     console.log("Updated Data:", updatedData);
@@ -108,11 +109,17 @@ const Settings = () => {
     } catch (error) {
       console.error("Error changing password:", error);
       if (axios.isAxiosError(error)) {
-        const axiosError = error as AxiosError;
-        setPasswordChangeError(axiosError.response?.data?.message || "Failed to change password. Please try again.");
-      } else {
-        setPasswordChangeError("Failed to change password. Please try again.");
-      }
+        setPasswordChangeError(error.response?.data?.error || "Unknown error occurred");
+    } else {
+        setPasswordChangeError("An unexpected error occurred");
+    }
+      // if (axios.isAxiosError(error)) {
+
+      //   const axiosError = error as AxiosError;
+      //   setPasswordChangeError(axiosError.response?.data?.error || "Failed to change password. Please try again.");
+      // } else {
+      //   setPasswordChangeError("Failed to change password. Please try again.");
+      // }
     }
   };
 
@@ -183,9 +190,9 @@ const Settings = () => {
             <label>Title</label>
             <input
               type="text"
-              defaultValue={user?.title}
+              defaultValue={user?.workEmail}
               onChange={(e) =>
-                setNewAgent({ ...newAgent, title: e.target.value })
+                setNewAgent({ ...newAgent, workEmail: e.target.value })
               }
             />
             <label>Work Email</label>

@@ -40,7 +40,11 @@ const TeamManagement = () => {
     setActiveMenu((prev) => (prev === id ? null : id));
   };
 
-  const openModal = (type: "action" | "add", preamble: string, action: () => void) => {
+  const openModal = (
+    type: "action" | "add",
+    preamble: string,
+    action: () => void
+  ) => {
     setModalType(type);
     setModalContent({ preamble, action });
     setIsModalOpen(true);
@@ -56,7 +60,12 @@ const TeamManagement = () => {
   };
 
   const handleAddAdmin = async () => {
-    if (!newAgent.name || !newAgent.email || !newAgent.phone || !newAgent.title) {
+    if (
+      !newAgent.name ||
+      !newAgent.email ||
+      !newAgent.phone ||
+      !newAgent.title
+    ) {
       alert("Please fill in all required fields.");
       return;
     }
@@ -76,12 +85,16 @@ const TeamManagement = () => {
     }
 
     try {
-      const response = await axios.post('https://soole-backend.onrender.com/api/admin/create', requestBody, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await axios.post(
+        "https://soole-backend.onrender.com/api/admin/create",
+        requestBody,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       // Handle the response
       if (response.data.status === "success") {
@@ -95,7 +108,7 @@ const TeamManagement = () => {
             name: newAdmin.name,
             title: newAgent.title,
             email: newAdmin.personalEmail,
-            phone: newAdmin.phone, 
+            phone: newAdmin.phone,
             image: "/profilePic.png",
             role: newAdmin.role,
           },
@@ -103,20 +116,25 @@ const TeamManagement = () => {
 
         setNewAgent({
           id: null,
-          name: '',
-          title: '',
-          email: '',
-          phone: '',
+          name: "",
+          title: "",
+          email: "",
+          phone: "",
         });
         setIsModalOpen(false);
         alert("Admin added successfully!");
       } else {
-        alert(`Failed to add admin: ${response.data.message || 'Unknown error'}`);
+        alert(
+          `Failed to add admin: ${response.data.message || "Unknown error"}`
+        );
       }
     } catch (error) {
       if (axios.isAxiosError(error)) {
         console.error("Error adding admin:", error.response?.data); // Log specific error message
-        alert("Failed to add admin: " + (error.response?.data?.error || "Unknown error."));
+        alert(
+          "Failed to add admin: " +
+            (error.response?.data?.error || "Unknown error.")
+        );
       } else {
         console.error("Unexpected error:", error);
         alert("An unexpected error occurred.");
@@ -158,15 +176,14 @@ const TeamManagement = () => {
     }
   };
 
-
   const handleRemoveSuperAdmin = async (profile: Profile) => {
     const token = accessToken || localStorage.getItem("access_token");
-  
+
     if (!token) {
       alert("Authorization token is missing. Please log in again.");
       return;
     }
-  
+
     try {
       const response = await api.patch(
         `/${profile.id}/super-admin/demote`,
@@ -178,15 +195,13 @@ const TeamManagement = () => {
           },
         }
       );
-  
+
       console.log("Admin removal successful:", response.data);
-      
+
       setProfiles((prev) =>
-        prev.map((p) =>
-          p.id === profile.id ? { ...p, role: "ADMIN" } : p
-        )
+        prev.map((p) => (p.id === profile.id ? { ...p, role: "ADMIN" } : p))
       );
-  
+
       alert(`${profile.name} is no longer a super Admin!`);
     } catch (error) {
       console.error("Error removing Admin:", error);
@@ -200,7 +215,10 @@ const TeamManagement = () => {
       <div className="profile-container ff-Mabry-Pro-bold">
         {profiles.map((profile) => (
           <div key={profile.id || profile.name} className="profile-card">
-            <div className="menu-button" onClick={() => handleMenuClick(profile.id as string)}>
+            <div
+              className="menu-button"
+              onClick={() => handleMenuClick(profile.id as string)}
+            >
               ⋮
             </div>
             {activeMenu === profile.id && (
@@ -248,18 +266,14 @@ const TeamManagement = () => {
             <p className="profile-title">{profile.title}</p>
             <p className="profile-email">{profile.email}</p>
             {/* <p className="profile-phone">{profile.phone}</p> */}
-            {profile.role === "SUPER_ADMIN" && <p className="super-admin-badge">Super Admin</p>}
+            {profile.role === "SUPER_ADMIN" && (
+              <p className="super-admin-badge">Super Admin</p>
+            )}
           </div>
         ))}
         <div
           className="add-card"
-          onClick={() =>
-            openModal(
-              "add",
-              "Add Admin",
-              handleAddAdmin
-            )
-          }
+          onClick={() => openModal("add", "Add Admin", handleAddAdmin)}
         >
           <div className="add-icon-container">
             <span className="add-icon">+</span>
@@ -284,7 +298,9 @@ const TeamManagement = () => {
               type="text"
               required
               value={newAgent.name}
-              onChange={(e) => setNewAgent({ ...newAgent, name: e.target.value })}
+              onChange={(e) =>
+                setNewAgent({ ...newAgent, name: e.target.value })
+              }
             />
             <label>Title</label>
             <input
