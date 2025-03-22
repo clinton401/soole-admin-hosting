@@ -121,7 +121,7 @@ export default function RideTracker() {
     setSelectedFilter(option);
     setIsOpen(false);
     setSearchValue("");
-    queryClient.setQueryData(["rides", "currentPage", selectedFilter.toLowerCase()], (prev: number) => {
+    queryClient.setQueryData(["rides", "currentPage", selectedFilter.toLowerCase()], () => {
             return 1
           });
   };

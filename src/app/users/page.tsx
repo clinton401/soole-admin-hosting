@@ -114,7 +114,7 @@ const UsersPage: FC = () => {
     setSelectedFilter(option);
     setIsOpen(false);
     setSearchValue("");
-    queryClient.setQueryData(["users", "currentPage", selectedFilter.toLowerCase()], (prev: number) => {
+    queryClient.setQueryData(["users", "currentPage", selectedFilter.toLowerCase()], () => {
       return 1
     });
   };

@@ -121,7 +121,7 @@ const [isDeletePending, setIsDeletePending] = useState(false);
     e.stopPropagation();
     const starred = conversation.starred; 
 
-    queryClient.setQueryData(["conversation", id], (prev: any) => {
+    queryClient.setQueryData(["conversation", id], (prev: ComplaintConversation | null) => {
       if (!prev) return null;
       return { ...prev, starred: !starred };
     });
@@ -134,7 +134,7 @@ const [isDeletePending, setIsDeletePending] = useState(false);
       {
         onError: (error) => {
           console.error("Error toggling star:", error);
-          queryClient.setQueryData(["conversation", id], (prev: any) => {
+          queryClient.setQueryData(["conversation", id], (prev: ComplaintConversation | null) => {
             if (!prev) return null;
             return { ...prev, starred: starred };
           });
