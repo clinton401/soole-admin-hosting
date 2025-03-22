@@ -17,6 +17,9 @@ export enum UserRole {
 }
 
 export type User = {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
   phone: string;
   name: string;
   password: string;

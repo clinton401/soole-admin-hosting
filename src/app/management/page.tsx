@@ -7,6 +7,7 @@ import Modal from "../components/Modal";
 import api from "../../../config/api";
 import axios from "axios";
 
+
 interface Profile {
   id: string | null;
   name: string;
@@ -71,29 +72,18 @@ const TeamManagement = () => {
     }
 
     const requestBody = {
-      personalEmail: newAgent.email,
+      personalEmail: newAgent.title,
       phone: newAgent.phone,
       name: newAgent.name,
       workEmail: newAgent.email,
     };
 
-    const token = accessToken;
-
-    if (!token) {
-      alert("Authorization token is missing. Please log in again.");
-      return;
-    }
+    
 
     try {
-      const response = await axios.post(
-        "https://soole-backend.onrender.com/api/admin/create",
+      const response = await api.post("/create",
         requestBody,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
+       
       );
 
       // Handle the response
@@ -302,7 +292,7 @@ const TeamManagement = () => {
                 setNewAgent({ ...newAgent, name: e.target.value })
               }
             />
-            <label>Title</label>
+            <label>Personal Email</label>
             <input
               type="text"
               required

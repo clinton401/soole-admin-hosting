@@ -42,7 +42,7 @@ export interface Ride {
   id: string;
 }
 
-type FilterOption = "Filter" | "Active" | "Completed" | "Ongoing" | "Cancelled";
+type FilterOption = "All" | "Active" | "Completed" | "Ongoing" | "Cancelled";
 type FetchRidesResult = {
   data: Ride[];
   nextPage?: number;
@@ -55,9 +55,9 @@ export default function RideTracker() {
   //   { id: "1", name: "Ride 1", latitude: 9.082, longitude: 8.6753 }, // Abuja, Nigeria
   //   { id: "2", name: "Ride 2", latitude: 6.5244, longitude: 3.3792 }, // Lagos, Nigeria
   // ]);
-  const [selectedFilter, setSelectedFilter] = useState<FilterOption>("Filter");
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalRides, setTotalRides] = useState(1);
+  const [selectedFilter, setSelectedFilter] = useState<FilterOption>("All");
+  // const [currentPage, setCurrentPage] = useState(1);
+  // const [totalRides, setTotalRides] = useState(1);
   const [searchValue, setSearchValue] = useState("");
   const [isSearchPending, setIsSearchPending] = useState(false);
   const [searchError, setSearchError] = useState<null | string>(null);
@@ -77,8 +77,10 @@ export default function RideTracker() {
       );
 
       const data = response.data.data;
-      setTotalRides(data.totalRides || 1);
-      setCurrentPage(data.currentPage || 1);
+      // setTotalRides(data.totalRides || 1);
+      // setCurrentPage(data.currentPage || 1);
+      queryClient.setQueryData(["rides", "currentPage", selectedFilter.toLowerCase()], data.currentPage || 1);
+      queryClient.setQueryData(["rides", "totalRides", selectedFilter.toLowerCase()], data.totalRides || 1);
       return {
         data: data.rides,
         nextPage: data.nextPage,
@@ -105,21 +107,27 @@ export default function RideTracker() {
     refetch,
   } = useInfiniteScroll<Ride, FetchRidesResult>(
     ({ pageParam = 1, signal }) => fetchRides({ pageParam, signal }),
-    ["rides", selectedFilter]
+    ["rides", selectedFilter.toLowerCase()]
   );
   // console.log({ data, isLoading, error, hasPreviousPage, currentPage });
   const queryClient = useQueryClient();
   const {isOpen, setIsOpen} = useCloseOnEscKey();
+  const currentPage: number = queryClient.getQueryData(["rides", "currentPage", selectedFilter.toLowerCase()]) ?? 1;
+  const totalRides: number = queryClient.getQueryData(["rides", "totalRides", selectedFilter.toLowerCase()]) ?? 1;
+
   const toggleDropdown = () => setIsOpen((prev) => !prev);
 
   const handleSelect = (option: FilterOption) => {
     setSelectedFilter(option);
     setIsOpen(false);
     setSearchValue("");
-    setCurrentPage(1)
+    queryClient.setQueryData(["rides", "currentPage", selectedFilter.toLowerCase()], (prev: number) => {
+            return 1
+          });
   };
 
   const options: FilterOption[] = [
+    "All",
     "Active",
     "Completed",
     "Ongoing",
@@ -182,7 +190,7 @@ export default function RideTracker() {
       if (response.status === 200 && response.data) {
         // console.log(response.data.data);
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        queryClient.setQueryData(["rides", selectedFilter], (old: {pageParams: number[],pages: {data: Ride[]}[]}) => {
+        queryClient.setQueryData(["rides", selectedFilter.toLowerCase()], (old: {pageParams: number[],pages: {data: Ride[]}[]}) => {
           if (!old) return old;
 
           return {
@@ -193,9 +201,13 @@ export default function RideTracker() {
             ],
           };
         });
-        setCurrentPage(1);
+        queryClient.setQueryData(["rides", "currentPage", selectedFilter.toLowerCase()], () => {
+          return 1
+        });
+        queryClient.setQueryData(["rides", "totalRides", selectedFilter.toLowerCase()], () => {
+          return response.data?.data?.rides?.length || 1
+        });
         
-        setTotalRides(response.data?.data?.rides?.length || 1)
       } else {
         throw new Error("Invalid response");
       }
@@ -210,7 +222,7 @@ export default function RideTracker() {
   };
   const debouncedData = useDebounce(searchForRides);
   useEffect(() => {
-    if (searchValue.length > 1) {
+    if (searchValue.length > 0) {
       debouncedData();
     }
   }, [searchValue]);
@@ -229,7 +241,7 @@ export default function RideTracker() {
       if(searchError){
         await queryClient.invalidateQueries(
           {
-            queryKey: ["rides", selectedFilter], 
+            queryKey: ["rides", selectedFilter.toLowerCase()], 
             exact: true,     
             refetchType: 'active', 
           },
@@ -272,13 +284,31 @@ export default function RideTracker() {
             <input
               placeholder="Search by name, username or email"
               value={searchValue}
-              onChange={(e) => setSearchValue(e.target.value)}
+              onChange={async(e) => {
+                const value = e.target.value
+                setSearchValue(value);
+                if(value.length < 1){
+                  await queryClient.invalidateQueries(
+                    {
+                      queryKey: ["rides", selectedFilter.toLowerCase()], 
+                      exact: true,     
+                      refetchType: 'active', 
+                    },
+                    {
+                      throwOnError: true,  
+                      cancelRefetch: true,  
+                    }
+                  );
+                }
+              }}
             />{" "}
             <Search className="search-icon" />
           </div>{" "}
           <div className="dropdown">
             <button className="dropdown-btn" onClick={toggleDropdown}>
-              <ListFilter className="icon" /> {selectedFilter}
+              <ListFilter className="icon" /> 
+              {/* {selectedFilter} */}
+              Filter
             </button>
 
             <ul className={`dropdown-menu ${isOpen ? "open" : ""}`}>

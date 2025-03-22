@@ -21,7 +21,7 @@ const ConvoCard: FC<{
     );
   };
   const isResolved = conversation.status === ComplaintStatus.RESOLVED;
-  const createdAt = new Date(conversation.createdAt);
+  const createdAt = new Date(conversation.createdAt) ;
   const handleCheckBox = (e: React.MouseEvent<HTMLInputElement>) => {
     e.stopPropagation();
   };

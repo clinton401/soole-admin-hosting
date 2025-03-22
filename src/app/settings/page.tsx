@@ -7,6 +7,7 @@ import Modal from "../components/Modal";
 import PasswordResetForm from "../components/PasswordResetForm";
 import { AppContext } from '../components/ContextProvider';
 import axios  from 'axios';
+import api from '../../../config/api';
 
 interface FormData {
   oldPassword?: string;
@@ -24,7 +25,7 @@ const Settings = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isPasswordUpdated, setIsPasswordUpdated] = useState(false);
   const [passwordChangeError, setPasswordChangeError] = useState<string | null>(null);
-  const { user, setUser, accessToken } = useContext(AppContext);
+  const { user, setUser } = useContext(AppContext);
   const [passwordFormData, setPasswordFormData] = useState<FormData>({});
 
   const handleImageChange = async (e: ChangeEvent<HTMLInputElement>) => {
@@ -61,23 +62,15 @@ const Settings = () => {
 
   const handleSaveChanges = async () => {
     const updatedData = {
-      name: newAgent.name || user?.name,
-      personalEmail: newAgent.email || user?.personalEmail,
-      phone: newAgent.phone || user?.phone,
-      avatarUrl: user?.avatarUrl || null,
-      workEmail: newAgent?.workEmail
+      name: newAgent.name || undefined,
+      personalEmail: newAgent.email || undefined,
+      phone: newAgent.phone || undefined,
+      avatarUrl: user?.avatarUrl || undefined,
+      workEmail: newAgent?.workEmail || undefined
     };
 
-    console.log("Updated Data:", updatedData);
-    
-    const token = accessToken || localStorage.getItem("access_token");
     try {
-      const response = await axios.put('https://soole-backend.onrender.com/api/admin/me/update', updatedData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        }
-      });
+      const response = await api.put('/me/update', updatedData);
       if (response.status === 200) {
         setUser((prevUser) => ({
           ...prevUser,
@@ -87,20 +80,18 @@ const Settings = () => {
       }
     } catch (error) {
       console.error("Error updating profile:", error);
-      alert("Failed to update profile. Please try again.");
+      if (axios.isAxiosError(error)) {
+      alert(error.response?.data?.error ||"Failed to update profile. Please try again.");
+      }  else {
+        alert("Failed to update profile. Please try again.");
+      }
     }
   };
 
   const handlePasswordChange = async (formData: FormData) => {
-    const token = accessToken || localStorage.getItem("access_token");
 
     try {
-      const response = await axios.patch('https://soole-backend.onrender.com/api/admin/me/update/password', formData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        }
-      });
+      const response = await api.patch('/me/update/password', formData);
       if (response.status === 200) {
         setIsPasswordUpdated(true);
         alert(response.data.message);

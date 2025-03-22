@@ -35,11 +35,9 @@ enum ComplaintSenderType {
 }
 
 const InboxChat: FC = () => {
-  const [conversation, setConversation] =
-    useState<null | ComplaintConversation>(null);
-  const [isMarkPending, setIsMarkPending] = useState(false);
-  const [isDeletePending, setIsDeletePending] = useState(false);
-
+  
+const [isMarkPending, setIsMarkPending] = useState(false);
+const [isDeletePending, setIsDeletePending] = useState(false);
   // const [currentPage, setCurrentPage] = useState(1);
   // const [totalMessages, setTotalMessages] = useState(1);
   const [inputValue, setInputValue] = useState("");
@@ -62,7 +60,8 @@ const InboxChat: FC = () => {
       const data = response.data.data;
       // setTotalMessages(data.totalMessages || 1);
       // setCurrentPage(data.currentPage || 1);
-      setConversation(data.conversation || null);
+      // setConversation(data.conversation || null);
+      queryClient.setQueryData(["conversation", id], data.conversation || null);
       return {
         data: data.messages,
         nextPage: data.nextPage,
@@ -86,10 +85,13 @@ const InboxChat: FC = () => {
       fetchConversationMessages({ pageParam, signal }),
     [`messages`, id as string]
   );
+
   const queryClient = useQueryClient();
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
   const scrollRef = useRef<HTMLDivElement | null>(null);
   const { back, push } = useRouter();
+  const conversation: ComplaintConversation | null | undefined = queryClient.getQueryData(["conversation", id as string]);
+
 
   const handleInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInputValue(e.target.value);
@@ -110,6 +112,7 @@ const InboxChat: FC = () => {
     return <LoaderComp />;
   }
 
+
   if (error || !messages || !conversation) {
     return <ErrorComp error={error} refetch={refetch} />;
   }
@@ -118,7 +121,7 @@ const InboxChat: FC = () => {
     e.stopPropagation();
     const starred = conversation.starred; 
 
-    setConversation((prev) => {
+    queryClient.setQueryData(["conversation", id], (prev: any) => {
       if (!prev) return null;
       return { ...prev, starred: !starred };
     });
@@ -131,7 +134,7 @@ const InboxChat: FC = () => {
       {
         onError: (error) => {
           console.error("Error toggling star:", error);
-          setConversation((prev) => {
+          queryClient.setQueryData(["conversation", id], (prev: any) => {
             if (!prev) return null;
             return { ...prev, starred: starred };
           });
@@ -188,29 +191,42 @@ const InboxChat: FC = () => {
     try {
       setIsMarkPending(true);
       const response = await api.patch(`/complaints/${id}/resolve`);
-
-      await queryClient.invalidateQueries(
-        {
-          queryKey: [`messages`, id as string],
-          exact: true,
-          refetchType: "active",
-        },
-        {
-          throwOnError: true,
-          cancelRefetch: true,
-        }
-      );
-      await queryClient.invalidateQueries(
-        {
-          queryKey: ["total-conversations"],
-          exact: true,
-          refetchType: "active",
-        },
-        {
-          throwOnError: true,
-          cancelRefetch: true,
-        }
-      );
+await Promise.all([
+  queryClient.invalidateQueries(
+    {
+      queryKey: [`messages`, id as string],
+      exact: true,
+      refetchType: "active",
+    },
+    {
+      throwOnError: true,
+      cancelRefetch: true,
+    }
+  ),
+   queryClient.invalidateQueries(
+    {
+      queryKey: ["total-conversations"],
+      exact: true,
+      refetchType: "active",
+    },
+    {
+      throwOnError: true,
+      cancelRefetch: true,
+    }
+  ),
+   queryClient.invalidateQueries(
+    {
+      queryKey: ["inbox-count"],
+      exact: true,
+      refetchType: "active",
+    },
+    {
+      throwOnError: true,
+      cancelRefetch: true,
+    }
+  )
+])
+       
 
       showToast(response.data?.message || "Conversation marked as resolved successfully", "success")
     } catch (error) {

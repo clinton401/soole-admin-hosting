@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import "@/styles/main.scss";
 import AuthWrapper from "./components/AuthWrapper";
-import  ContextProvider  from "./components/ContextProvider";
+import ContextProvider from "./components/ContextProvider";
 import TanstackQueryClient from "./components/TanstackQueryClient";
 import { ToastContainer, Bounce } from "react-toastify";
-
+import SocketUpdate from "./components/SocketUpdate";
 
 export const metadata: Metadata = {
   title: "Soole Dashboard",
@@ -19,30 +19,27 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="d-flex">
-      <TanstackQueryClient>
-        <ContextProvider>
-          <AuthWrapper>
-            {/* <Sidebar /> */}
-            {/* <div className="d-flex gap-2 d-flex-1 flex-column"> */}
-            {/* <Searchbar /> */}
-            {/* <main className="d-flex-1"> */}
-            <main>{children}</main>
-            {/* </div> */}
-          </AuthWrapper>
-        </ContextProvider>
-        <ToastContainer
-          position="top-right"
-          autoClose={5000}
-          hideProgressBar={false}
-          newestOnTop
-          closeOnClick={false}
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="light"
-          transition={Bounce}
-        />
+        <TanstackQueryClient>
+          <ContextProvider>
+            <SocketUpdate>
+              <AuthWrapper>
+                <main>{children}</main>
+              </AuthWrapper>
+            </SocketUpdate>
+          </ContextProvider>
+          <ToastContainer
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop
+            closeOnClick={false}
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+            transition={Bounce}
+          />
         </TanstackQueryClient>
       </body>
     </html>

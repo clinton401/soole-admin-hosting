@@ -58,20 +58,26 @@ const useSendMessage = () => {
         if (!old) return old;
         return {
           ...old,
-          pages: old.pages.map((page: any) => ({
-            ...page,
-            data: [newData, ...page.data]
-          })),
+          pages: old.pages.map((page: any, index: number) => {
+
+            if(index === 0){
+             return  { ...page, data: [newData, ...page.data] }
+            }
+            return page;
+          }),
         };
       });
 queryClient.setQueryData(["messages", convoId], (old: any) => {
     if (!old) return old;
     return {
         ...old,
-        pages: old.pages.map((page: any) => ({
-          ...page,
-          data: [...page.data, newData]
-        })),
+        pages: old.pages.map((page: any, index: number) => {
+
+          if(index === 0){
+            return { ...page, data: [...page.data, newData] };
+          }
+          return page;
+        }),
       };
 })
     

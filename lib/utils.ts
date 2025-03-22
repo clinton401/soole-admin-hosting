@@ -34,12 +34,15 @@ export const getPaginationText = (pageSize: number, currentPage: number, total: 
     return `Showing ${start}-${end} of ${total}`;
 }
 
-export const formatDate = (date: Date, isFiltered = true) => {
+export const formatDate = (date: Date | null | undefined, isFiltered = true) => {
   const now = new Date();
+
+  const validDate = date instanceof Date && !isNaN(date.getTime()) ? date : now;
+
   const isToday =
-    date.getDate() === now.getDate() &&
-    date.getMonth() === now.getMonth() &&
-    date.getFullYear() === now.getFullYear();
+    validDate.getDate() === now.getDate() &&
+    validDate.getMonth() === now.getMonth() &&
+    validDate.getFullYear() === now.getFullYear();
 
   const timeFormatter = new Intl.DateTimeFormat("en-US", {
     hour: "numeric",
@@ -52,12 +55,14 @@ export const formatDate = (date: Date, isFiltered = true) => {
     day: "numeric",
   });
 
-  const time = timeFormatter.format(date);
-  const day = dateFormatter.format(date);
+
+  const time = timeFormatter.format(validDate);
+  const day = dateFormatter.format(validDate);
 
   if (isToday) return time;
   return isFiltered ? day : `${time}, ${day}`;
 };
+
 
 
   

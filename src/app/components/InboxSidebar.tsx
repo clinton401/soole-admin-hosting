@@ -10,7 +10,7 @@ import LoaderComp from "../components/LoaderComp";
 import ErrorComp from "../components/ErrorComp";
 import axios from "axios";
 type InboxCountQueryKey = ["inbox-count"];
-type InboxCountResponse = {
+export type InboxCountResponse = {
   total_count: number;
   sent_count: number;
   starred_count: number;

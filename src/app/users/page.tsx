@@ -42,7 +42,7 @@ export interface User {
 }
 
 type FilterOption =
-  | "Filter"
+  | "All"
   | "Active"
   | "Inactive"
   | "Suspended"
@@ -53,9 +53,7 @@ type FetchUsersResult = {
   prevPage?: number;
 };
 const UsersPage: FC = () => {
-  const [selectedFilter, setSelectedFilter] = useState<FilterOption>("Filter");
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalUsers, setTotalUsers] = useState(1);
+  const [selectedFilter, setSelectedFilter] = useState<FilterOption>("All");
   const [searchValue, setSearchValue] = useState("");
   const [isSearchPending, setIsSearchPending] = useState(false);
   const [searchError, setSearchError] = useState<null | string>(null);
@@ -74,8 +72,8 @@ const UsersPage: FC = () => {
         }
       );
       const data = response.data.data;
-      setTotalUsers(data.totalUsers || 1);
-      setCurrentPage(data.currentPage || 1);
+      queryClient.setQueryData(["users", "currentPage", selectedFilter.toLowerCase()], data.currentPage || 1);
+      queryClient.setQueryData(["users", "totalUsers", selectedFilter.toLowerCase()], data.totalUsers || 1);
       return {
         data: data.users,
         nextPage: data.nextPage,
@@ -102,21 +100,27 @@ const UsersPage: FC = () => {
     refetch,
   } = useInfiniteScroll<User, FetchUsersResult>(
     ({ pageParam = 1, signal }) => fetchUsers({ pageParam, signal }),
-    ["users", selectedFilter]
+    ["users", selectedFilter.toLowerCase()]
   );
   // console.log({ data, isLoading, error, hasPreviousPage, currentPage });
   const queryClient = useQueryClient();
   const {isOpen, setIsOpen} = useCloseOnEscKey();
+  const currentPage: number = queryClient.getQueryData(["users", "currentPage", selectedFilter.toLowerCase()]) ?? 1;
+  const totalUsers: number = queryClient.getQueryData(["users", "totalUsers", selectedFilter.toLowerCase()]) ?? 1;
+
   const toggleDropdown = () => setIsOpen((prev) => !prev);
 
   const handleSelect = (option: FilterOption) => {
     setSelectedFilter(option);
     setIsOpen(false);
     setSearchValue("");
-    setCurrentPage(1);
+    queryClient.setQueryData(["users", "currentPage", selectedFilter.toLowerCase()], (prev: number) => {
+      return 1
+    });
   };
 
   const options: FilterOption[] = [
+    "All",
     "Active",
     "Inactive",
     "Suspended",
@@ -137,7 +141,7 @@ const UsersPage: FC = () => {
       if (response.status === 200 && response.data) {
         // console.log(response.data.data);
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        queryClient.setQueryData(["users", selectedFilter], (old: {pageParams: number[],pages: {data: User[]}[]}) => {
+        queryClient.setQueryData(["users", selectedFilter.toLowerCase()], (old: {pageParams: number[],pages: {data: User[]}[]}) => {
           if (!old) return old;
 
           return {
@@ -148,8 +152,13 @@ const UsersPage: FC = () => {
             ],
           };
         });
-        setCurrentPage(1);
-        setTotalUsers(response.data?.data?.users?.length || 1)
+        queryClient.setQueryData(["users", "currentPage", selectedFilter.toLowerCase()], () => {
+          return 1
+        });
+        queryClient.setQueryData(["users", "totalUsers", selectedFilter.toLowerCase()], () => {
+          return response.data?.data?.users?.length || 1
+        });
+        
       } else {
         throw new Error("Invalid response");
       }
@@ -164,7 +173,7 @@ const UsersPage: FC = () => {
   };
   const debouncedData = useDebounce(searchForUsers);
   useEffect(() => {
-    if (searchValue.length > 1) {
+    if (searchValue.length > 0) {
       debouncedData();
     }
   }, [searchValue]);
@@ -182,7 +191,7 @@ const UsersPage: FC = () => {
       if(searchError){
         await queryClient.invalidateQueries(
           {
-            queryKey: ["users", selectedFilter], 
+            queryKey: ["users", selectedFilter.toLowerCase()], 
             exact: true,     
             refetchType: 'active', 
           },
@@ -213,13 +222,31 @@ const UsersPage: FC = () => {
             <input
               placeholder="Search by name, username or email"
               value={searchValue}
-              onChange={(e) => setSearchValue(e.target.value)}
+              onChange={async(e) => {
+                const value = e.target.value
+                setSearchValue(value);
+                if(value.length < 1){
+                  await queryClient.invalidateQueries(
+                    {
+                      queryKey: ["users", selectedFilter.toLowerCase()], 
+                      exact: true,     
+                      refetchType: 'active', 
+                    },
+                    {
+                      throwOnError: true,  
+                      cancelRefetch: true,  
+                    }
+                  );
+                }
+              }}
             />{" "}
             <Search className="search-icon" />
           </div>{" "}
           <div className="dropdown">
             <button className="dropdown-btn" onClick={toggleDropdown}>
-              <ListFilter className="icon" /> {selectedFilter}
+              <ListFilter className="icon" />
+              Filter
+               {/* {selectedFilter} */}
             </button>
 
             <ul className={`dropdown-menu ${isOpen ? "open" : ""}`}>

@@ -55,7 +55,7 @@ const queryClient = useQueryClient()
         const returnedUser = response.data?.user;
         if(returnedUser){
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          queryClient.setQueryData(["users", selectedFilter], (old: {pageParams: number[],pages: {data: User[]}[]}) => {
+          queryClient.setQueryData(["users", selectedFilter.toLowerCase()], (old: {pageParams: number[],pages: {data: User[]}[]}) => {
             if (!old) return old;
           
           
