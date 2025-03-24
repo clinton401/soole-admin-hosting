@@ -1,12 +1,11 @@
 "use client";
 
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import Image from "next/image";
 import { AppContext } from "../components/ContextProvider";
 import Modal from "../components/Modal";
 import api from "../../../config/api";
 import axios from "axios";
-
 
 interface Profile {
   id: string | null;
@@ -37,6 +36,40 @@ const TeamManagement = () => {
     phone: "",
   });
 
+  useEffect(() => {
+    const fetchProfiles = async () => {
+      try {
+        const response = await api.get("/");
+        console.log("Fetch Profiles Response:", response.data);
+
+        if (response.data && response.data.status === "success" && Array.isArray(response.data.data.admins)) {
+          const fetchedProfiles: Profile[] = response.data.data.admins.map((admin: any) => ({
+            id: admin.id,
+            name: admin.name,
+            title: admin.title || admin.role,
+            email: admin.workEmail || admin.personalEmail,
+            phone: admin.phone,
+            image: admin.image || "/profilePic.png",
+            role: admin.role,
+          }));
+          setProfiles(fetchedProfiles);
+        } else {
+          alert(response.data.message || "Unknown error");
+        }
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          console.error("Error fetching profiles:", error.response?.data);
+          alert("Failed to load profiles: " + (error.response?.data?.error || "Unknown error."));
+        } else {
+          console.error("Unexpected error:", error);
+          alert("An unexpected error occurred.");
+        }
+      }
+    };
+
+    fetchProfiles();
+  }, []);
+
   const handleMenuClick = (id: string) => {
     setActiveMenu((prev) => (prev === id ? null : id));
   };
@@ -61,12 +94,7 @@ const TeamManagement = () => {
   };
 
   const handleAddAdmin = async () => {
-    if (
-      !newAgent.name ||
-      !newAgent.email ||
-      !newAgent.phone ||
-      !newAgent.title
-    ) {
+    if (!newAgent.name || !newAgent.email || !newAgent.phone || !newAgent.title) {
       alert("Please fill in all required fields.");
       return;
     }
@@ -78,15 +106,9 @@ const TeamManagement = () => {
       workEmail: newAgent.email,
     };
 
-    
-
     try {
-      const response = await api.post("/create",
-        requestBody,
-       
-      );
+      const response = await api.post("/create", requestBody);
 
-      // Handle the response
       if (response.data.status === "success") {
         const newAdmin = response.data.admin;
         console.log(newAdmin);
@@ -99,7 +121,7 @@ const TeamManagement = () => {
             title: newAgent.title,
             email: newAdmin.personalEmail,
             phone: newAdmin.phone,
-            image: "/profilePic.png",
+            image: newAdmin.image || "/profilePic.png",
             role: newAdmin.role,
           },
         ]);
@@ -114,17 +136,12 @@ const TeamManagement = () => {
         setIsModalOpen(false);
         alert("Admin added successfully!");
       } else {
-        alert(
-          `Failed to add admin: ${response.data.message || "Unknown error"}`
-        );
+        alert(`Failed to add admin: ${response.data.message || "Unknown error"}`);
       }
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        console.error("Error adding admin:", error.response?.data); // Log specific error message
-        alert(
-          "Failed to add admin: " +
-            (error.response?.data?.error || "Unknown error.")
-        );
+        console.error("Error adding admin:", error.response?.data);
+        alert("Failed to add admin: " + (error.response?.data?.error || "Unknown error."));
       } else {
         console.error("Unexpected error:", error);
         alert("An unexpected error occurred.");
@@ -134,12 +151,12 @@ const TeamManagement = () => {
 
   const handleMakeSuperAdmin = async (profile: Profile) => {
     const token = accessToken || localStorage.getItem("access_token");
-
+  
     if (!token) {
       alert("Authorization token is missing. Please log in again.");
       return;
     }
-
+  
     try {
       const response = await api.patch(
         `/${profile.id}/super-admin/promote`,
@@ -151,14 +168,14 @@ const TeamManagement = () => {
           },
         }
       );
-
+  
       console.log("Super Admin promotion successful:", response.data);
       setProfiles((prev) =>
         prev.map((p) =>
-          p.id === profile.id ? { ...p, role: "SUPER_ADMIN" } : profile
+          p.id === profile.id ? { ...p, role: "SUPER_ADMIN" } : p
         )
       );
-
+  
       alert(`${profile.name} is now a Super Admin!`);
     } catch (error) {
       console.error("Error making Super Admin:", error);
@@ -187,12 +204,11 @@ const TeamManagement = () => {
       );
 
       console.log("Admin removal successful:", response.data);
-
       setProfiles((prev) =>
         prev.map((p) => (p.id === profile.id ? { ...p, role: "ADMIN" } : p))
       );
 
-      alert(`${profile.name} is no longer a super Admin!`);
+      alert(`${profile.name} is no longer a Super Admin!`);
     } catch (error) {
       console.error("Error removing Admin:", error);
       alert("Failed to remove Admin. Please try again.");
@@ -203,6 +219,15 @@ const TeamManagement = () => {
     <div className="ff-Mabry-Pro wrapper-container">
       <h2 className="ff-Mabry-Pro-bold fs-32">Team Management</h2>
       <div className="profile-container ff-Mabry-Pro-bold">
+      <div
+          className="add-card"
+          onClick={() => openModal("add", "Add Admin", handleAddAdmin)}
+        >
+          <div className="add-icon-container">
+            <span className="add-icon">+</span>
+          </div>
+          <p className="add-text">Add new admin</p>
+        </div>
         {profiles.map((profile) => (
           <div key={profile.id || profile.name} className="profile-card">
             <div
@@ -233,10 +258,6 @@ const TeamManagement = () => {
                     openModal(
                       "action",
                       `You are about to remove ${profile.name}.`,
-                      // () =>
-                      //   setProfiles((prev) =>
-                      //     prev.filter((p) => p.id !== profile.id)
-                      //   )
                       () => handleRemoveSuperAdmin(profile)
                     )
                   }
@@ -255,21 +276,12 @@ const TeamManagement = () => {
             <p className="profile-name">{profile.name}</p>
             <p className="profile-title">{profile.title}</p>
             <p className="profile-email">{profile.email}</p>
-            {/* <p className="profile-phone">{profile.phone}</p> */}
             {profile.role === "SUPER_ADMIN" && (
               <p className="super-admin-badge">Super Admin</p>
             )}
           </div>
         ))}
-        <div
-          className="add-card"
-          onClick={() => openModal("add", "Add Admin", handleAddAdmin)}
-        >
-          <div className="add-icon-container">
-            <span className="add-icon">+</span>
-          </div>
-          <p className="add-text">Add new admin</p>
-        </div>
+
       </div>
       <Modal
         isOpen={isModalOpen}
