@@ -16,6 +16,21 @@ interface Profile {
   image?: string;
   role: string;
 }
+export enum AdminRole {
+  ADMIN = "ADMIN",
+  SUPER_ADMIN = "SUPER_ADMIN"
+}
+ interface Admin {
+  id: string
+  phone: string;
+  name: string;
+  password: string;
+  workEmail: string;
+  role: AdminRole;
+  personalEmail: string;
+  avatarUrl?: string;
+  adminViewable: boolean;
+}
 
 const TeamManagement = () => {
   const { accessToken } = useContext(AppContext);
@@ -43,13 +58,13 @@ const TeamManagement = () => {
         console.log("Fetch Profiles Response:", response.data);
 
         if (response.data && response.data.status === "success" && Array.isArray(response.data.data.admins)) {
-          const fetchedProfiles: Profile[] = response.data.data.admins.map((admin: any) => ({
+          const fetchedProfiles: Profile[] = response.data.data.admins.map((admin: Admin) => ({
             id: admin.id,
             name: admin.name,
-            title: admin.title || admin.role,
-            email: admin.workEmail || admin.personalEmail,
+            title: admin.role,
+            email: admin.personalEmail,
             phone: admin.phone,
-            image: admin.image || "/profilePic.png",
+            image: admin.avatarUrl || "/profilePic.png",
             role: admin.role,
           }));
           setProfiles(fetchedProfiles);
