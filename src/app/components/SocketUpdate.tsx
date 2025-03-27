@@ -44,6 +44,42 @@ const SocketUpdate: FC<{ children: ReactNode }> = ({ children }) => {
               };
             }
           );
+          queryClient.setQueryData(
+            ["total-conversations"],
+            (old: {
+              pageParams: number[];
+              pages: { data: ComplaintConversation[] }[];
+            }) => {
+              if (!old) return old;
+              return {
+                ...old,
+                pages: old.pages.map((page, index) => {
+                  if (index === 0) {
+                    return { ...page, data: [conversation, ...page.data] };
+                  }
+                  return page;
+                }),
+              };
+            }
+          );
+          queryClient.setQueryData(
+            ["messages", message.conversationId],
+            (old: {
+              pageParams: number[];
+              pages: { data: ComplaintMessage[] }[];
+            }) => {
+              if (!old) return old;
+              return {
+                ...old,
+                pages: old.pages.map((page: any, index: number) => {
+                  if (index === 0) {
+                    return { ...page, data: [...page.data, message] };
+                  }
+                  return page;
+                }),
+              };
+            }
+          );
         })
 
         socket.on(
