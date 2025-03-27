@@ -5,7 +5,6 @@ import { Request, RequestCard } from "../components/RequestCard";
 import useInfiniteScroll from "../../../hooks/use-infinite-scroll";
 import api from "../../../config/api";
 import axios from "axios";
-import { useQueryClient } from "@tanstack/react-query";
 import LoaderComp from "../components/LoaderComp";
 import ErrorComp from "../components/ErrorComp";
 import { useInView } from "react-intersection-observer";
@@ -56,7 +55,6 @@ const RequestsPage: FC = () => {
         ["admin-requests"]
       );
 
-      const queryClient = useQueryClient();
       const { ref, inView } = useInView();
 
       useEffect(() => {

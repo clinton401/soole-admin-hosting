@@ -71,7 +71,7 @@ const SocketUpdate: FC<{ children: ReactNode }> = ({ children }) => {
               if (!old) return old;
               return {
                 ...old,
-                pages: old.pages.map((page: any, index: number) => {
+                pages: old.pages.map((page, index) => {
                   if (index === 0) {
                     return { ...page, data: [...page.data, message] };
                   }
