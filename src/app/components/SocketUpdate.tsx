@@ -9,8 +9,8 @@ import { ComplaintConversation } from "./InboxConvoParentComp";
 import { ComplaintMessage } from "../(message)/inbox/sent/page";
 import { InboxCountResponse } from "./InboxSidebar";
 
-// const SOCKET_URL = "https://soole-backend.onrender.com"; 
-const SOCKET_URL = "http://localhost:5000"; 
+const SOCKET_URL = "https://soole-backend.onrender.com"; 
+// const SOCKET_URL = "http://localhost:5000"; 
 
 const SocketUpdate: FC<{ children: ReactNode }> = ({ children }) => {
   const { isAuthenticated, accessToken } = useContext(AppContext);
