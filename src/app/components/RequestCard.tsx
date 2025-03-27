@@ -4,7 +4,6 @@ import LoaderComp from "../components/LoaderComp";
 import { handleAxiosError } from "../../../config/handleAxiosError";
 import showToast from "../../../hooks/use-toast";
 import { useQueryClient } from "@tanstack/react-query";
-import {Loader} from "lucide-react"
 
 export type Request = {
   id: string;
