@@ -1,27 +1,23 @@
 "use client";
 
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { AppContext } from "../components/ContextProvider";
 import Modal from "../components/Modal";
 import api from "../../../config/api";
 import axios from "axios";
+import useInfiniteScroll from "../../../hooks/use-infinite-scroll";
+import { useQueryClient } from "@tanstack/react-query";
+import LoaderComp from "../components/LoaderComp";
+import ErrorComp from "../components/ErrorComp";
+import { useInView } from "react-intersection-observer";
 
-interface Profile {
-  id: string | null;
-  name: string;
-  title: string;
-  email: string;
-  phone: string;
-  image?: string;
-  role: string;
-}
- enum AdminRole {
+
+enum AdminRole {
   ADMIN = "ADMIN",
-  SUPER_ADMIN = "SUPER_ADMIN"
+  SUPER_ADMIN = "SUPER_ADMIN",
 }
- interface Admin {
-  id: string
+interface Admin {
+  id: string;
   phone: string;
   name: string;
   password: string;
@@ -31,10 +27,14 @@ interface Profile {
   avatarUrl?: string;
   adminViewable: boolean;
 }
-
+type FetchAdminsResult = {
+  data: Admin[];
+  nextPage?: number;
+  prevPage?: number;
+};
 const TeamManagement = () => {
-  const { accessToken } = useContext(AppContext);
-  const [profiles, setProfiles] = useState<Profile[]>([]);
+  // const { accessToken } = useContext(AppContext);
+  // const [profiles, setProfiles] = useState<Profile[]>([]);
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalType, setModalType] = useState<"action" | "add">("action");
@@ -50,40 +50,105 @@ const TeamManagement = () => {
     email: "",
     phone: "",
   });
+  const fetchAdmins = async ({
+    pageParam = 1,
+    signal,
+  }: {
+    pageParam: number;
+    signal: AbortSignal;
+  }): Promise<FetchAdminsResult> => {
+    try {
+      const response = await api.get(`/?page=${pageParam}`, {
+        signal,
+      });
 
-  useEffect(() => {
-    const fetchProfiles = async () => {
-      try {
-        const response = await api.get("/");
-        console.log("Fetch Profiles Response:", response.data);
-
-        if (response.data && response.data.status === "success" && Array.isArray(response.data.data.admins)) {
-          const fetchedProfiles: Profile[] = response.data.data.admins.map((admin: Admin) => ({
-            id: admin.id,
-            name: admin.name,
-            title: admin.role,
-            email: admin.personalEmail,
-            phone: admin.phone,
-            image: admin.avatarUrl || "/profilePic.png",
-            role: admin.role,
-          }));
-          setProfiles(fetchedProfiles);
-        } else {
-          alert(response.data.message || "Unknown error");
-        }
-      } catch (error) {
-        if (axios.isAxiosError(error)) {
-          console.error("Error fetching profiles:", error.response?.data);
-          alert("Failed to load profiles: " + (error.response?.data?.error || "Unknown error."));
-        } else {
-          console.error("Unexpected error:", error);
-          alert("An unexpected error occurred.");
-        }
+      const data = response.data.data;
+      return {
+        data: data.admins,
+        nextPage: data.nextPage,
+        // prevPage: data.prevPage,
+      };
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw new Error(
+          error.response?.data?.error || "Unknown error occurred"
+        );
+      } else {
+        throw new Error("An unexpected error occurred");
       }
-    };
+    }
+  };
 
-    fetchProfiles();
-  }, []);
+  const {
+    data: admins,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    fetchPreviousPage,
+    hasPreviousPage,
+    isFetchingPreviousPage,
+    isLoading,
+    error,
+    refetch,
+  } = useInfiniteScroll<Admin, FetchAdminsResult>(
+    ({ pageParam = 1, signal }) => fetchAdmins({ pageParam, signal }),
+    ["admins"]
+  );
+
+  const queryClient = useQueryClient();
+  const { ref, inView } = useInView();
+  // useEffect(() => {
+  //   const fetchProfiles = async () => {
+  //     try {
+  //       const response = await api.get("/");
+  //       console.log("Fetch Profiles Response:", response.data);
+
+  //       if (response.data && response.data.status === "success" && Array.isArray(response.data.data.admins)) {
+  //         const fetchedProfiles: Profile[] = response.data.data.admins.map((admin: Admin) => ({
+  //           id: admin.id,
+  //           name: admin.name,
+  //           title: admin.role,
+  //           email: admin.personalEmail,
+  //           phone: admin.phone,
+  //           image: admin.avatarUrl || "/profilePic.png",
+  //           role: admin.role,
+  //         }));
+  //         setProfiles(fetchedProfiles);
+  //       } else {
+  //         alert(response.data.message || "Unknown error");
+  //       }
+  //     } catch (error) {
+  //       if (axios.isAxiosError(error)) {
+  //         console.error("Error fetching profiles:", error.response?.data);
+  //         alert("Failed to load profiles: " + (error.response?.data?.error || "Unknown error."));
+  //       } else {
+  //         console.error("Unexpected error:", error);
+  //         alert("An unexpected error occurred.");
+  //       }
+  //     }
+  //   };
+
+  //   fetchProfiles();
+  // }, []);
+  useEffect(() => {
+    if (inView && !isFetchingNextPage && hasNextPage) {
+      fetchNextPage();
+    }
+  }, [fetchNextPage, inView, isFetchingNextPage, hasNextPage]);
+  if (isLoading) {
+    return (
+      <div className="container">
+        <LoaderComp />
+      </div>
+    );
+  }
+  if (error || !admins) {
+    return (
+      <div className="container">
+        <ErrorComp error={error} refetch={refetch} />
+      </div>
+    );
+  }
 
   const handleMenuClick = (id: string) => {
     setActiveMenu((prev) => (prev === id ? null : id));
@@ -109,7 +174,12 @@ const TeamManagement = () => {
   };
 
   const handleAddAdmin = async () => {
-    if (!newAgent.name || !newAgent.email || !newAgent.phone || !newAgent.title) {
+    if (
+      !newAgent.name ||
+      !newAgent.email ||
+      !newAgent.phone ||
+      !newAgent.title
+    ) {
       alert("Please fill in all required fields.");
       return;
     }
@@ -126,20 +196,32 @@ const TeamManagement = () => {
 
       if (response.data.status === "success") {
         const newAdmin = response.data.admin;
-        console.log(newAdmin);
-
-        setProfiles((prev) => [
-          ...prev,
-          {
-            id: newAdmin.id,
-            name: newAdmin.name,
-            title: newAgent.title,
-            email: newAdmin.personalEmail,
-            phone: newAdmin.phone,
-            image: newAdmin.image || "/profilePic.png",
-            role: newAdmin.role,
-          },
-        ]);
+        // console.log(newAdmin);
+        queryClient.setQueryData(["admins"], (old:  {pageParams: number[],pages: {data: Admin[]}[]} | null) => {
+          if (!old) return old;
+          return {
+              ...old,
+              pages: old.pages.map((page: any, index: number) => {
+      
+                if(index === 0){
+                  return { ...page, data: [newAdmin, ...page.data] };
+                }
+                return page;
+              }),
+            };
+      })
+        // setProfiles((prev) => [
+        //   ...prev,
+        //   {
+        //     id: newAdmin.id,
+        //     name: newAdmin.name,
+        //     title: newAgent.title,
+        //     email: newAdmin.personalEmail,
+        //     phone: newAdmin.phone,
+        //     image: newAdmin.image || "/profilePic.png",
+        //     role: newAdmin.role,
+        //   },
+        // ]);
 
         setNewAgent({
           id: null,
@@ -151,12 +233,17 @@ const TeamManagement = () => {
         setIsModalOpen(false);
         alert("Admin added successfully!");
       } else {
-        alert(`Failed to add admin: ${response.data.message || "Unknown error"}`);
+        alert(
+          `Failed to add admin: ${response.data.message || "Unknown error"}`
+        );
       }
     } catch (error) {
       if (axios.isAxiosError(error)) {
         console.error("Error adding admin:", error.response?.data);
-        alert("Failed to add admin: " + (error.response?.data?.error || "Unknown error."));
+        alert(
+          "Failed to add admin: " +
+            (error.response?.data?.error || "Unknown error.")
+        );
       } else {
         console.error("Unexpected error:", error);
         alert("An unexpected error occurred.");
@@ -164,33 +251,34 @@ const TeamManagement = () => {
     }
   };
 
-  const handleMakeSuperAdmin = async (profile: Profile) => {
-    const token = accessToken || localStorage.getItem("access_token");
-  
-    if (!token) {
-      alert("Authorization token is missing. Please log in again.");
-      return;
-    }
+  const handleMakeSuperAdmin = async (profile: Admin) => {
   
     try {
-      const response = await api.patch(
+     await api.patch(
         `/${profile.id}/super-admin/promote`,
-        {},
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
       );
-  
-      console.log("Super Admin promotion successful:", response.data);
-      setProfiles((prev) =>
-        prev.map((p) =>
-          p.id === profile.id ? { ...p, role: "SUPER_ADMIN" } : p
-        )
-      );
-  
+
+      // console.log("Super Admin promotion successful:", response.data);
+      queryClient.setQueryData(["admins"], (old: {pageParams: number[],pages: {data: Admin[]}[]} | null) => {
+        if (!old) return old;
+      
+      
+        return {
+          ...(old),
+          pages: (old).pages.map((page) => ({
+            ...page,
+            data: page.data.map((admin) => 
+              admin.id === profile.id ? {...admin ,  role: AdminRole.SUPER_ADMIN} : admin
+            ),
+          })),
+        };
+      });
+      // setProfiles((prev) =>
+      //   prev.map((p) =>
+      //     p.id === profile.id ? { ...p, role: "SUPER_ADMIN" } : p
+      //   )
+      // );
+
       alert(`${profile.name} is now a Super Admin!`);
     } catch (error) {
       console.error("Error making Super Admin:", error);
@@ -198,30 +286,32 @@ const TeamManagement = () => {
     }
   };
 
-  const handleRemoveSuperAdmin = async (profile: Profile) => {
-    const token = accessToken || localStorage.getItem("access_token");
-
-    if (!token) {
-      alert("Authorization token is missing. Please log in again.");
-      return;
-    }
-
+  const handleRemoveSuperAdmin = async (profile: Admin) => {
+   
     try {
-      const response = await api.patch(
+    await api.patch(
         `/${profile.id}/super-admin/demote`,
-        {},
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
+       
       );
 
-      console.log("Admin removal successful:", response.data);
-      setProfiles((prev) =>
-        prev.map((p) => (p.id === profile.id ? { ...p, role: "ADMIN" } : p))
-      );
+      // console.log("Admin removal successful:", response.data);
+      queryClient.setQueryData(["admins"], (old: {pageParams: number[],pages: {data: Admin[]}[]} | null) => {
+        if (!old) return old;
+      
+      
+        return {
+          ...(old),
+          pages: (old).pages.map((page) => ({
+            ...page,
+            data: page.data.map((admin) => 
+              admin.id === profile.id ? {...admin ,  role: AdminRole.ADMIN} : admin
+            ),
+          })),
+        };
+      });
+      // setProfiles((prev) =>
+      //   prev.map((p) => (p.id === profile.id ? { ...p, role: "ADMIN" } : p))
+      // );
 
       alert(`${profile.name} is no longer a Super Admin!`);
     } catch (error) {
@@ -234,7 +324,7 @@ const TeamManagement = () => {
     <div className="ff-Mabry-Pro wrapper-container">
       <h2 className="ff-Mabry-Pro-bold fs-32">Team Management</h2>
       <div className="profile-container ff-Mabry-Pro-bold">
-      <div
+        <div
           className="add-card"
           onClick={() => openModal("add", "Add Admin", handleAddAdmin)}
         >
@@ -243,7 +333,7 @@ const TeamManagement = () => {
           </div>
           <p className="add-text">Add new admin</p>
         </div>
-        {profiles.map((profile) => (
+        {admins.map((profile) => (
           <div key={profile.id || profile.name} className="profile-card">
             <div
               className="menu-button"
@@ -282,21 +372,20 @@ const TeamManagement = () => {
               </div>
             )}
             <Image
-              src={profile.image || "/profilePic.png"}
+              src={profile.avatarUrl || "/profilePic.png"}
               alt={profile.name}
               className="profile-picture"
               width={50}
               height={50}
             />
             <p className="profile-name">{profile.name}</p>
-            <p className="profile-title">{profile.title}</p>
-            <p className="profile-email">{profile.email}</p>
-            {profile.role === "SUPER_ADMIN" && (
+            <p className="profile-title">{profile.role}</p>
+            <p className="profile-email">{profile.personalEmail}</p>
+            {/* {profile.role === "SUPER_ADMIN" && (
               <p className="super-admin-badge">Super Admin</p>
-            )}
+            )} */}
           </div>
         ))}
-
       </div>
       <Modal
         isOpen={isModalOpen}
@@ -349,6 +438,8 @@ const TeamManagement = () => {
           </form>
         )}
       </Modal>
+      {isFetchingNextPage && <LoaderComp />}
+      <section ref={ref} className=""></section>
     </div>
   );
 };

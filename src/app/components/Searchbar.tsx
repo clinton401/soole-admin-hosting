@@ -61,12 +61,12 @@ const Searchbar = ({ isVisible = true }: Props) => {
         {user && (
           <div className="user-settings">
             <div className="notify mx-1"  onClick={() => push("/inbox/all")}>
-              <div className="notification">
+              <div className="notification"id="notification">
                 {!isLoading &&
                   !error &&
                   inbox_count &&
                   inbox_count.total_count > 0 && (
-                    <p className="">{inbox_count.total_count}</p>
+                    <p className="" >{inbox_count.total_count < 100 ? inbox_count.total_count : "99+"}</p>
                   )}
               </div>
               <svg

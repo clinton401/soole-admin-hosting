@@ -62,7 +62,7 @@
         // margin-left: 24px;
         flex-shrink: 0;
       }
-      .notification {
+      #notification {
         width: 1rem;
         height: 1rem;
         border-radius: 50%;
@@ -73,7 +73,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 0.75rem;
+        font-size: 0.65rem;
         color: #fff;
         font-family: nunito "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
           sans-serif;

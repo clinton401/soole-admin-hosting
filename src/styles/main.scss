@@ -24,6 +24,7 @@
 @import 'components/message.scss';
 @import 'components/not-found.scss';
 @import 'components/alert-dialog.scss';
+@import 'components/request.scss';
 
 
 
@@ -85,9 +86,9 @@ font-size: 12px;
         }
   }
 .wrapper-container {
-    padding: 0.2rem 2rem;
+    padding: 0.5rem 2rem;
     background-color: #F3F4F8;
-    height: 100vh;
+    min-height: 100vh;
     border-radius: 1rem;
     box-sizing: border-box;
 }

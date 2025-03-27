@@ -12,16 +12,51 @@ import {
   SettingsIcon,
   UsersIcon,
 } from "./Icons";
+import {Hourglass} from "lucide-react"
 import Modal from "./Modal";
+import fetchData from "../../../hooks/fetch-data";
 import { AppContext } from "./ContextProvider";
+import { QueryFunctionContext } from "@tanstack/react-query";
+import api from "../../../config/api";
+import axios from "axios"
+type RequestCountQueryKey = ["request-count"];
+type RequestCountResponse = {
+  totalLength: number;
+};
+const fetchRequestCount = async ({
+ 
+  signal,
+}: QueryFunctionContext<RequestCountQueryKey>): Promise<RequestCountResponse> => {
+  try {
+    const response = await api.get(`/requests`, {
+      signal,
+    });
 
+    return response.data.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      throw new Error(error.response?.data?.error || "Unknown error occurred");
+  } else {
+      throw new Error("An unexpected error occurred");
+  }
+  }
+};
 const Sidebar: React.FC = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const { logout } = useContext(AppContext); 
+  const {
+    data: request_count,
+    error,
+    isLoading,
+    
+  } = fetchData<RequestCountResponse, RequestCountQueryKey>(
+    ["request-count"],
+    fetchRequestCount
+  );
 
 
   const pathname = usePathname();
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleResize = () => {
     const sidebar = document.querySelector(".sidebar");
@@ -131,6 +166,19 @@ const Sidebar: React.FC = () => {
               {/* <a className="sidebar-link" onClick={handleLinkClick}> */}
                 <ManagementIcon />
                 Team Management
+              {/* </a> */}
+            </Link>
+            <Link  href="/requests"  className={`sidebar-link ${
+                  isActive("/requests") ? "is-active" : ""
+                }`}>
+              {/* <a className="sidebar-link" onClick={handleLinkClick}> */}
+                <Hourglass />
+                Requests  {!isLoading &&
+                  !error &&
+                  request_count &&
+                  request_count.totalLength   > 0 && (
+                    <span className="" style={{marginLeft: 4, height: 20, width: 20, borderRadius: 9999, display: "flex", alignItems: "center", justifyContent: "center", backgroundColor: "#ec5252", fontSize: 12, color: "#fff"}}>{request_count.totalLength < 100 ? request_count.totalLength : " 99+"}</span>
+                  )}
               {/* </a> */}
             </Link>
 

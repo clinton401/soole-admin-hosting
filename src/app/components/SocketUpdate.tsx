@@ -9,8 +9,8 @@ import { ComplaintConversation } from "./InboxConvoParentComp";
 import { ComplaintMessage } from "../(message)/inbox/sent/page";
 import { InboxCountResponse } from "./InboxSidebar";
 
-const SOCKET_URL = "https://soole-backend.onrender.com"; 
-// const SOCKET_URL = "http://localhost:5000"; 
+// const SOCKET_URL = "https://soole-backend.onrender.com"; 
+const SOCKET_URL = "http://localhost:5000"; 
 
 const SocketUpdate: FC<{ children: ReactNode }> = ({ children }) => {
   const { isAuthenticated, accessToken } = useContext(AppContext);
@@ -44,44 +44,60 @@ const SocketUpdate: FC<{ children: ReactNode }> = ({ children }) => {
               };
             }
           );
-          queryClient.setQueryData(
-            ["total-conversations"],
-            (old: {
-              pageParams: number[];
-              pages: { data: ComplaintConversation[] }[];
-            }) => {
-              if (!old) return old;
-              return {
-                ...old,
-                pages: old.pages.map((page, index) => {
-                  if (index === 0) {
-                    return { ...page, data: [conversation, ...page.data] };
-                  }
-                  return page;
-                }),
-              };
-            }
-          );
-          queryClient.setQueryData(
-            ["messages", message.conversationId],
-            (old: {
-              pageParams: number[];
-              pages: { data: ComplaintMessage[] }[];
-            }) => {
-              if (!old) return old;
-              return {
-                ...old,
-                pages: old.pages.map((page, index) => {
-                  if (index === 0) {
-                    return { ...page, data: [...page.data, message] };
-                  }
-                  return page;
-                }),
-              };
-            }
-          );
-        }
-      );
+        })
+
+        socket.on(
+          "admin:request",
+          (newRequest: {
+            id: string;
+            createdAt: string;
+            phone: string;
+            name: string;
+            workEmail: string;
+            personalEmail: string;
+            adminViewable: boolean;
+          }) => {
+           
+            queryClient.setQueryData(
+              ["request-count"],
+              (old: {totalLength : number} | null) => {
+                if (!old) return old;
+                return {
+                  ...old,
+                  totalLength: old.totalLength + 1,
+                };
+              }
+            );
+            queryClient.setQueryData(
+              ["admin-requests"],
+              (old: {
+                pageParams: number[];
+                pages: { data: {
+                  id: string;
+                  createdAt: string;
+                  phone: string;
+                  name: string;
+                  workEmail: string;
+                  personalEmail: string;
+                  adminViewable: boolean;
+                }[] }[];
+              }) => {
+                if (!old) return old;
+                return {
+                  ...old,
+                  pages: old.pages.map((page, index) => {
+                    if (index === 0) {
+                      return { ...page, data: [newRequest, ...page.data] };
+                    }
+                    return page;
+                  }),
+                };
+              }
+            );
+          
+          }
+        );
+  
       socket.on("ride", (newRide: Ride) => {
         queryClient.setQueryData(
           ["rides", "all"],
@@ -201,6 +217,7 @@ const SocketUpdate: FC<{ children: ReactNode }> = ({ children }) => {
         socketRef.current.off("ride");
         socketRef.current.off("ride:update");
         socketRef.current.off("user");
+        socketRef.current.off("admin:request");
         socketRef.current.disconnect();
         socketRef.current = null;
       }
